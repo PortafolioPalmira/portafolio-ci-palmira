@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portafolio C.I. Palmira</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="hero">
+    <nav class="topbar">
+      <div class="brand"><span class="brand-mark">CI</span><span>Portafolio C.I. Palmira</span></div>
+      <a class="ghost" href="#catalogo">Explorar proyectos</a>
+    </nav>
+    <section class="hero-grid">
+      <div>
+        <p class="eyebrow">Inteligencia científica institucional</p>
+        <h1>Mapa interactivo de proyectos, capacidades e impactos</h1>
+        <p class="lead">Sitio estático en HTML/CSS/JS alimentado por CSV. Filtra, consulta fichas ejecutivas y visualiza la composición estratégica del portafolio.</p>
+      </div>
+      <div class="hero-card">
+        <span>Fuente de datos</span>
+        <strong>data/portafolio_proyectos.csv</strong>
+        <small>Actualización manual: exportar Excel como CSV y reemplazar este archivo.</small>
+      </div>
+    </section>
+  </header>
+
+  <main>
+    <section class="kpis" id="kpis"></section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <div>
+          <p class="eyebrow">Lectura gerencial</p>
+          <h2>Resumen analítico</h2>
+        </div>
+        <button id="resetFilters" class="secondary">Limpiar filtros</button>
+      </div>
+      <div class="filters">
+        <label>Buscar<input id="searchInput" type="search" placeholder="Proyecto, investigador, aliado, municipio..." /></label>
+        <label>Programa<select id="programFilter"><option value="">Todos</option></select></label>
+        <label>Sistema productivo<select id="systemFilter"><option value="">Todos</option></select></label>
+        <label>Área temática<select id="areaFilter"><option value="">Todas</option></select></label>
+        <label>Estado<select id="statusFilter"><option value="">Todos</option></select></label>
+      </div>
+      <div class="charts">
+        <article class="chart-card"><h3>Sistemas productivos</h3><div id="chartSystems" class="bar-chart"></div></article>
+        <article class="chart-card"><h3>Áreas temáticas</h3><div id="chartAreas" class="bar-chart"></div></article>
+        <article class="chart-card"><h3>Estado del proyecto</h3><div id="chartStatus" class="bar-chart"></div></article>
+      </div>
+    </section>
+
+    <section class="panel" id="catalogo">
+      <div class="panel-head">
+        <div><p class="eyebrow">Catálogo</p><h2>Proyectos del portafolio</h2></div>
+        <p id="resultCount" class="result-count"></p>
+      </div>
+      <div id="projectGrid" class="project-grid"></div>
+    </section>
+  </main>
+
+  <dialog id="projectModal">
+    <div class="modal-head">
+      <div><p class="eyebrow" id="modalArea"></p><h2 id="modalTitle"></h2></div>
+      <button id="closeModal" class="icon">×</button>
+    </div>
+    <div id="modalBody" class="modal-body"></div>
+  </dialog>
+
+  <footer>
+    <p>Prototipo estático para GitHub Pages · C.I. Palmira</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
