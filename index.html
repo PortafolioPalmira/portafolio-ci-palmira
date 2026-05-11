@@ -747,11 +747,7 @@ main { max-width: 1280px; margin: 0 auto; padding: 2.5rem 2rem 4rem; }
     Las capacidades científicas del C.I. Palmira se clasifican en tres niveles: <strong>Emergentes</strong> (en desarrollo), <strong>Consolidadas</strong> (con resultados demostrados) y <strong>Distintivas</strong> (liderazgo reconocido).
   </p>
   <div class="cap-grid" id="cap-grid"></div>
-  <div style="margin-top:2rem">
-    <h3 class="section-title" style="font-size:1.1rem">Capacidades identificadas en el portafolio</h3>
-    <p style="font-size:.85rem;color:var(--gris-600);margin-bottom:1rem">Capacidades inferidas a partir de los campos Capacidad_emergente, Capacidad_consolidada y Capacidad_distintiva registrados en los proyectos.</p>
-    <div class="cap-grid" id="cap-implied-grid"></div>
-  </div>
+
 </section>
 
 <!-- ── SECCIÓN ANÁLISIS ── -->
@@ -1079,7 +1075,7 @@ function renderCapacidades() {
     impliedGrid.innerHTML = '<p style="color:var(--gris-600)">No se encontraron capacidades adicionales en el portafolio.</p>';
   } else {
     impliedGrid.innerHTML = impliedItems.map(c => `
-      <div class="cap-card ${c.categoria}">
+      <div class="cap-card ${c.categoria === 'cap_emergente' ? 'emergente' : c.categoria === 'cap_consolidada' ? 'consolidada' : 'distintiva'}">
         <div class="cap-cat">${c.categoria === 'cap_emergente' ? 'Emergente' : c.categoria === 'cap_consolidada' ? 'Consolidada' : 'Distintiva'}</div>
         <div class="cap-name">${c.nombre}</div>
         <div class="cap-meta">
