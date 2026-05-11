@@ -1,77 +1,1102 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Portafolio C.I. Palmira</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portafolio I+D+i — C.I. Palmira · AGROSAVIA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,400&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --verde: #1a4731;
+  --verde-med: #2d6a4f;
+  --verde-light: #52b788;
+  --verde-pale: #d8f3dc;
+  --dorado: #b5873a;
+  --dorado-light: #f5d788;
+  --tierra: #6b4c2a;
+  --crema: #faf6ef;
+  --blanco: #ffffff;
+  --gris-50: #f9fafb;
+  --gris-100: #f3f4f6;
+  --gris-200: #e5e7eb;
+  --gris-600: #4b5563;
+  --gris-800: #1f2937;
+  --sombra: 0 2px 12px rgba(26,71,49,.10);
+  --sombra-lg: 0 8px 32px rgba(26,71,49,.15);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'IBM Plex Sans', sans-serif;
+  background: var(--crema);
+  color: var(--gris-800);
+  min-height: 100vh;
+}
+
+/* ───── HEADER ───── */
+header {
+  background: var(--verde);
+  color: #fff;
+  padding: 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 16px rgba(0,0,0,.25);
+}
+.header-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+.logo-block { display: flex; align-items: center; gap: 1rem; }
+.logo-mark {
+  width: 40px; height: 40px;
+  background: var(--dorado);
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--verde);
+}
+.logo-text { display: flex; flex-direction: column; line-height: 1.2; }
+.logo-text strong { font-size: .95rem; font-weight: 600; letter-spacing: .01em; }
+.logo-text span { font-size: .72rem; opacity: .7; font-weight: 300; }
+nav { display: flex; gap: .5rem; }
+nav button {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,.75);
+  font-family: inherit;
+  font-size: .82rem;
+  padding: .45rem .9rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all .15s;
+}
+nav button:hover, nav button.active {
+  background: rgba(255,255,255,.15);
+  color: #fff;
+}
+
+/* ───── MAIN ───── */
+main { max-width: 1280px; margin: 0 auto; padding: 2.5rem 2rem 4rem; }
+
+/* ───── HERO ───── */
+.hero {
+  background: linear-gradient(135deg, var(--verde) 0%, var(--verde-med) 100%);
+  border-radius: 16px;
+  padding: 3rem;
+  color: #fff;
+  margin-bottom: 2.5rem;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  right: -60px; top: -60px;
+  width: 300px; height: 300px;
+  background: rgba(255,255,255,.04);
+  border-radius: 50%;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  right: 80px; bottom: -80px;
+  width: 200px; height: 200px;
+  background: rgba(181,135,58,.15);
+  border-radius: 50%;
+}
+.hero-tag {
+  display: inline-block;
+  background: var(--dorado);
+  color: var(--verde);
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: .3rem .8rem;
+  border-radius: 100px;
+  margin-bottom: 1rem;
+}
+.hero h1 {
+  font-family: 'Fraunces', serif;
+  font-size: 2.2rem;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: .75rem;
+  max-width: 600px;
+}
+.hero p {
+  font-size: .95rem;
+  opacity: .8;
+  max-width: 560px;
+  line-height: 1.6;
+}
+
+/* ───── KPI CARDS ───── */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+.kpi-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: var(--sombra);
+  border-left: 4px solid var(--verde-light);
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+}
+.kpi-card.gold { border-left-color: var(--dorado); }
+.kpi-card.tierra { border-left-color: var(--tierra); }
+.kpi-label {
+  font-size: .72rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--gris-600);
+  font-weight: 500;
+}
+.kpi-value {
+  font-family: 'Fraunces', serif;
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--verde);
+  line-height: 1;
+}
+.kpi-card.gold .kpi-value { color: var(--dorado); }
+.kpi-card.tierra .kpi-value { color: var(--tierra); }
+.kpi-sub { font-size: .78rem; color: var(--gris-600); }
+
+/* ───── SECTIONS ───── */
+.section { display: none; }
+.section.active { display: block; }
+
+.section-title {
+  font-family: 'Fraunces', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--verde);
+  margin-bottom: 1.5rem;
+  padding-bottom: .75rem;
+  border-bottom: 2px solid var(--verde-pale);
+}
+
+/* ───── FILTERS ───── */
+.filters-bar {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  box-shadow: var(--sombra);
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-end;
+}
+.filter-group { display: flex; flex-direction: column; gap: .3rem; flex: 1; min-width: 160px; }
+.filter-group label {
+  font-size: .72rem;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  color: var(--gris-600);
+  font-weight: 500;
+}
+.filter-group select, .filter-group input {
+  border: 1.5px solid var(--gris-200);
+  border-radius: 8px;
+  padding: .5rem .75rem;
+  font-family: inherit;
+  font-size: .85rem;
+  color: var(--gris-800);
+  background: var(--gris-50);
+  outline: none;
+  transition: border-color .15s;
+}
+.filter-group select:focus, .filter-group input:focus {
+  border-color: var(--verde-light);
+}
+.btn-clear {
+  background: var(--verde-pale);
+  border: none;
+  border-radius: 8px;
+  padding: .5rem 1rem;
+  font-family: inherit;
+  font-size: .82rem;
+  color: var(--verde);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all .15s;
+  align-self: flex-end;
+}
+.btn-clear:hover { background: var(--verde-light); color: #fff; }
+
+/* ───── RESULTS COUNT ───── */
+.results-count {
+  font-size: .82rem;
+  color: var(--gris-600);
+  margin-bottom: 1rem;
+}
+.results-count strong { color: var(--verde); }
+
+/* ───── PROJECT GRID ───── */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1.25rem;
+}
+.project-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: var(--sombra);
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: all .2s;
+  border: 1.5px solid transparent;
+  position: relative;
+}
+.project-card:hover {
+  box-shadow: var(--sombra-lg);
+  border-color: var(--verde-light);
+  transform: translateY(-2px);
+}
+.card-sistema {
+  display: inline-block;
+  background: var(--verde-pale);
+  color: var(--verde-med);
+  font-size: .68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  padding: .25rem .65rem;
+  border-radius: 100px;
+  margin-bottom: .85rem;
+}
+.card-title {
+  font-family: 'Fraunces', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--gris-800);
+  line-height: 1.35;
+  margin-bottom: .75rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.card-meta { display: flex; flex-wrap: wrap; gap: .5rem; }
+.meta-pill {
+  display: flex;
+  align-items: center;
+  gap: .3rem;
+  font-size: .72rem;
+  color: var(--gris-600);
+  background: var(--gris-100);
+  padding: .2rem .6rem;
+  border-radius: 100px;
+}
+.meta-pill svg { flex-shrink: 0; }
+.card-arrow {
+  position: absolute;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  width: 24px; height: 24px;
+  background: var(--verde-pale);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--verde);
+  font-size: .8rem;
+  opacity: 0;
+  transition: opacity .15s;
+}
+.project-card:hover .card-arrow { opacity: 1; }
+
+/* ───── MODAL ───── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.55);
+  z-index: 200;
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 2rem 1rem;
+  overflow-y: auto;
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  background: #fff;
+  border-radius: 16px;
+  max-width: 780px;
+  width: 100%;
+  box-shadow: 0 24px 64px rgba(0,0,0,.25);
+  animation: slideUp .2s ease;
+  margin: auto;
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.modal-header {
+  background: linear-gradient(135deg, var(--verde) 0%, var(--verde-med) 100%);
+  color: #fff;
+  padding: 2rem;
+  border-radius: 16px 16px 0 0;
+  position: relative;
+}
+.modal-sistema {
+  display: inline-block;
+  background: var(--dorado);
+  color: var(--verde);
+  font-size: .72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  padding: .3rem .8rem;
+  border-radius: 100px;
+  margin-bottom: .75rem;
+}
+.modal-title {
+  font-family: 'Fraunces', serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  line-height: 1.25;
+  margin-bottom: .5rem;
+}
+.modal-lider { font-size: .85rem; opacity: .8; }
+.modal-close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  background: rgba(255,255,255,.2);
+  border: none;
+  color: #fff;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background .15s;
+}
+.modal-close:hover { background: rgba(255,255,255,.35); }
+.modal-body { padding: 1.75rem 2rem; }
+.modal-section { margin-bottom: 1.5rem; }
+.modal-section:last-child { margin-bottom: 0; }
+.modal-section-title {
+  font-size: .7rem;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--gris-600);
+  font-weight: 600;
+  margin-bottom: .6rem;
+}
+.modal-section p {
+  font-size: .9rem;
+  line-height: 1.65;
+  color: var(--gris-800);
+  white-space: pre-line;
+}
+.impact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .75rem;
+}
+.impact-box {
+  background: var(--gris-50);
+  border-radius: 8px;
+  padding: 1rem;
+  border-left: 3px solid;
+}
+.impact-box.tecnico { border-color: var(--verde-light); }
+.impact-box.economico { border-color: var(--dorado); }
+.impact-box.social { border-color: #60a5fa; }
+.impact-box.ambiental { border-color: #34d399; }
+.impact-box-label {
+  font-size: .68rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-weight: 600;
+  margin-bottom: .35rem;
+}
+.impact-box.tecnico .impact-box-label { color: var(--verde-med); }
+.impact-box.economico .impact-box-label { color: var(--dorado); }
+.impact-box.social .impact-box-label { color: #2563eb; }
+.impact-box.ambiental .impact-box-label { color: #059669; }
+.impact-box p { font-size: .82rem; line-height: 1.5; color: var(--gris-600); }
+
+.meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: .75rem;
+}
+.meta-item {
+  background: var(--gris-50);
+  border-radius: 8px;
+  padding: .85rem 1rem;
+}
+.meta-item-label {
+  font-size: .68rem;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  color: var(--gris-600);
+  font-weight: 600;
+  margin-bottom: .25rem;
+}
+.meta-item-val { font-size: .88rem; font-weight: 500; color: var(--gris-800); }
+
+.cap-badges { display: flex; flex-wrap: wrap; gap: .5rem; }
+.cap-badge {
+  font-size: .75rem;
+  padding: .3rem .75rem;
+  border-radius: 100px;
+  font-weight: 500;
+}
+.cap-badge.emergente { background: #fef3c7; color: #92400e; }
+.cap-badge.consolidada { background: #dbeafe; color: #1e40af; }
+.cap-badge.distintiva { background: #d1fae5; color: #065f46; }
+
+/* ───── CAPACIDADES ───── */
+.cap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+.cap-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: var(--sombra);
+  border-top: 4px solid;
+}
+.cap-card.emergente { border-color: #f59e0b; }
+.cap-card.consolidada { border-color: #3b82f6; }
+.cap-card.distintiva { border-color: #10b981; }
+.cap-cat {
+  font-size: .7rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-weight: 600;
+  margin-bottom: .5rem;
+}
+.cap-card.emergente .cap-cat { color: #b45309; }
+.cap-card.consolidada .cap-cat { color: #1d4ed8; }
+.cap-card.distintiva .cap-cat { color: #047857; }
+.cap-name {
+  font-family: 'Fraunces', serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--gris-800);
+  margin-bottom: .75rem;
+}
+.cap-meta { font-size: .8rem; color: var(--gris-600); line-height: 1.5; }
+.cap-meta strong { color: var(--gris-800); font-weight: 500; }
+
+/* ───── SISTEMAS CHART ───── */
+.sistemas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.sistema-bar-row {
+  background: #fff;
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  box-shadow: var(--sombra);
+}
+.sistema-bar-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: .5rem;
+}
+.sistema-bar-label span { font-size: .85rem; font-weight: 500; }
+.sistema-bar-label strong {
+  font-family: 'Fraunces', serif;
+  font-size: 1rem;
+  color: var(--verde);
+}
+.sistema-bar-track {
+  height: 6px;
+  background: var(--gris-200);
+  border-radius: 100px;
+  overflow: hidden;
+}
+.sistema-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--verde-light), var(--verde-med));
+  border-radius: 100px;
+  transition: width .6s ease;
+}
+
+/* ───── PROGRAMAS PIE VIZ ───── */
+.prog-list { display: flex; flex-direction: column; gap: .75rem; }
+.prog-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: #fff;
+  border-radius: 10px;
+  padding: .85rem 1.25rem;
+  box-shadow: var(--sombra);
+}
+.prog-dot {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.prog-name { flex: 1; font-size: .85rem; }
+.prog-count {
+  font-family: 'Fraunces', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--verde);
+}
+.prog-pct { font-size: .78rem; color: var(--gris-600); width: 42px; text-align: right; }
+
+/* ───── EMPTY ───── */
+.empty {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--gris-600);
+}
+.empty-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+.empty h3 { font-family: 'Fraunces', serif; margin-bottom: .5rem; color: var(--verde); }
+
+/* ───── RESPONSIVE ───── */
+@media (max-width: 768px) {
+  .hero { padding: 2rem 1.5rem; }
+  .hero h1 { font-size: 1.6rem; }
+  .project-grid { grid-template-columns: 1fr; }
+  .impact-grid { grid-template-columns: 1fr; }
+  nav { display: none; }
+  .modal-body { padding: 1.25rem 1.25rem; }
+}
+</style>
 </head>
 <body>
-  <header class="hero">
-    <nav class="topbar">
-      <div class="brand"><span class="brand-mark">CI</span><span>Portafolio C.I. Palmira</span></div>
-      <a class="ghost" href="#catalogo">Explorar proyectos</a>
-    </nav>
-    <section class="hero-grid">
-      <div>
-        <p class="eyebrow">Inteligencia científica institucional</p>
-        <h1>Mapa interactivo de proyectos, capacidades e impactos</h1>
-        <p class="lead">Sitio estático en HTML/CSS/JS alimentado por CSV. Filtra, consulta fichas ejecutivas y visualiza la composición estratégica del portafolio.</p>
-      </div>
-      <div class="hero-card">
-        <span>Fuente de datos</span>
-        <strong>data/portafolio_proyectos.csv</strong>
-        <small>Actualización manual: exportar Excel como CSV y reemplazar este archivo.</small>
-      </div>
-    </section>
-  </header>
 
-  <main>
-    <section class="kpis" id="kpis"></section>
-
-    <section class="panel">
-      <div class="panel-head">
-        <div>
-          <p class="eyebrow">Lectura gerencial</p>
-          <h2>Resumen analítico</h2>
-        </div>
-        <button id="resetFilters" class="secondary">Limpiar filtros</button>
+<header>
+  <div class="header-inner">
+    <div class="logo-block">
+      <div class="logo-mark">CI</div>
+      <div class="logo-text">
+        <strong>C.I. Palmira · AGROSAVIA</strong>
+        <span>Portafolio de I+D+i</span>
       </div>
-      <div class="filters">
-        <label>Buscar<input id="searchInput" type="search" placeholder="Proyecto, investigador, aliado, municipio..." /></label>
-        <label>Programa<select id="programFilter"><option value="">Todos</option></select></label>
-        <label>Sistema productivo<select id="systemFilter"><option value="">Todos</option></select></label>
-        <label>Área temática<select id="areaFilter"><option value="">Todas</option></select></label>
-        <label>Estado<select id="statusFilter"><option value="">Todos</option></select></label>
-      </div>
-      <div class="charts">
-        <article class="chart-card"><h3>Sistemas productivos</h3><div id="chartSystems" class="bar-chart"></div></article>
-        <article class="chart-card"><h3>Áreas temáticas</h3><div id="chartAreas" class="bar-chart"></div></article>
-        <article class="chart-card"><h3>Estado del proyecto</h3><div id="chartStatus" class="bar-chart"></div></article>
-      </div>
-    </section>
-
-    <section class="panel" id="catalogo">
-      <div class="panel-head">
-        <div><p class="eyebrow">Catálogo</p><h2>Proyectos del portafolio</h2></div>
-        <p id="resultCount" class="result-count"></p>
-      </div>
-      <div id="projectGrid" class="project-grid"></div>
-    </section>
-  </main>
-
-  <dialog id="projectModal">
-    <div class="modal-head">
-      <div><p class="eyebrow" id="modalArea"></p><h2 id="modalTitle"></h2></div>
-      <button id="closeModal" class="icon">×</button>
     </div>
-    <div id="modalBody" class="modal-body"></div>
-  </dialog>
+    <nav>
+      <button class="active" onclick="showSection('dashboard')">Dashboard</button>
+      <button onclick="showSection('catalogo')">Catálogo</button>
+      <button onclick="showSection('capacidades')">Capacidades</button>
+      <button onclick="showSection('analisis')">Análisis</button>
+    </nav>
+  </div>
+</header>
 
-  <footer>
-    <p>Prototipo estático para GitHub Pages · C.I. Palmira</p>
-  </footer>
+<main>
 
-  <script src="script.js"></script>
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">Portafolio Científico 2025</div>
+  <h1>Centro de Investigación Palmira</h1>
+  <p>Investigación, Desarrollo e Innovación para la agricultura tropical colombiana. Evidencia científica al servicio de financiadores, aliados y tomadores de decisión.</p>
+</div>
+
+<!-- KPI SECTION (always visible) -->
+<div class="kpi-grid" id="kpi-grid"></div>
+
+<!-- ── SECCIÓN DASHBOARD ── -->
+<section id="sec-dashboard" class="section active">
+  <h2 class="section-title">Distribución del Portafolio</h2>
+  <h3 style="font-size:.95rem;font-weight:500;color:var(--gris-600);margin-bottom:1rem">Proyectos por sistema productivo</h3>
+  <div class="sistemas-grid" id="sistemas-chart"></div>
+  <h3 style="font-size:.95rem;font-weight:500;color:var(--gris-600);margin:1.5rem 0 1rem">Distribución por programa estratégico</h3>
+  <div class="prog-list" id="prog-list"></div>
+</section>
+
+<!-- ── SECCIÓN CATÁLOGO ── -->
+<section id="sec-catalogo" class="section">
+  <h2 class="section-title">Catálogo de Proyectos</h2>
+  <div class="filters-bar">
+    <div class="filter-group">
+      <label>Buscar</label>
+      <input type="text" id="f-buscar" placeholder="Nombre del proyecto…" oninput="applyFilters()">
+    </div>
+    <div class="filter-group">
+      <label>Sistema productivo</label>
+      <select id="f-sistema" onchange="applyFilters()"><option value="">Todos</option></select>
+    </div>
+    <div class="filter-group">
+      <label>Área temática</label>
+      <select id="f-area" onchange="applyFilters()"><option value="">Todas</option></select>
+    </div>
+    <div class="filter-group">
+      <label>Financiador</label>
+      <select id="f-financiador" onchange="applyFilters()"><option value="">Todos</option></select>
+    </div>
+    <button class="btn-clear" onclick="clearFilters()">Limpiar filtros</button>
+  </div>
+  <div class="results-count" id="results-count"></div>
+  <div class="project-grid" id="project-grid"></div>
+</section>
+
+<!-- ── SECCIÓN CAPACIDADES ── -->
+<section id="sec-capacidades" class="section">
+  <h2 class="section-title">Mapa de Capacidades Científicas</h2>
+  <p style="font-size:.9rem;color:var(--gris-600);margin-bottom:1.5rem;line-height:1.6">
+    Las capacidades científicas del C.I. Palmira se clasifican en tres niveles: <strong>Emergentes</strong> (en desarrollo), <strong>Consolidadas</strong> (con resultados demostrados) y <strong>Distintivas</strong> (liderazgo reconocido).
+  </p>
+  <div class="cap-grid" id="cap-grid"></div>
+  <div style="margin-top:2rem">
+    <h3 class="section-title" style="font-size:1.1rem">Capacidades identificadas en el portafolio</h3>
+    <p style="font-size:.85rem;color:var(--gris-600);margin-bottom:1rem">Capacidades inferidas a partir de los campos Capacidad_emergente, Capacidad_consolidada y Capacidad_distintiva registrados en los proyectos.</p>
+    <div class="cap-grid" id="cap-implied-grid"></div>
+  </div>
+</section>
+
+<!-- ── SECCIÓN ANÁLISIS ── -->
+<section id="sec-analisis" class="section">
+  <h2 class="section-title">Análisis por Financiador y Área</h2>
+  <div id="analisis-content"></div>
+</section>
+
+</main>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModalIfOverlay(event)">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div class="modal-sistema" id="m-sistema"></div>
+      <h2 class="modal-title" id="m-title"></h2>
+      <div class="modal-lider" id="m-lider"></div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+const PALETTE = ['#1a4731','#2d6a4f','#52b788','#b5873a','#6b4c2a','#74c69d','#40916c','#d4a373','#457b9d','#e76f51','#2a9d8f','#e9c46a','#264653','#f4a261','#a8dadc'];
+
+const DATA = {"projects": [{"id": 0, "nombre": "Estandarización de protocolos para aplicación de riego y fertyilización", "programa": "Bioeconomía: Prácticas de agricultura sostenible", "sistema": "Aguacate Hass", "area": "Fisiología vegetal y nutrición", "lider": "Alexander Rebolledo Roa", "rol": "Ejecutor", "aliados": "1. Colciencias\n2. Aproare\n3. Asfruher", "problema": "Baja disponibilidad de opciones tecnológicas para el manejo de riego y nutrición", "objetivo": "Optimizar la floración y productividad del aguacate Hass mediante manejo hídrico y nutricional.", "resultados": "1. Caracterización de la fenología floral (140 días a antesis), \n2. Abscisión global. 99,85 % (276.455 flores)\n3. Cuajado. 0,15 % \n4. Incremento en rendimiento con manejo de IBN + riego. de 7,5 a 14 t/ha y la producción por planta de 61 a 98 kg.", "trl_inicial": "2026-04-03 00:00:00", "trl_final": "No definido", "impacto_tecnico": "1. Disponibilidad de proocolos estandarizados para aplicación de nutrición y riego.\n2. Incremento den rendimiento", "impacto_economico": "ncremento de la productividad del cultivo (de 7,5 a 14 t/ha), mejorando la rentabilidad del sistema productivo de aguacate Hass.", "impacto_social": "Fortalecimiento de las capacidades de manejo productivo de los agricultores mediante prácticas de riego y nutrición más eficientes.", "impacto_ambiental": "Uso más eficiente del agua y de los nutrientes mediante manejo hídrico y nutricional basado en criterios técnicos.", "departamentos": "Antioquia, Tolima, Cauca", "tipo_beneficiarios": "Asociación de productores", "beneficiarios_directos": "Asociación de Productores de Frutas y Hortalizas de Herveo (ASFRUHER)\nAsociación de Productores de Aguacate de El Retiro (APROARE)", "financiador": "Entes Nacionales y Territoriales", "monto": "3000000", "año_inicio": "2013", "año_final": "2016", "estado": "Finalizado", "cap_emergente": "Indicadores de sostenibilidad ambiental", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "Resultado de investigación", "publicaciones": "Artículo científico. Pattern of flower and fruit abscision and fruit growth of hass avocado under tropical conditions\nchrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/\nhttps://www.cropj.com/Roa_18_09_2024_547_554.pdf\n\nLibros.\n1. Criterios para la definición de planes de fertilización en el cultivo de aguacate Hass con un enfoque tecnificado https://doi.org/10.21930/agrosavia.manual.7402384\n\n2. Requerimientos hídricos del cultivo de aguacate (Persea americana) variedad Hass en zonas productoras de Colombia https://doi.org/10.21930/agrosavia.manual.7402322"}, {"id": 1, "nombre": "Aprovechamiento sostenible de agraz en el Cauca", "programa": "Bioeconomía:  Biodiversidad", "sistema": "Agraz", "area": "Fisiología vegetal y nutrición", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 2, "nombre": "Aprovechamiento sostenible de agraz en el Cauca", "programa": "Bioeconomía:  Biodiversidad", "sistema": "Agraz", "area": "Material de siembra y mejoramiento genético", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 3, "nombre": "Aprovechamiento sostenible de agraz en el Cauca", "programa": "Bioeconomía:  Biodiversidad", "sistema": "Agraz", "area": "Material de siembra y mejoramiento genético", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 4, "nombre": "1. Protocolo aplicación láminas de riego Antioquia, Tolima, Cauca (Fase 1. Palmira)\n2. Protocolo para manejo de la fertilización  (Antioquia, Tolima, Cauca) (Fase 1).", "programa": "Bioeconomía: Prácticas de agricultura sostenible", "sistema": "Aguacate Hass", "area": "Fisiología vegetal y nutrición", "lider": "Alexander Rebolledo Roa", "rol": "Ejecutor", "aliados": "COLCIENCIAS", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "Antioquia, Tolima, Cauca", "tipo_beneficiarios": "Asociación de productores", "beneficiarios_directos": "673", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "Nutrición por sitio específico", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 5, "nombre": "Validación de tecnologías para el manejo del riego y fertilización en cultivos de aguacate Hass y desarrollo de un aplicativo web para mejorar acceso a las tecnologías (Fase 2)", "programa": "ACI:Productividad agrícola agroambientalmente eficiente e integralmente sostenible", "sistema": "Aguacate Hass", "area": "Fisiología vegetal y nutrición", "lider": "", "rol": "", "aliados": "Gobernación del Cauca, Universidad del Cauca", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "Cauca", "tipo_beneficiarios": "Asociación de productores", "beneficiarios_directos": "1440", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "Fertilización por sitio específico", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 6, "nombre": "Escalar tecnologías (TRL) para el manejo de la fertilización y del riego en cultivos de aguacate en el Cauca y Valle del Cauca (Sistema productivo para consumo interno y para exportación (Fase 3)", "programa": "ACI:Productividad agrícola agroambientalmente eficiente e integralmente sostenible", "sistema": "Aguacate Hass", "area": "Fisiología vegetal y nutrición", "lider": "", "rol": "", "aliados": "SENA CEAI, Universidad Cooperativa de Colombia, CREATIC, BIOINNOVA, Cámara de Comercio de Palmira, CITRIVIVEROS, Alcaldías de Popayán, Piendamó, El Tambo, Sotará, Palmira, Caicedonia, Versalles, San José del Palmar, asociaciones de productores locales", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "Chocó, Cauca, Valle del Cauca", "tipo_beneficiarios": "Asociación de productores", "beneficiarios_directos": "889", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 7, "nombre": "Desarrollo de modelo fenológico  aguacate Hass  Pijao – Quindío (Fase 1)", "programa": "Bioeconomía: Prácticas de agricultura sostenible", "sistema": "Aguacate Hass", "area": "Fisiología vegetal y nutrición", "lider": "", "rol": "", "aliados": "Global Green SAS", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "Caldas", "tipo_beneficiarios": "Otro", "beneficiarios_directos": "115", "financiador": "Sector privado", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 8, "nombre": "Actividad 6. Generar practicas de manejo fitosanitario de plags de importancia cuarentenaria validadas en regiones productoras del departamento.", "programa": "Bioeconomía: Prácticas de agricultura sostenible", "sistema": "Aguacate Hass", "area": "Manejo sanitario y fitosanitario", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 9, "nombre": "convenio 1929. Actividad 1. Valoración de la oferta biofísica y caracterización socioeconómica de sistemas de producción de aguacate para la identificación de nichos productivos y tecnología requerida en el desarrollo de cultivos de aguacate Hass en el Departamento del Cauca.  Lider: Diana Lucia Correa Moreno", "programa": "ACI: Adaptación y resiliencia de los sistemas productivos agropecuarios frente a condiciones de clima cambiante", "sistema": "Aguacate Hass", "area": "Manejo ambiental y sostenibilidad", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 10, "nombre": "convenio 1929. Actividad 6. Divulgación de la oferta tecnológica disponible del sistema productivo de aguacate y las tecnologías validadas .  Lider: Diana Lucia Correa Moreno", "programa": "Inclusión social en el desarrollo tecnológico: Apropiación social del conocimiento desde la ciencia ciudadana y la ciencia comunitaria", "sistema": "Aguacate Hass", "area": "Manejo ambiental y sostenibilidad", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 11, "nombre": "Aumento de la productividad del aguacate mediante el uso de polinizadores en tres zonas productoras de Colombia.", "programa": "Bioeconomía:  Biodiversidad", "sistema": "Aguacate Hass", "area": "Manejo sanitario y fitosanitario", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 12, "nombre": "Reducción del riesgo y adaptación al cambio climático_Modelos de adaptación agroclimática (MAPA). Aguacate Hass (Persea americana Mill.) var. Hass. Facilitadora Regional MAPA: Diana Lucia Correa Moreno", "programa": "ACI: Adaptación y resiliencia de los sistemas productivos agropecuarios frente a condiciones de clima cambiante", "sistema": "Aguacate Hass", "area": "Manejo ambiental y sostenibilidad", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 13, "nombre": "Identificación de ácaros e insectos escamas y sus enemigos naturales promisorios para una producción competitiva de aguacate en Colombia.", "programa": "Otro", "sistema": "Aguacate Hass", "area": "Manejo sanitario y fitosanitario", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 14, "nombre": "Bases tecnológicas para la producción de material de siembra de aguacate de alta calidad Fase 1", "programa": "Bioeconomía:  Biodiversidad", "sistema": "Aguacate Hass", "area": "Material de siembra y mejoramiento genético", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 15, "nombre": "Bases tecnológicas para la producción de material de siembra de aguacate de alta calidad Fase 2", "programa": "Bioeconomía:  Biodiversidad", "sistema": "Aguacate Hass", "area": "Material de siembra y mejoramiento genético", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 16, "nombre": "Bases tecnológicas para la producción de material de siembra de aguacate de alta calidad Fase 3", "programa": "Bioeconomía: Economía circular", "sistema": "Aguacate Hass", "area": "Material de siembra y mejoramiento genético", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 17, "nombre": "Validación metodológica para caracterizar las condiciones biofísicas, socioeconómicas y productivas a escala 1:25.000, para el cultivo de aguacate en la región productora del Tolima, como soporte para el desarrollo de tecnologías de manejo agronómico del cultivo. Lider: Diana Lucia Correa Moreno", "programa": "ACI:Productividad agrícola agroambientalmente eficiente e integralmente sostenible", "sistema": "Aguacate Hass", "area": "Manejo ambiental y sostenibilidad", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "Tolima", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 18, "nombre": "Condiciones biofísicas  y socioeconómicas del sistema productivo de aguacate -  variedad Lorena caracterizadas en la región productora del Tolima, como soporte para el desarrollo de tecnologías de manejo agronómico específicas. Lider: Diana Lucia Correa Moreno", "programa": "ACI: Adaptación y resiliencia de los sistemas productivos agropecuarios frente a condiciones de clima cambiante", "sistema": "Aguacate Hass", "area": "Manejo ambiental y sostenibilidad", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "Tolima", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 19, "nombre": "Caracterización de áreas potenciales con enfoque territorial y de adaptación para el desarrollo y producción de cultivos de aguacate con atributos de valor. Lider: Diana Lucia Correa Moreno", "programa": "ACI: Adaptación y resiliencia de los sistemas productivos agropecuarios frente a condiciones de clima cambiante", "sistema": "Aguacate Hass", "area": "Manejo ambiental y sostenibilidad", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "Tolima", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 20, "nombre": "Selección de materiales de Capsicum spp. con atributos diferenciales y ventajas competitivas agronómicas y agroindustriales", "programa": "Bioeconomía:  Biodiversidad", "sistema": "Ají", "area": "Material de siembra y mejoramiento genético", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 21, "nombre": "2025 BGA Conservación en Campo BG Vegetal ID 1003076", "programa": "Bioeconomía:  Biodiversidad", "sistema": "Bancos de Germoplasma", "area": "Material de siembra y mejoramiento genético", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 22, "nombre": "Identificación de atributos agronómicos en cacao cuya expresión es afectada por el patrón con miras a establecer un programa de mejoramiento genético de patrones que contribuya a realzar el comportamiento de clones de interés", "programa": "Bioeconomía:  Biodiversidad", "sistema": "Cacao", "area": "Material de siembra y mejoramiento genético", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Internacionales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 23, "nombre": "Selección de patrones de cacao mediante la identificación de atributos agronómicos cuya expresión es afectada por el patrón, con miras a establecer un programa de mejoramiento genético de patrones que contribuya a realzar el comportamiento de clones de interés.", "programa": "Bioeconomía:  Biodiversidad", "sistema": "Cacao", "area": "Material de siembra y mejoramiento genético", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 24, "nombre": "Evaluación de la acumulación de cadmio de genotipos de cacao, bajo diferentes condiciones edafoclimáticas, como estrategia de mitigación del impacto de contenidos de cadmio biodisponible en suelo", "programa": "Bioeconomía:  Biodiversidad", "sistema": "Cacao", "area": "Material de siembra y mejoramiento genético", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Internacionales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 25, "nombre": "Fase II Cacao para la paz", "programa": "Bioeconomía:  Biodiversidad", "sistema": "Cacao", "area": "Material de siembra y mejoramiento genético", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Internacionales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 26, "nombre": "Implementación de recomendaciones tecnológicas orientadas al fortalecimiento de capacidades y desarrollo sostenible del sistema productivo de cacao en el suroccidente colombiano a partir de estrategias participativas", "programa": "Bioeconomía: Prácticas de agricultura sostenible", "sistema": "Cacao", "area": "Manejo de sistemas productivos", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Internacionales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 27, "nombre": "Merging eco-physiology and ML to select drought tolerant cacao genotypes", "programa": "Bioeconomía:  Biodiversidad", "sistema": "Cacao", "area": "Material de siembra y mejoramiento genético", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Internacionales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 28, "nombre": "Proyecto 88352 - Aplicación y validación de tecnologías para potencializar la competitividad del sistema productivo de cacao en 8 municipios priorizados del departamento del Cauca", "programa": "Bioeconomía: Prácticas de agricultura sostenible", "sistema": "Cacao", "area": "Manejo de sistemas productivos", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 29, "nombre": "1002666: Viabilidad centros de fermentación en las regiones cacaoteras de Caldas, Huila y Tolima.", "programa": "Bioeconomía: Economía circular", "sistema": "Cacao", "area": "Manejo cosecha, poscosecha y transformación", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Internacionales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 30, "nombre": "ID: 1002667. Establecimiento de protocolos apropiados de fermentación basados en perfiles sensoriales del cacao en Caldas, Huila y Tolima.", "programa": "Bioeconomía: Economía circular", "sistema": "Cacao", "area": "Manejo cosecha, poscosecha y transformación", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Internacionales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 31, "nombre": "ID: 1002841. Implementación de un modelo para el aprovechamiento integral de las mazorcas de cacao para la generación de productos de valor agregado por medio de alternativas biotecnológicas", "programa": "Bioeconomía: Economía circular", "sistema": "Cacao", "area": "Manejo cosecha, poscosecha y transformación", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 32, "nombre": "Idea. 0007950. Estrategia poscosecha para la inocuidad y comercio del cacao colombiano", "programa": "Otro", "sistema": "Cacao", "area": "Manejo cosecha, poscosecha y transformación", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Internacionales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 33, "nombre": "Idea. 0007978. Bioeconomía en cacao", "programa": "Bioeconomía: Economía circular", "sistema": "Cacao", "area": "Manejo cosecha, poscosecha y transformación", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Internacionales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 34, "nombre": "Proyecto 95883. IMPLEMENTACIÓN DE INNOVACIONES TECNOLÓGICAS BAJO UN MODELO DE ECONOMÍA CIRCULAR, SOCIAL Y SOLIDARIA COMO APORTE A LA SEGURIDAD ALIMENTARIA Y A LA TRANSICIÓN SOSTENIBLE HACIA UN DESARROLLO AGRÍCOLA Y AGROINDUSTRIAL EN 4 MUNICIPIOS DEL DEPARTAMENTO DEL VALLE DEL CAUCA", "programa": "Bioeconomía: Prácticas de agricultura sostenible", "sistema": "Cacao", "area": "Manejo de sistemas productivos", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 35, "nombre": "ID 001451: SGR Arauca poscosecha", "programa": "Bioeconomía: Economía circular", "sistema": "Cacao", "area": "Manejo cosecha, poscosecha y transformación", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 36, "nombre": "Reducción del riesgo y adaptación al cambio climático_Modelos de adaptación agroclimática (MAPA). Chontaduro (Bactris gasipae)", "programa": "ACI: Adaptación y resiliencia de los sistemas productivos agropecuarios frente a condiciones de clima cambiante", "sistema": "Chontaduro", "area": "Manejo ambiental y sostenibilidad", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 37, "nombre": "Gestión del conocimiento para el fortalecimiento productivo de los frutales del Valle del Cauca: Programa integral de Fruticultura PIF. FASE 2", "programa": "Bioeconomía: Prácticas de agricultura sostenible", "sistema": "Chontaduro", "area": "Transf. de tecnologia, asist. técnica e innovación", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 38, "nombre": "Programa de fortalecimiento al sistema nacional de semillas producto de la intervención de sistemas locales de semillas: PLAN NACIONAL DE SEMILLAS", "programa": "Bioeconomía: Prácticas de agricultura sostenible", "sistema": "Chontaduro", "area": "Material de siembra y mejoramiento genético", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 39, "nombre": "Desarrollo de estrategias para la recuperación de los sistemas productivos de Chontaduro (Bactris gasipaes) en sistemas agroforestales en zona rural del distrito de Buenaventura", "programa": "Bioeconomía: Prácticas de agricultura sostenible", "sistema": "Chontaduro", "area": "Manejo de sistemas productivos", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 40, "nombre": "Colección de trabajo de materiales regionales de cocotero como base para repoblamiento y conservación de variabilidad genética.", "programa": "Bioeconomía:  Biodiversidad", "sistema": "Coco", "area": "Material de siembra y mejoramiento genético", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 41, "nombre": "Aunar esfuerzos económicos, técnicos, logísticos y humanos para el fortalecimiento del sistema de producción del cocotero en la costa pacífica colombiana a partir de la implementación de las buenas prácticas agrícolas (BPA), transferencia de tecnología en actividades de producción y manejo de viveros en los municipios de Tumaco, el Charco, Francisco Pizarro, La Tola, Mosquera, Santa Bárbara de Iscuande y Olaya Herrera del departamento de Nariño", "programa": "Otro", "sistema": "Coco", "area": "Manejo de sistemas productivos", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 42, "nombre": "Bases tecnologicas para el programa de mejoramiento del fique", "programa": "Bioeconomía: Prácticas de agricultura sostenible", "sistema": "Fique", "area": "Material de siembra y mejoramiento genético", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 43, "nombre": "Bases tecnologicas para el programa de mejoramiento del fique", "programa": "Bioeconomía: Prácticas de agricultura sostenible", "sistema": "Fique", "area": "Fisiología vegetal y nutrición", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 44, "nombre": "Áreas seleccionadas, especies priorizadas en diferentes regiones y viveros establecidos -Protocolos de producción del material vegetal y establecimiento.", "programa": "Bioeconomía:  Biodiversidad", "sistema": "Fique", "area": "Manejo ambiental y sostenibilidad", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 45, "nombre": "Establecimientos de arboretums en los centros de investigación utilizando material vegetal producido en el año anterior. RA: Diana Lucia Correa Moreno", "programa": "Bioeconomía:  Biodiversidad", "sistema": "Forestal", "area": "Manejo ambiental y sostenibilidad", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 46, "nombre": "Datos de crecimiento de las especies en cada uno de los arboretums y sus proyecciones frente al comportamiento en otras regiones tradicionales de uso de las mismas. RA: Diana Lucia Correa Moreno", "programa": "Bioeconomía:  Biodiversidad", "sistema": "Forestal", "area": "Manejo ambiental y sostenibilidad", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 47, "nombre": "Materiales nativos e introducidos de especies arbóreas caracterizados y evaluados para uso múltiple. RA: Diana Lucia Correa Moreno", "programa": "Bioeconomía:  Biodiversidad", "sistema": "Forestal", "area": "Manejo ambiental y sostenibilidad", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 48, "nombre": "Meta: Estudio fenológico y pruebas de germinación preliminares de las especies nativas seleccionadas y priorizadas. RA: Diana Lucia Correa Moreno", "programa": "Bioeconomía:  Biodiversidad", "sistema": "Forestal", "area": "Manejo ambiental y sostenibilidad", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 49, "nombre": "Meta: Protocolos de germinación estandarizados para 5 especies nativas. RA: Diana Lucia Correa Moreno", "programa": "Bioeconomía:  Biodiversidad", "sistema": "Forestal", "area": "Manejo ambiental y sostenibilidad", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 50, "nombre": "Meta: Modelo alométrico preliminar por localidad para la predicción del crecimiento en diámetro y altura de especies forestales en sus primeras fases vegetativas. RA: Diana Lucia Correa Moreno", "programa": "Bioeconomía:  Biodiversidad", "sistema": "Forestal", "area": "Manejo ambiental y sostenibilidad", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 51, "nombre": "Meta: Fichas técnicas de especies forestales caracterizadas y evaluadas para uso múltiple en diferentes zonas agroecológicas. RA: Diana Lucia Correa Moreno", "programa": "Bioeconomía:  Biodiversidad", "sistema": "Forestal", "area": "Manejo ambiental y sostenibilidad", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 52, "nombre": "Proyecto: Evaluación de especies arbustivas y arbóreas para uso múltiple. RA: Diana Lucia Correa Moreno", "programa": "Bioeconomía:  Biodiversidad", "sistema": "Forestal", "area": "Manejo ambiental y sostenibilidad", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 53, "nombre": "Meta: Servicios ecosistémicos de especies forestales. RA: Diana Lucia Correa Moreno", "programa": "Bioeconomía:  Biodiversidad", "sistema": "Forestal", "area": "Manejo ambiental y sostenibilidad", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 54, "nombre": "Meta:  Protocolos de germinación y métodos de dispersión de semillas. RA: Diana Lucia Correa Moreno", "programa": "Bioeconomía:  Biodiversidad", "sistema": "Forestal", "area": "Manejo ambiental y sostenibilidad", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 55, "nombre": "Ruta Etnica_Forestales_ Cauca. RA: Diana Lucia Correa Moreno", "programa": "NSA(MPIyS): Sistemas alimentarios regenerativos", "sistema": "Forestal", "area": "Manejo de sistemas productivos", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 56, "nombre": "Evaluación de clones de promisorios de guanábana para aumentar la oferta de materiales mejorados para el productor agropecuario", "programa": "Bioeconomía:  Biodiversidad", "sistema": "Guanábana", "area": "Material de siembra y mejoramiento genético", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 57, "nombre": "Plan de Vinculación: Agrosavia Fecunda y Agrosavia Tesoro: dos nuevos cultivares de guanábana como alternativa de producción para los agricultores colombianos", "programa": "Bioeconomía:  Biodiversidad", "sistema": "Guanábana", "area": "Transf. de tecnologia, asist. técnica e innovación", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 58, "nombre": "Agrosavia Fecunda y Agrosavia Tesoro: dos nuevos cultivares de guanábana como alternativa de producción para los agricultores colombianos", "programa": "Bioeconomía: Prácticas de agricultura sostenible", "sistema": "Guanábana", "area": "Material de siembra y mejoramiento genético", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Otro", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 59, "nombre": "Nuevas variedades y materiales promisorios de guayaba identificadas para Colombia con potencial de rendimiento y calidad nutricional e industrial.", "programa": "Bioeconomía: Prácticas de agricultura sostenible", "sistema": "Guayaba", "area": "Material de siembra y mejoramiento genético", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 60, "nombre": "Ofertas varietales de guayaba generadas para Colombia con potencial productivo para el consumo fresco e industrial (Valle del Cauca, Santander, Boyacá, Meta, Eje Cafetero, Tolima y Caribe).", "programa": "Bioeconomía: Prácticas de agricultura sostenible", "sistema": "Guayaba", "area": "Material de siembra y mejoramiento genético", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 61, "nombre": "Estudio de la adaptación de cultivares comerciales y regionales de guayaba para uso industrial y consumo en fresco en diferentes zonas agroecológicas de Colombia", "programa": "Bioeconomía: Prácticas de agricultura sostenible", "sistema": "Guayaba", "area": "Material de siembra y mejoramiento genético", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 62, "nombre": "Material de siembra con calidad de las Variedades de guayaba AGROSAVIA Carmín 0328 y AGROSAVIA Rosa-C", "programa": "Bioeconomía: Prácticas de agricultura sostenible", "sistema": "Guayaba", "area": "Material de siembra y mejoramiento genético", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 63, "nombre": "Producto Parcial 25. Fase 1: Lotes experimentales seleccionados y aplicada primera poda de producción, para validación del manejo de la estacionalidad de la producción en guayaba.   Lider: Diana Lucia Correa Moreno", "programa": "ACI:Productividad agrícola agroambientalmente eficiente e integralmente sostenible", "sistema": "Guayaba", "area": "Manejo de sistemas productivos", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 64, "nombre": "Técnicas  validadas para el manejo de estacionalidad en guayaba a través de plan de podas, fertilización y riego. Fase 2: Primer ciclo de evaluación. Fase 3: Segundo ciclo de evaluación. Valle - Santander.  Lider: Diana Lucia Correa Moreno", "programa": "ACI:Productividad agrícola agroambientalmente eficiente e integralmente sostenible", "sistema": "Guayaba", "area": "Manejo de sistemas productivos", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 65, "nombre": "Densidades de siembra adecuadas a zonas agroecológicas y a variedades regionales de guayaba determinadas.   Santander.  Lider: Diana Lucia Correa Moreno", "programa": "ACI:Productividad agrícola agroambientalmente eficiente e integralmente sostenible", "sistema": "Guayaba", "area": "Manejo de sistemas productivos", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 66, "nombre": "Planes de fertilización en fase de establecimiento, en cultivos de Guayaba evaluados.  Lider: Diana Lucia Correa Moreno", "programa": "ACI:Productividad agrícola agroambientalmente eficiente e integralmente sostenible", "sistema": "Guayaba", "area": "Manejo de sistemas productivos", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 67, "nombre": "Estrategias para la producción sostenible de guayaba en zonas productoras de Colombia.  Lider: Diana Lucia Correa Moreno", "programa": "ACI:Productividad agrícola agroambientalmente eficiente e integralmente sostenible", "sistema": "Guayaba", "area": "Manejo ambiental y sostenibilidad", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 68, "nombre": "Meta 0 (Fase 1:  2018 – 2019). Análisis preliminar de extracción de nutrientes en guayaba.  Lider: Diana Lucia Correa Moreno", "programa": "ACI:Productividad agrícola agroambientalmente eficiente e integralmente sostenible", "sistema": "Guayaba", "area": "Manejo de suelos y aguas", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 69, "nombre": "Meta 1 (Fase 2:  2019 – 2020). Línea base extracción de nutrientes y rangos de suficiencia estimados para ajuste de fertilización en cultivos tecnificados de guayaba.  Lider: Diana Lucia Correa Moreno", "programa": "ACI:Productividad agrícola agroambientalmente eficiente e integralmente sostenible", "sistema": "Guayaba", "area": "Manejo de suelos y aguas", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 70, "nombre": "Meta 2 (Fase 3:  2023 – 2025). Prácticas de manejo integral de la fertilidad (Química, física y biológica) y provisión de servicios ecosistémicos en cultivos de guayaba evaluadas. Fases Establecimiento y Producción.  Lider: Diana Lucia Correa Moreno", "programa": "ACI:Productividad agrícola agroambientalmente eficiente e integralmente sostenible", "sistema": "Guayaba", "area": "Manejo ambiental y sostenibilidad", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 71, "nombre": "Fertilización bajo manejo  de la nutrición por sitio especifico (MNSE) evaluada y validada para el mejoramiento de la productividad en cultivos tecnificados de guayaba.  Lider: Diana Lucia Correa Moreno", "programa": "ACI:Productividad agrícola agroambientalmente eficiente e integralmente sostenible", "sistema": "Guayaba", "area": "Fisiología vegetal y nutrición", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 72, "nombre": "Zonas potenciales para el sistema de producción de guayaba con enfoque territorial y adaptación del cultivo.  Lider: Diana Lucia Correa Moreno", "programa": "ACI:Productividad agrícola agroambientalmente eficiente e integralmente sostenible", "sistema": "Guayaba", "area": "Manejo ambiental y sostenibilidad", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 73, "nombre": "Sistema de información experto (SE) para los sistemas de producción de la guayaba.  Lider: Diana Lucia Correa Moreno", "programa": "ACI:Productividad agrícola agroambientalmente eficiente e integralmente sostenible", "sistema": "Guayaba", "area": "Manejo ambiental y sostenibilidad", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 74, "nombre": "Tecnologías para la producción de plántulas de guayaba en vivero.  Lider: Diana Lucia Correa Moreno", "programa": "ACI:Productividad agrícola agroambientalmente eficiente e integralmente sostenible", "sistema": "Guayaba", "area": "Material de siembra y mejoramiento genético", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 75, "nombre": "Modelo de estrategias generado para la producción sostenible de guayaba  basado en criterios de planificación y manejo agronómico del cultivo.  Lider: Diana Lucia Correa Moreno", "programa": "ACI:Productividad agrícola agroambientalmente eficiente e integralmente sostenible", "sistema": "Guayaba", "area": "Manejo de sistemas productivos", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 76, "nombre": "Sistema de información de índices espectrales de vegetación asociados a estrés abiótico en cultivos de guayaba (Psidium guajava).  Lider: Diana Lucia Correa Moreno", "programa": "ACI:Productividad agrícola agroambientalmente eficiente e integralmente sostenible", "sistema": "Guayaba", "area": "Fisiología vegetal y nutrición", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 77, "nombre": "Convenio 1991. Piloto Tecnológico Análisis Tecnologías Precisión", "programa": "ACI:Productividad agrícola agroambientalmente eficiente e integralmente sostenible", "sistema": "Lima Acida Tahití", "area": "Manejo de suelos y aguas", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Internacionales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 78, "nombre": "Convenio 2217. Agricultura tropical 4,0: Uso eficiente del agua", "programa": "ACI:Productividad agrícola agroambientalmente eficiente e integralmente sostenible", "sistema": "Lima Acida Tahití", "area": "Manejo de suelos y aguas", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Internacionales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 79, "nombre": "Convenio S421. Validación de un sensor tipo dendrómetro para fruto", "programa": "ACI:Productividad agrícola agroambientalmente eficiente e integralmente sostenible", "sistema": "Lima Acida Tahití", "area": "Fisiología vegetal y nutrición", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Sector privado", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 80, "nombre": "Recomendaciones de  uso para  patrones de  lima ácida Tahití en diferentes zonas del país entregadas", "programa": "Bioeconomía: Prácticas de agricultura sostenible", "sistema": "Lima Acida Tahití", "area": "Material de siembra y mejoramiento genético", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 81, "nombre": "Desarrollo de los modelos productivos regionales de cítricos.", "programa": "ACI: Adaptación y resiliencia de los sistemas productivos agropecuarios frente a condiciones de clima cambiante", "sistema": "Lima Acida Tahití", "area": "Manejo de suelos y aguas", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 82, "nombre": "Validación y ajuste  de tecnología para el manejo de la nutricion, el riego y la poda en lima ácida Tahití en el Valle del Cauca.", "programa": "ACI: Adaptación y resiliencia de los sistemas productivos agropecuarios frente a condiciones de clima cambiante", "sistema": "Lima Acida Tahití", "area": "Manejo de suelos y aguas", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 83, "nombre": "Desarrollo de los procesos de indexación de material de siembra frente a las principales enfermedades, para el aseguramiento de la sanidad de los cítricos en Colombia.", "programa": "Bioeconomía: Prácticas de agricultura sostenible", "sistema": "Lima Acida Tahití", "area": "Manejo sanitario y fitosanitario", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 84, "nombre": "Convenio derivado No. 3, Líneas Epidemiología y modelos para la mitigación de plagas, del convenio marco interadministrativo no. GGC- 017-2023,.", "programa": "Inclusión social en el desarrollo tecnológico: Apropiación social del conocimiento desde la ciencia ciudadana y la ciencia comunitaria", "sistema": "Lima Acida Tahití", "area": "Transf. de tecnologia, asist. técnica e innovación", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 85, "nombre": "Reducción del riesgo y adaptación al cambio climático_Modelos de adaptación agroclimática (MAPA). Limón pajárito (Citrus aurantifolia). Facilitadora Regional MAPA: Diana Lucia Correa Moreno", "programa": "ACI: Adaptación y resiliencia de los sistemas productivos agropecuarios frente a condiciones de clima cambiante", "sistema": "Limón Pajarito", "area": "Manejo ambiental y sostenibilidad", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 86, "nombre": "Cultivares y patrones de cítricos adaptados a diferentes núcleos productivos en Colombia.", "programa": "Bioeconomía: Prácticas de agricultura sostenible", "sistema": "Lima Acida Tahití", "area": "Material de siembra y mejoramiento genético", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 87, "nombre": "Evaluación participativa de cítricos promisorios para su uso como copas o patrones en los principales núcleos de producción.", "programa": "Bioeconomía:  Biodiversidad", "sistema": "Lima Acida Tahití", "area": "Material de siembra y mejoramiento genético", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Sector privado", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 88, "nombre": "Fortalecer el programa nacional de conservación y multiplicación del material vegetal de cítricos en las categorías genética, básica y registrada como estrategia de prevención fitosanitaria al HLB para garantizar la continuidad del programa de certificación", "programa": "Bioeconomía: Prácticas de agricultura sostenible", "sistema": "Lima Acida Tahití", "area": "Material de siembra y mejoramiento genético", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Internacionales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 89, "nombre": "Desarrollo de componentes de manejo integrado de Dasiops inedulis (Diptera: Lonchaeidae) en maracuyá en el Valle del Cauca.", "programa": "Bioeconomía: Prácticas de agricultura sostenible", "sistema": "Maracuya", "area": "Manejo sanitario y fitosanitario", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 90, "nombre": "Evaluación y selección de genotipos élite maracuyá", "programa": "Seguridad alimentaria, nutricional y salud humana y animal", "sistema": "Maracuya", "area": "Manejo sanitario y fitosanitario", "lider": "", "rol": "", "aliados": "Universidad Nacional", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "Valle del Cauca", "tipo_beneficiarios": "Asociación de productores", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 91, "nombre": "Evaluación y selección de genotipos élite maracuyá", "programa": "ACI:Productividad agrícola agroambientalmente eficiente e integralmente sostenible", "sistema": "Maracuya", "area": "Material de siembra y mejoramiento genético", "lider": "", "rol": "", "aliados": "Universidad Nacional", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "Valle del Cauca", "tipo_beneficiarios": "Asociación de productores", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 92, "nombre": "Reducción del riesgo y adaptación al cambio climático_Modelos de adaptación agroclimática (MAPA). Melón (Cucumis melo B). Facilitadora Regional MAPA: Diana Lucia Correa Moreno", "programa": "ACI: Adaptación y resiliencia de los sistemas productivos agropecuarios frente a condiciones de clima cambiante", "sistema": "Melón", "area": "Manejo ambiental y sostenibilidad", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 93, "nombre": "Reducción del riesgo y adaptación al cambio climático_Modelos de adaptación agroclimática (MAPA). Mora (Rubus glaucus B). Facilitadora Regional MAPA: Diana Lucia Correa Moreno", "programa": "ACI: Adaptación y resiliencia de los sistemas productivos agropecuarios frente a condiciones de clima cambiante", "sistema": "Mora", "area": "Manejo ambiental y sostenibilidad", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 94, "nombre": "Validación de estrategias de manejo de poblaciones de Compsus viridivitattus, y ácaros como aporte del componente entomológico a la construcción del modelo productivo en cítricos.", "programa": "Bioeconomía: Prácticas de agricultura sostenible", "sistema": "Naranjas", "area": "Manejo sanitario y fitosanitario", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 95, "nombre": "Manejo de viveros y bases tecnológicas para la certificación genética, fisiológica y sanitaria", "programa": "Bioeconomía: Prácticas de agricultura sostenible", "sistema": "Naranjas", "area": "Manejo sanitario y fitosanitario", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 96, "nombre": "Evaluación de entomopatógenos y productos químicos para el control de Diaphorina citri Kuwayama (Hemiptera: Liviidae) y estudios biológicos de D. citri y su enemigo natural principal Tamarixia radiata (Waterston) (Hymenoptera: Eulophidae).", "programa": "Bioeconomía: Prácticas de agricultura sostenible", "sistema": "Naranjas", "area": "Manejo sanitario y fitosanitario", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 97, "nombre": "Generación de esquemas de indexación a enfermedades sistémicas de cítricos para asegurar la sanidad del material de siembra en Colombia", "programa": "Bioeconomía: Prácticas de agricultura sostenible", "sistema": "Naranjas", "area": "Manejo sanitario y fitosanitario", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 98, "nombre": "Cultivares y patrones de cítricos adaptados a diferentes núcleos productivos en Colombia Fase 1.", "programa": "Bioeconomía:  Biodiversidad", "sistema": "Naranjas", "area": "Material de siembra y mejoramiento genético", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 99, "nombre": "Cultivares y patrones de cítricos adaptados a diferentes núcleos productivos en Colombia Fase 2.", "programa": "Bioeconomía:  Biodiversidad", "sistema": "Naranjas", "area": "Material de siembra y mejoramiento genético", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 100, "nombre": "Cultivares y patrones de cítricos adaptados a diferentes núcleos productivos en Colombia Fase 3.", "programa": "Bioeconomía:  Biodiversidad", "sistema": "Naranjas", "area": "Material de siembra y mejoramiento genético", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 101, "nombre": "Cultivares y patrones de cítricos adaptados a diferentes núcleos productivos en Colombia Fase 4.", "programa": "Bioeconomía:  Biodiversidad", "sistema": "Naranjas", "area": "Material de siembra y mejoramiento genético", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 102, "nombre": "Proyecto Agroecologico Colombo Aleman (PACA)", "programa": "Bioeconomía: Economía circular", "sistema": "Otro", "area": "Manejo ambiental y sostenibilidad", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 103, "nombre": "Plataforma regional para impulsar la competitividad del aguacate andino", "programa": "NSA(MPIyS): Sistemas agroalimentarios globales", "sistema": "Otro", "area": "Material de siembra y mejoramiento genético", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 104, "nombre": "Selección de progenitores Dura y Pisífera de la palma de aceite (Elaeis guineensis) como apoyo a la producción de los cultivares híbridos OxG Corpoica y Ténera Corpoica de segunda generación", "programa": "Bioeconomía:  Biodiversidad", "sistema": "Palma de aceite Africana", "area": "Material de siembra y mejoramiento genético", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 105, "nombre": "Practicas de manejo agronómico y seguimiento experimentos palma de aceite. Fase I", "programa": "Bioeconomía:  Biodiversidad", "sistema": "Palma de aceite Africana", "area": "Material de siembra y mejoramiento genético", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 106, "nombre": "Practicas de manejo agronómico y seguimiento experimentos palma de aceite. Fase II", "programa": "Bioeconomía:  Biodiversidad", "sistema": "Palma de aceite Africana", "area": "Material de siembra y mejoramiento genético", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 107, "nombre": "Practicas de manejo agronómico y seguimiento experimentos palma de aceite", "programa": "Bioeconomía:  Biodiversidad", "sistema": "Palma de aceite Africana", "area": "Material de siembra y mejoramiento genético", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 108, "nombre": "Evaluación de progenies F2 de Elaeis Oleifera", "programa": "Bioeconomía:  Biodiversidad", "sistema": "Palma de aceite Americana", "area": "Material de siembra y mejoramiento genético", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 109, "nombre": "Control biológico y químico de la cochinilla acanalada Crypticerya multicicatrices Kondo & Unruh (Hemiptera: Monophlebidae).", "programa": "Bioeconomía: Prácticas de agricultura sostenible", "sistema": "Palmaceas", "area": "Manejo sanitario y fitosanitario", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Internacionales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 110, "nombre": "Producción de semilla de calidad para Casanare", "programa": "ACI:Productividad agrícola agroambientalmente eficiente e integralmente sostenible", "sistema": "Piña", "area": "Material de siembra y mejoramiento genético", "lider": "", "rol": "", "aliados": "Bolívar: Asociación de Agricultores Campesinos Chitacorral (Agrocazan), La Vega: Asociación Productora  de  Quinua  Resguardo  de Pancitara (Asproquinpa), La Vega: Asociación Productora  de  Quinua  Resguardo  de Pancitara (Asproquinpa), Totoró: Asociación  de  Productores  de  Quinua (Asoquinua), Silvia: Cooperativa Multiactiva Indígena de Las Delicias", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "Cauca", "tipo_beneficiarios": "Comunidad campesina", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 111, "nombre": "Estrategias de manejo agronómico para la piña MD2 para sistemas productivos del departamento del Valle del Cauca, potenciando parámetros de adaptación y sostenibilidad.", "programa": "ACI:Productividad agrícola agroambientalmente eficiente e integralmente sostenible", "sistema": "Piña", "area": "Fisiología vegetal y nutrición", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 112, "nombre": "Estrategias para el manejo integrado de las principales enfermedades y plagas que se presentan en el cultivo de piña (cultivar MD2) en los departamentos del Valle del Cauca y Santander. Fase I y Fase II.", "programa": "Bioeconomía: Prácticas de agricultura sostenible", "sistema": "Piña", "area": "Manejo sanitario y fitosanitario", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 113, "nombre": "Identificación de accesiones de piña (Ananas spp.) por su potencial para la obtención de fibra de la hoja para uso agroindustrial.", "programa": "Bioeconomía: Economía circular", "sistema": "Piña", "area": "Manejo ambiental y sostenibilidad", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 114, "nombre": "Desarrollo de estrategias de manejo integrado de la mosca del botón floral de la pitaya Dasiops sp. en el Valle del Cauca.", "programa": "Bioeconomía: Prácticas de agricultura sostenible", "sistema": "Pitaya Amarilla", "area": "Manejo sanitario y fitosanitario", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "Valle del Cauca", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 115, "nombre": "Recomendaciones de manejo agronómico y fitosanitario del cultivo de la Pitaya Amarilla para las regiones productoras de Colombia.", "programa": "Bioeconomía: Prácticas de agricultura sostenible", "sistema": "Pitaya Amarilla", "area": "Manejo de sistemas productivos", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 116, "nombre": "Propuesta enviada a convocatoria Fontagro2025. Transformación digital del cultivo de plátano: hacia la eficiencia productiva y el relevo generacional", "programa": "ACI:Productividad agrícola agroambientalmente eficiente e integralmente sostenible", "sistema": "Platano", "area": "Manejo de suelos y aguas", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 117, "nombre": "Transformación digital del cultivo de plátano: hacia la eficiencia productiva y el relevo generacional", "programa": "ACI:Productividad agrícola agroambientalmente eficiente e integralmente sostenible", "sistema": "Platano", "area": "Manejo de suelos y aguas", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Internacionales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 118, "nombre": "Sanidad Prevención y Control Enfermedades Plátano F1 y F2", "programa": "Seguridad alimentaria, nutricional y salud humana y animal", "sistema": "Platano", "area": "Manejo sanitario y fitosanitario", "lider": "", "rol": "", "aliados": "ICA", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "Caldas, Risaralda, Cauca y Valle del Cauca", "tipo_beneficiarios": "Asociación de productores", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 119, "nombre": "Alternativas tecnológicas para el cultivo de la quinua en el departamento del Cauca", "programa": "Bioeconomía: Prácticas de agricultura sostenible", "sistema": "Quinua", "area": "Fisiología vegetal y nutrición", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 120, "nombre": "Alternativas tecnológicas para el cultivo de la quinua en el departamento del Cauca", "programa": "Bioeconomía: Prácticas de agricultura sostenible", "sistema": "Quinua", "area": "Fisiología vegetal y nutrición", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "Valle del Cauca", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 121, "nombre": "Desarrollo de modelos de producción de semilla promisorias Quinua en  Cauca PNS", "programa": "Bioeconomía: Prácticas de agricultura sostenible", "sistema": "Quinua", "area": "Fisiología vegetal y nutrición", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "San Andres y Providencia.", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 122, "nombre": "Alternativas tecnológicas para el cultivo de la quinua en el departamento del Cauca", "programa": "Bioeconomía: Prácticas de agricultura sostenible", "sistema": "Quinua", "area": "Manejo de suelos y aguas", "lider": "", "rol": "", "aliados": "ICESI, Hugo Restrepo, Utedé", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "Antioquia, Valle del Cauca y Cauca", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 123, "nombre": "Desarrollo   de   nuevas   recomendaciones   tecnológicas   para   contribuir   con   la   competitividad  y  la  sostenibilidad  del  sector  quinuero  del  departamento   del   Cauca, Convenio 1983, Actividad 8: Caracterizar los problemas de enfermedades del cultivo de quinua en el departamento del Cauca (Fase 1), Diana Milena Rodríguez Mora", "programa": "Bioeconomía: Prácticas de agricultura sostenible", "sistema": "Quinua", "area": "Manejo sanitario y fitosanitario", "lider": "", "rol": "", "aliados": "Asociación de Agricultores Campesinos  de  la  Zanja  Chitacorral(Agrocazan),  Asociación  Productora  de  Quinua  Resguardo  de  Pancitará  (Asproquinpa), Asociación de Productores de Quinua (Asoquinua) y Cooperativa  Multiactiva  Indígena  de  Las Delicias", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "Cauca", "tipo_beneficiarios": "Comunidad Indígena", "beneficiarios_directos": "792 personas", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 124, "nombre": "Actividad 4.2: Utilización de coberturas vegetales y mitigación de gases de efecto invernadero GEI. RA: Diana Lucia Correa Moreno", "programa": "ACI: Gestión eficiente de los recursos agua, nutrientes, suelo y energía para la mitigación de GEI en los sistemas de producción agrícola", "sistema": "Quinua", "area": "Manejo ambiental y sostenibilidad", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "Cauca", "tipo_beneficiarios": "", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 125, "nombre": "Material de siembra con calidad de las Variedades de yuca AGROSAVIA Cumbre 3 y AGROSAVIA La Francesa", "programa": "Bioeconomía: Prácticas de agricultura sostenible", "sistema": "Yuca", "area": "Material de siembra y mejoramiento genético", "lider": "", "rol": "", "aliados": "Fedecoco", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "Nariño", "tipo_beneficiarios": "Comunidad Afrocolombiana", "beneficiarios_directos": "300", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 126, "nombre": "Ruta Agroecológica_Valle del Cauca. RA: Diana Lucia Correa Moreno", "programa": "NSA(MPIyS): Sistemas alimentarios regenerativos", "sistema": "Otro", "area": "Manejo de sistemas productivos", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "Valle", "tipo_beneficiarios": "Asociación de productores", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 127, "nombre": "Mujer rural:conservación de semillas. Lider: Diana Lucia Correa Moreno", "programa": "NSA(MPIyS): Sistemas alimentarios regenerativos", "sistema": "Otro", "area": "Manejo de sistemas productivos", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "Valle", "tipo_beneficiarios": "Asociación de productores", "beneficiarios_directos": "", "financiador": "Sector privado", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 128, "nombre": "Restauración participativa de ecosistemas y fortalecimiento de la gobernanza ambiental y resiliencia climática en territorios afrocolombianos de la Cuenca del Rio San Jorge (Alto Patia - Cauca) afectados por deforestación, desertificación y sequía. Lider: Diana Lucia Correa Moreno", "programa": "NSA(MPIyS): Restauración de los ecosistemas", "sistema": "Otro", "area": "Manejo ambiental y sostenibilidad", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "Cauca", "tipo_beneficiarios": "Comunidad Afrocolombiana", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 129, "nombre": "Fortalecimiento de las capacidades de I+D+i del centro de investigación Palmira", "programa": "ACI: Adaptación y resiliencia de los sistemas productivos agropecuarios frente a condiciones de clima cambiante", "sistema": "Otro", "area": "Manejo ambiental y sostenibilidad", "lider": "", "rol": "", "aliados": "", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "Valle", "tipo_beneficiarios": "Comunidad Afrocolombiana", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 130, "nombre": "Estrategias de prevención y manejo de enfermedades limitantes en la producción de Aguacate en las principales zonas productoras.", "programa": "Bioeconomía: Prácticas de agricultura sostenible", "sistema": "Aguacate Hass", "area": "Manejo sanitario y fitosanitario", "lider": "", "rol": "", "aliados": "Viveristas y comercializadores de aguacate, ICA", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "Cauca, Quindío, Risaralda, Valle del Cauca", "tipo_beneficiarios": "Comunidad campesina", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}, {"id": 131, "nombre": "Opciones de manejo para reducir los principales problemas del cultivo de la Pitaya en el Valle del Cauca", "programa": "Bioeconomía: Prácticas de agricultura sostenible", "sistema": "Pitaya Amarilla", "area": "Manejo sanitario y fitosanitario", "lider": "", "rol": "", "aliados": "Asoppitaya: Asociación de productores de pitaya- Ingenieros Agrónomos Asociados", "problema": "", "objetivo": "", "resultados": "", "trl_inicial": "", "trl_final": "", "impacto_tecnico": "", "impacto_economico": "", "impacto_social": "", "impacto_ambiental": "", "departamentos": "Valle del Cauca", "tipo_beneficiarios": "Asociación de productores", "beneficiarios_directos": "", "financiador": "Entes Nacionales y Territoriales", "monto": "", "año_inicio": "", "año_final": "", "estado": "", "cap_emergente": "", "cap_consolidada": "", "cap_distintiva": "", "tipo_tec": "", "publicaciones": ""}], "filters": {"sistemas": ["Agraz", "Aguacate Hass", "Ají", "Bancos de Germoplasma", "Cacao", "Chontaduro", "Coco", "Fique", "Forestal", "Guanábana", "Guayaba", "Lima Acida Tahití", "Limón Pajarito", "Maracuya", "Melón", "Mora", "Naranjas", "Otro", "Palma de aceite Africana", "Palma de aceite Americana", "Palmaceas", "Pitaya Amarilla", "Piña", "Platano", "Quinua", "Yuca"], "areas": ["Fisiología vegetal y nutrición", "Manejo ambiental y sostenibilidad", "Manejo cosecha, poscosecha y transformación", "Manejo de sistemas productivos", "Manejo de suelos y aguas", "Manejo sanitario y fitosanitario", "Material de siembra y mejoramiento genético", "Transf. de tecnologia, asist. técnica e innovación"], "financiadores": ["Entes Internacionales", "Entes Nacionales y Territoriales", "Otro", "Sector privado"], "programas": ["ACI: Adaptación y resiliencia de los sistemas productivos agropecuarios frente a condiciones de clima cambiante", "ACI: Gestión eficiente de los recursos agua, nutrientes, suelo y energía para la mitigación de GEI en los sistemas de producción agrícola", "ACI:Productividad agrícola agroambientalmente eficiente e integralmente sostenible", "Bioeconomía:  Biodiversidad", "Bioeconomía: Economía circular", "Bioeconomía: Prácticas de agricultura sostenible", "Inclusión social en el desarrollo tecnológico: Apropiación social del conocimiento desde la ciencia ciudadana y la ciencia comunitaria", "NSA(MPIyS): Restauración de los ecosistemas", "NSA(MPIyS): Sistemas agroalimentarios globales", "NSA(MPIyS): Sistemas alimentarios regenerativos", "Otro", "Seguridad alimentaria, nutricional y salud humana y animal"]}, "capacidades": [{"id": "CAP-1", "nombre": "Indicadores de sostenibilidad ambiental", "categoria": "Emergente", "area": "Fisiología vegetal y nutrición", "sistema": "Aguacate Hass", "lider": "Alexander Rebolledo Roa"}, {"id": "CAP-14", "nombre": "Nutrición por sitio específico", "categoria": "Consolidada", "area": "Fisiología vegetal y nutrición", "sistema": "Aguacate Hass", "lider": "Alexander Rebolledo Roa"}, {"id": "CAP-17", "nombre": "Fertilización por sitio específico", "categoria": "Consolidada", "area": "Fisiología vegetal y nutrición", "sistema": "Aguacate Hass", "lider": "0"}]};
+
+const projects = DATA.projects;
+const filters = DATA.filters;
+const capacidades = DATA.capacidades;
+
+// ── KPIs ──
+function renderKPIs() {
+  const total = projects.length;
+  const sistemas = new Set(projects.map(p => p.sistema).filter(Boolean)).size;
+  const conAliados = projects.filter(p => p.aliados).length;
+  const conImpacto = projects.filter(p => p.impacto_tecnico || p.impacto_economico || p.impacto_social).length;
+  const financiadores = new Set(projects.map(p => p.financiador).filter(Boolean)).size;
+  const programas = new Set(projects.map(p => p.programa).filter(Boolean)).size;
+
+  const grid = document.getElementById('kpi-grid');
+  grid.innerHTML = `
+    <div class="kpi-card">
+      <div class="kpi-label">Total de proyectos</div>
+      <div class="kpi-value">${total}</div>
+      <div class="kpi-sub">en el portafolio C.I. Palmira</div>
+    </div>
+    <div class="kpi-card gold">
+      <div class="kpi-label">Sistemas productivos</div>
+      <div class="kpi-value">${sistemas}</div>
+      <div class="kpi-sub">cadenas atendidas</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Con aliados estratégicos</div>
+      <div class="kpi-value">${conAliados}</div>
+      <div class="kpi-sub">proyectos con redes de alianza</div>
+    </div>
+    <div class="kpi-card tierra">
+      <div class="kpi-label">Con impactos registrados</div>
+      <div class="kpi-value">${conImpacto}</div>
+      <div class="kpi-sub">proyectos con evidencia de impacto</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Tipos de financiadores</div>
+      <div class="kpi-value">${financiadores}</div>
+      <div class="kpi-sub">fuentes de financiación</div>
+    </div>
+    <div class="kpi-card gold">
+      <div class="kpi-label">Programas estratégicos</div>
+      <div class="kpi-value">${programas}</div>
+      <div class="kpi-sub">líneas de investigación</div>
+    </div>
+  `;
+}
+
+// ── DASHBOARD ──
+function renderDashboard() {
+  // Sistemas chart
+  const sistemaCount = {};
+  projects.forEach(p => {
+    if (p.sistema) sistemaCount[p.sistema] = (sistemaCount[p.sistema] || 0) + 1;
+  });
+  const sorted = Object.entries(sistemaCount).sort((a,b) => b[1]-a[1]);
+  const max = sorted[0][1];
+  const container = document.getElementById('sistemas-chart');
+  container.innerHTML = sorted.map(([s, n]) => `
+    <div class="sistema-bar-row">
+      <div class="sistema-bar-label">
+        <span>${s}</span>
+        <strong>${n}</strong>
+      </div>
+      <div class="sistema-bar-track">
+        <div class="sistema-bar-fill" style="width:${(n/max*100).toFixed(1)}%"></div>
+      </div>
+    </div>
+  `).join('');
+
+  // Programas list
+  const progCount = {};
+  projects.forEach(p => {
+    if (p.programa) progCount[p.programa] = (progCount[p.programa] || 0) + 1;
+  });
+  const progSorted = Object.entries(progCount).sort((a,b) => b[1]-a[1]);
+  const progContainer = document.getElementById('prog-list');
+  progContainer.innerHTML = progSorted.map(([name, n], i) => `
+    <div class="prog-row">
+      <div class="prog-dot" style="background:${PALETTE[i % PALETTE.length]}"></div>
+      <div class="prog-name">${name}</div>
+      <div class="prog-count">${n}</div>
+      <div class="prog-pct">${(n/projects.length*100).toFixed(0)}%</div>
+    </div>
+  `).join('');
+}
+
+// ── FILTERS ──
+function populateFilters() {
+  const fSistema = document.getElementById('f-sistema');
+  const fArea = document.getElementById('f-area');
+  const fFin = document.getElementById('f-financiador');
+  filters.sistemas.forEach(s => {
+    const o = document.createElement('option'); o.value = s; o.textContent = s;
+    fSistema.appendChild(o);
+  });
+  filters.areas.forEach(a => {
+    const o = document.createElement('option'); o.value = a; o.textContent = a;
+    fArea.appendChild(o);
+  });
+  filters.financiadores.forEach(f => {
+    const o = document.createElement('option'); o.value = f; o.textContent = f;
+    fFin.appendChild(o);
+  });
+}
+
+let filtered = [...projects];
+
+function applyFilters() {
+  const q = document.getElementById('f-buscar').value.toLowerCase();
+  const sis = document.getElementById('f-sistema').value;
+  const area = document.getElementById('f-area').value;
+  const fin = document.getElementById('f-financiador').value;
+  filtered = projects.filter(p => {
+    if (q && !p.nombre.toLowerCase().includes(q)) return false;
+    if (sis && p.sistema !== sis) return false;
+    if (area && p.area !== area) return false;
+    if (fin && p.financiador !== fin) return false;
+    return true;
+  });
+  renderProjectGrid(filtered);
+}
+
+function clearFilters() {
+  document.getElementById('f-buscar').value = '';
+  document.getElementById('f-sistema').value = '';
+  document.getElementById('f-area').value = '';
+  document.getElementById('f-financiador').value = '';
+  applyFilters();
+}
+
+function renderProjectGrid(list) {
+  const grid = document.getElementById('project-grid');
+  const count = document.getElementById('results-count');
+  count.innerHTML = `Mostrando <strong>${list.length}</strong> de ${projects.length} proyectos`;
+  if (!list.length) {
+    grid.innerHTML = `<div class="empty" style="grid-column:1/-1">
+      <div class="empty-icon">🌿</div>
+      <h3>Sin resultados</h3>
+      <p>Intente con otros filtros de búsqueda.</p>
+    </div>`;
+    return;
+  }
+  grid.innerHTML = list.map(p => `
+    <div class="project-card" onclick="openModal(${p.id})">
+      <div class="card-sistema">${p.sistema || 'Sin clasificar'}</div>
+      <div class="card-title">${p.nombre}</div>
+      <div class="card-meta">
+        ${p.area ? `<span class="meta-pill"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="currentColor"/></svg>${p.area}</span>` : ''}
+        ${p.financiador ? `<span class="meta-pill"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1 8h8M5 2v6M2 5h6" stroke="currentColor" stroke-width="1.2"/></svg>${p.financiador}</span>` : ''}
+        ${p.año_inicio ? `<span class="meta-pill">📅 ${p.año_inicio}${p.año_final ? '–'+p.año_final : ''}</span>` : ''}
+        ${p.estado ? `<span class="meta-pill" style="background:#d1fae5;color:#065f46">✓ ${p.estado}</span>` : ''}
+      </div>
+      <div class="card-arrow">→</div>
+    </div>
+  `).join('');
+}
+
+// ── MODAL ──
+function openModal(id) {
+  const p = projects.find(x => x.id === id);
+  if (!p) return;
+
+  document.getElementById('m-sistema').textContent = p.sistema || 'Sin sistema';
+  document.getElementById('m-title').textContent = p.nombre;
+  document.getElementById('m-lider').textContent = p.lider ? `Investigador líder: ${p.lider}` : '';
+
+  let html = '';
+
+  // Objetivo / Problema
+  if (p.objetivo || p.problema) {
+    html += `<div class="modal-section">`;
+    if (p.objetivo) html += `<div class="modal-section-title">Objetivo del proyecto</div><p>${p.objetivo}</p>`;
+    if (p.problema) html += `<div class="modal-section-title" style="margin-top:.75rem">Problema abordado</div><p>${p.problema}</p>`;
+    html += `</div>`;
+  }
+
+  // Impactos
+  const hasImpact = p.impacto_tecnico || p.impacto_economico || p.impacto_social || p.impacto_ambiental;
+  if (hasImpact) {
+    html += `<div class="modal-section">
+      <div class="modal-section-title">Impactos</div>
+      <div class="impact-grid">
+        ${p.impacto_tecnico ? `<div class="impact-box tecnico"><div class="impact-box-label">🔬 Técnico</div><p>${p.impacto_tecnico}</p></div>` : ''}
+        ${p.impacto_economico ? `<div class="impact-box economico"><div class="impact-box-label">💰 Económico</div><p>${p.impacto_economico}</p></div>` : ''}
+        ${p.impacto_social ? `<div class="impact-box social"><div class="impact-box-label">👥 Social</div><p>${p.impacto_social}</p></div>` : ''}
+        ${p.impacto_ambiental ? `<div class="impact-box ambiental"><div class="impact-box-label">🌿 Ambiental</div><p>${p.impacto_ambiental}</p></div>` : ''}
+      </div>
+    </div>`;
+  }
+
+  // Resultados
+  if (p.resultados) {
+    html += `<div class="modal-section">
+      <div class="modal-section-title">Resultados principales</div>
+      <p>${p.resultados}</p>
+    </div>`;
+  }
+
+  // Beneficiarios
+  if (p.tipo_beneficiarios || p.beneficiarios_directos) {
+    html += `<div class="modal-section">
+      <div class="modal-section-title">Beneficiarios</div>
+      <div class="meta-grid">
+        ${p.tipo_beneficiarios ? `<div class="meta-item"><div class="meta-item-label">Tipo</div><div class="meta-item-val">${p.tipo_beneficiarios}</div></div>` : ''}
+        ${p.beneficiarios_directos ? `<div class="meta-item"><div class="meta-item-label">Directos</div><div class="meta-item-val">${p.beneficiarios_directos}</div></div>` : ''}
+        ${p.departamentos ? `<div class="meta-item"><div class="meta-item-label">Departamentos</div><div class="meta-item-val">${p.departamentos}</div></div>` : ''}
+      </div>
+    </div>`;
+  }
+
+  // Aliados
+  if (p.aliados) {
+    html += `<div class="modal-section">
+      <div class="modal-section-title">Aliados estratégicos</div>
+      <p>${p.aliados}</p>
+    </div>`;
+  }
+
+  // Datos técnicos
+  const hasMeta = p.financiador || p.monto || p.año_inicio || p.tipo_tec || p.trl_inicial || p.trl_final || p.programa;
+  if (hasMeta) {
+    html += `<div class="modal-section">
+      <div class="modal-section-title">Información del proyecto</div>
+      <div class="meta-grid">
+        ${p.programa ? `<div class="meta-item"><div class="meta-item-label">Programa</div><div class="meta-item-val" style="font-size:.78rem">${p.programa}</div></div>` : ''}
+        ${p.financiador ? `<div class="meta-item"><div class="meta-item-label">Financiador</div><div class="meta-item-val">${p.financiador}</div></div>` : ''}
+        ${p.monto ? `<div class="meta-item"><div class="meta-item-label">Monto</div><div class="meta-item-val">$${Number(p.monto).toLocaleString('es-CO')}</div></div>` : ''}
+        ${p.año_inicio ? `<div class="meta-item"><div class="meta-item-label">Período</div><div class="meta-item-val">${p.año_inicio}${p.año_final ? ' – '+p.año_final : ''}</div></div>` : ''}
+        ${p.tipo_tec ? `<div class="meta-item"><div class="meta-item-label">Tipo tecnología</div><div class="meta-item-val">${p.tipo_tec}</div></div>` : ''}
+        ${p.rol ? `<div class="meta-item"><div class="meta-item-label">Rol CI Palmira</div><div class="meta-item-val">${p.rol}</div></div>` : ''}
+      </div>
+    </div>`;
+  }
+
+  // Capacidades
+  const caps = [];
+  if (p.cap_emergente) caps.push(`<span class="cap-badge emergente">⚡ ${p.cap_emergente}</span>`);
+  if (p.cap_consolidada) caps.push(`<span class="cap-badge consolidada">🔷 ${p.cap_consolidada}</span>`);
+  if (p.cap_distintiva) caps.push(`<span class="cap-badge distintiva">⭐ ${p.cap_distintiva}</span>`);
+  if (caps.length) {
+    html += `<div class="modal-section">
+      <div class="modal-section-title">Capacidades científicas</div>
+      <div class="cap-badges">${caps.join('')}</div>
+    </div>`;
+  }
+
+  document.getElementById('modal-body').innerHTML = html;
+  document.getElementById('modal-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closeModalIfOverlay(e) {
+  if (e.target === document.getElementById('modal-overlay')) closeModal();
+}
+
+// ── CAPACIDADES ──
+function renderCapacidades() {
+  const grid = document.getElementById('cap-grid');
+  if (!capacidades.length) {
+    grid.innerHTML = '<p style="color:var(--gris-600)">No hay capacidades registradas aún en la hoja Capacidades_CI.</p>';
+  } else {
+    grid.innerHTML = capacidades.map(c => `
+      <div class="cap-card ${c.categoria.toLowerCase()}">
+        <div class="cap-cat">${c.categoria}</div>
+        <div class="cap-name">${c.nombre}</div>
+        <div class="cap-meta">
+          ${c.area ? `<div>Área: <strong>${c.area}</strong></div>` : ''}
+          ${c.sistema ? `<div>Sistema: <strong>${c.sistema}</strong></div>` : ''}
+          ${c.lider && c.lider !== '0' ? `<div>Líder: <strong>${c.lider}</strong></div>` : ''}
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // Implied caps from projects
+  const implied = {};
+  projects.forEach(p => {
+    ['cap_emergente','cap_consolidada','cap_distintiva'].forEach(k => {
+      if (p[k]) {
+        const cat = k.replace('cap_','');
+        const key = p[k]+'|'+cat;
+        if (!implied[key]) implied[key] = { nombre: p[k], categoria: cat, sistemas: new Set(), areas: new Set() };
+        if (p.sistema) implied[key].sistemas.add(p.sistema);
+        if (p.area) implied[key].areas.add(p.area);
+      }
+    });
+  });
+  const impliedGrid = document.getElementById('cap-implied-grid');
+  const impliedItems = Object.values(implied);
+  if (!impliedItems.length) {
+    impliedGrid.innerHTML = '<p style="color:var(--gris-600)">No se encontraron capacidades adicionales en el portafolio.</p>';
+  } else {
+    impliedGrid.innerHTML = impliedItems.map(c => `
+      <div class="cap-card ${c.categoria}">
+        <div class="cap-cat">${c.categoria === 'cap_emergente' ? 'Emergente' : c.categoria === 'cap_consolidada' ? 'Consolidada' : 'Distintiva'}</div>
+        <div class="cap-name">${c.nombre}</div>
+        <div class="cap-meta">
+          ${c.sistemas.size ? `<div>Sistemas: <strong>${[...c.sistemas].join(', ')}</strong></div>` : ''}
+          ${c.areas.size ? `<div>Áreas: <strong>${[...c.areas].join(', ')}</strong></div>` : ''}
+        </div>
+      </div>
+    `).join('');
+  }
+}
+
+// ── ANÁLISIS ──
+function renderAnalisis() {
+  // By financiador
+  const finCount = {};
+  projects.forEach(p => {
+    const f = p.financiador || 'No especificado';
+    finCount[f] = (finCount[f] || 0) + 1;
+  });
+  // By area
+  const areaCount = {};
+  projects.forEach(p => {
+    const a = p.area || 'No especificada';
+    areaCount[a] = (areaCount[a] || 0) + 1;
+  });
+
+  const sortedFin = Object.entries(finCount).sort((a,b) => b[1]-a[1]);
+  const sortedArea = Object.entries(areaCount).sort((a,b) => b[1]-a[1]);
+  const maxFin = sortedFin[0][1];
+  const maxArea = sortedArea[0][1];
+
+  document.getElementById('analisis-content').innerHTML = `
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:2rem">
+      <div>
+        <h3 style="font-size:1rem;font-weight:500;color:var(--gris-600);margin-bottom:1rem">Por financiador</h3>
+        ${sortedFin.map(([f, n], i) => `
+          <div class="sistema-bar-row" style="margin-bottom:.5rem">
+            <div class="sistema-bar-label">
+              <span>${f}</span>
+              <strong>${n}</strong>
+            </div>
+            <div class="sistema-bar-track">
+              <div class="sistema-bar-fill" style="width:${(n/maxFin*100).toFixed(1)}%;background:${PALETTE[i%PALETTE.length]}"></div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+      <div>
+        <h3 style="font-size:1rem;font-weight:500;color:var(--gris-600);margin-bottom:1rem">Por área temática</h3>
+        ${sortedArea.map(([a, n], i) => `
+          <div class="sistema-bar-row" style="margin-bottom:.5rem">
+            <div class="sistema-bar-label">
+              <span style="font-size:.78rem">${a}</span>
+              <strong>${n}</strong>
+            </div>
+            <div class="sistema-bar-track">
+              <div class="sistema-bar-fill" style="width:${(n/maxArea*100).toFixed(1)}%;background:${PALETTE[(i+5)%PALETTE.length]}"></div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+    <h3 style="font-size:.95rem;font-weight:500;color:var(--gris-600);margin-bottom:1rem">Proyectos con datos de beneficiarios</h3>
+    <div class="kpi-grid" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr))">
+      <div class="kpi-card">
+        <div class="kpi-label">Con depto. registrado</div>
+        <div class="kpi-value" style="font-size:1.8rem">${projects.filter(p=>p.departamentos).length}</div>
+      </div>
+      <div class="kpi-card gold">
+        <div class="kpi-label">Con tipo de beneficiario</div>
+        <div class="kpi-value" style="font-size:1.8rem">${projects.filter(p=>p.tipo_beneficiarios).length}</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Con aliados</div>
+        <div class="kpi-value" style="font-size:1.8rem">${projects.filter(p=>p.aliados).length}</div>
+      </div>
+      <div class="kpi-card tierra">
+        <div class="kpi-label">Con publicaciones</div>
+        <div class="kpi-value" style="font-size:1.8rem">${projects.filter(p=>p.publicaciones).length}</div>
+      </div>
+    </div>
+  `;
+}
+
+// ── NAVIGATION ──
+function showSection(name) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById('sec-'+name).classList.add('active');
+  const btns = document.querySelectorAll('nav button');
+  const map = {dashboard:0, catalogo:1, capacidades:2, analisis:3};
+  btns[map[name]].classList.add('active');
+}
+
+// ── INIT ──
+renderKPIs();
+renderDashboard();
+populateFilters();
+applyFilters();
+renderCapacidades();
+renderAnalisis();
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
 </body>
 </html>
