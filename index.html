@@ -3,1238 +3,604 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portafolio I+D+i — C.I. Palmira · AGROSAVIA</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,400&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Capacidades Científicas — C.I. Palmira</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root {
-  --verde: #1a4731;
-  --verde-med: #2d6a4f;
-  --verde-light: #52b788;
-  --verde-pale: #d8f3dc;
-  --dorado: #b5873a;
-  --dorado-light: #f5d788;
-  --tierra: #6b4c2a;
-  --crema: #faf6ef;
-  --blanco: #ffffff;
-  --gris-50: #f9fafb;
-  --gris-100: #f3f4f6;
-  --gris-200: #e5e7eb;
-  --gris-600: #4b5563;
-  --gris-800: #1f2937;
-  --sombra: 0 2px 12px rgba(26,71,49,.10);
-  --sombra-lg: 0 8px 32px rgba(26,71,49,.15);
-}
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #f5f2ed;
+    --surface: #ffffff;
+    --border: #e0d9d0;
+    --text: #1c1a17;
+    --text-2: #5a5650;
+    --text-3: #8a857d;
+    --green: #1d5c3a;
+    --green-light: #e8f2ec;
+    --amber: #b5651d;
+    --amber-light: #fdf3e7;
+    --teal: #1d4d5c;
+    --teal-light: #e7f2f5;
+    --gold: #8a6e1a;
+    --gold-light: #faf3dc;
+    --radius: 12px;
+    --shadow: 0 2px 12px rgba(0,0,0,0.08);
+    --shadow-hover: 0 8px 32px rgba(0,0,0,0.14);
+  }
 
-body {
-  font-family: 'IBM Plex Sans', sans-serif;
-  background: var(--crema);
-  color: var(--gris-800);
-  min-height: 100vh;
-}
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 40px 20px 80px;
+  }
 
-header {
-  background: var(--verde);
-  color: #fff;
-  padding: 0;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  box-shadow: 0 2px 16px rgba(0,0,0,.25);
-}
-.header-inner {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 64px;
-}
-.logo-block { display: flex; align-items: center; gap: 1rem; }
-.logo-mark {
-  width: 40px; height: 40px;
-  background: var(--dorado);
-  border-radius: 8px;
-  display: grid;
-  place-items: center;
-  font-family: 'Fraunces', serif;
-  font-weight: 700;
-  font-size: 1.25rem;
-  color: var(--verde);
-}
-.logo-text { display: flex; flex-direction: column; line-height: 1.2; }
-.logo-text strong { font-size: .95rem; font-weight: 600; letter-spacing: .01em; }
-.logo-text span { font-size: .72rem; opacity: .7; font-weight: 300; }
-nav { display: flex; gap: .5rem; }
-nav button {
-  background: none;
-  border: none;
-  color: rgba(255,255,255,.75);
-  font-family: inherit;
-  font-size: .82rem;
-  padding: .45rem .9rem;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all .15s;
-}
-nav button:hover, nav button.active {
-  background: rgba(255,255,255,.15);
-  color: #fff;
-}
+  /* ── HEADER ── */
+  .page-header {
+    max-width: 960px;
+    margin: 0 auto 48px;
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 28px;
+  }
+  .page-header .eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 8px;
+  }
+  .page-header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 38px;
+    line-height: 1.15;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+  .page-header p {
+    font-size: 15px;
+    color: var(--text-2);
+    max-width: 600px;
+    line-height: 1.6;
+  }
 
-main { max-width: 1280px; margin: 0 auto; padding: 2.5rem 2rem 4rem; }
+  /* ── LEGEND ── */
+  .legend {
+    max-width: 960px;
+    margin: 0 auto 32px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text-2);
+  }
+  .legend-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
 
-.hero {
-  background: linear-gradient(135deg, var(--verde) 0%, var(--verde-med) 100%);
-  border-radius: 16px;
-  padding: 3rem;
-  color: #fff;
-  margin-bottom: 2.5rem;
-  position: relative;
-  overflow: hidden;
-}
-.hero::before {
-  content: '';
-  position: absolute;
-  right: -60px; top: -60px;
-  width: 300px; height: 300px;
-  background: rgba(255,255,255,.04);
-  border-radius: 50%;
-}
-.hero::after {
-  content: '';
-  position: absolute;
-  right: 80px; bottom: -80px;
-  width: 200px; height: 200px;
-  background: rgba(181,135,58,.15);
-  border-radius: 50%;
-}
-.hero-tag {
-  display: inline-block;
-  background: var(--dorado);
-  color: var(--verde);
-  font-size: .72rem;
-  font-weight: 600;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  padding: .3rem .8rem;
-  border-radius: 100px;
-  margin-bottom: 1rem;
-}
-.hero h1 {
-  font-family: 'Fraunces', serif;
-  font-size: 2.2rem;
-  font-weight: 600;
-  line-height: 1.2;
-  margin-bottom: .75rem;
-  max-width: 600px;
-}
-.hero p {
-  font-size: .95rem;
-  opacity: .8;
-  max-width: 560px;
-  line-height: 1.6;
-}
+  /* ── FILTER TABS ── */
+  .filter-bar {
+    max-width: 960px;
+    margin: 0 auto 28px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .filter-btn {
+    padding: 7px 18px;
+    border-radius: 99px;
+    border: 1.5px solid var(--border);
+    background: var(--surface);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-2);
+    cursor: pointer;
+    transition: all 0.18s ease;
+  }
+  .filter-btn:hover { border-color: var(--green); color: var(--green); }
+  .filter-btn.active {
+    background: var(--green);
+    border-color: var(--green);
+    color: #fff;
+  }
 
-.kpi-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1.25rem;
-  margin-bottom: 2.5rem;
-}
-.kpi-card {
-  background: #fff;
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: var(--sombra);
-  border-left: 4px solid var(--verde-light);
-  display: flex;
-  flex-direction: column;
-  gap: .3rem;
-}
-.kpi-card.gold { border-left-color: var(--dorado); }
-.kpi-card.tierra { border-left-color: var(--tierra); }
-.kpi-label {
-  font-size: .72rem;
-  text-transform: uppercase;
-  letter-spacing: .08em;
-  color: var(--gris-600);
-  font-weight: 500;
-}
-.kpi-value {
-  font-family: 'Fraunces', serif;
-  font-size: 2.4rem;
-  font-weight: 700;
-  color: var(--verde);
-  line-height: 1;
-}
-.kpi-card.gold .kpi-value { color: var(--dorado); }
-.kpi-card.tierra .kpi-value { color: var(--tierra); }
-.kpi-sub { font-size: .78rem; color: var(--gris-600); }
+  /* ── GRID ── */
+  .caps-grid {
+    max-width: 960px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
 
-.section { display: none; }
-.section.active { display: block; }
+  /* ── CARD ── */
+  .cap-card {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px 24px 20px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .cap-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    border-radius: var(--radius) var(--radius) 0 0;
+  }
+  .cap-card.emergente::before  { background: var(--amber); }
+  .cap-card.consolidada::before { background: var(--teal); }
+  .cap-card.distintiva::before  { background: var(--gold); }
 
-.section-title {
-  font-family: 'Fraunces', serif;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--verde);
-  margin-bottom: 1.5rem;
-  padding-bottom: .75rem;
-  border-bottom: 2px solid var(--verde-pale);
-}
+  .cap-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+    border-color: #c5bdb2;
+  }
+  .cap-card.hidden { display: none; }
 
-.filters-bar {
-  background: #fff;
-  border-radius: 12px;
-  padding: 1.25rem 1.5rem;
-  box-shadow: var(--sombra);
-  margin-bottom: 1.5rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  align-items: flex-end;
-}
-.filter-group { display: flex; flex-direction: column; gap: .3rem; flex: 1; min-width: 160px; }
-.filter-group label {
-  font-size: .72rem;
-  text-transform: uppercase;
-  letter-spacing: .07em;
-  color: var(--gris-600);
-  font-weight: 500;
-}
-.filter-group select, .filter-group input {
-  border: 1.5px solid var(--gris-200);
-  border-radius: 8px;
-  padding: .5rem .75rem;
-  font-family: inherit;
-  font-size: .85rem;
-  color: var(--gris-800);
-  background: var(--gris-50);
-  outline: none;
-  transition: border-color .15s;
-}
-.filter-group select:focus, .filter-group input:focus {
-  border-color: var(--verde-light);
-}
-.btn-clear {
-  background: var(--verde-pale);
-  border: none;
-  border-radius: 8px;
-  padding: .5rem 1rem;
-  font-family: inherit;
-  font-size: .82rem;
-  color: var(--verde);
-  font-weight: 500;
-  cursor: pointer;
-  transition: all .15s;
-  align-self: flex-end;
-}
-.btn-clear:hover { background: var(--verde-light); color: #fff; }
+  .cap-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 99px;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .cap-card.emergente  .cap-badge { background: var(--amber-light); color: var(--amber); }
+  .cap-card.consolidada .cap-badge { background: var(--teal-light); color: var(--teal); }
+  .cap-card.distintiva  .cap-badge { background: var(--gold-light); color: var(--gold); }
 
-.results-count {
-  font-size: .82rem;
-  color: var(--gris-600);
-  margin-bottom: 1rem;
-}
-.results-count strong { color: var(--verde); }
+  .cap-name {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--text);
+    margin-bottom: 14px;
+  }
 
-.project-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-  gap: 1.25rem;
-}
-.project-card {
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: var(--sombra);
-  padding: 1.5rem;
-  cursor: pointer;
-  transition: all .2s;
-  border: 1.5px solid transparent;
-  position: relative;
-}
-.project-card:hover {
-  box-shadow: var(--sombra-lg);
-  border-color: var(--verde-light);
-  transform: translateY(-2px);
-}
-.card-sistema {
-  display: inline-block;
-  background: var(--verde-pale);
-  color: var(--verde-med);
-  font-size: .68rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: .07em;
-  padding: .25rem .65rem;
-  border-radius: 100px;
-  margin-bottom: .85rem;
-}
-.card-title {
-  font-family: 'Fraunces', serif;
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--gris-800);
-  line-height: 1.35;
-  margin-bottom: .75rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-.card-meta { display: flex; flex-wrap: wrap; gap: .5rem; }
-.meta-pill {
-  display: flex;
-  align-items: center;
-  gap: .3rem;
-  font-size: .72rem;
-  color: var(--gris-600);
-  background: var(--gris-100);
-  padding: .2rem .6rem;
-  border-radius: 100px;
-}
-.card-arrow {
-  position: absolute;
-  right: 1.25rem;
-  bottom: 1.25rem;
-  width: 24px; height: 24px;
-  background: var(--verde-pale);
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  color: var(--verde);
-  font-size: .8rem;
-  opacity: 0;
-  transition: opacity .15s;
-}
-.project-card:hover .card-arrow { opacity: 1; }
+  .cap-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 4px;
+  }
+  .cap-count {
+    font-size: 12px;
+    color: var(--text-3);
+  }
+  .cap-count strong {
+    font-weight: 600;
+    color: var(--text-2);
+  }
+  .cap-arrow {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    color: var(--text-3);
+    transition: background 0.18s, color 0.18s;
+  }
+  .cap-card:hover .cap-arrow {
+    background: var(--green);
+    color: #fff;
+  }
 
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.55);
-  z-index: 200;
-  display: none;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 2rem 1rem;
-  overflow-y: auto;
-}
-.modal-overlay.open { display: flex; }
-.modal {
-  background: #fff;
-  border-radius: 16px;
-  max-width: 780px;
-  width: 100%;
-  box-shadow: 0 24px 64px rgba(0,0,0,.25);
-  animation: slideUp .2s ease;
-  margin: auto;
-}
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.modal-header {
-  background: linear-gradient(135deg, var(--verde) 0%, var(--verde-med) 100%);
-  color: #fff;
-  padding: 2rem;
-  border-radius: 16px 16px 0 0;
-  position: relative;
-}
-.modal-sistema {
-  display: inline-block;
-  background: var(--dorado);
-  color: var(--verde);
-  font-size: .72rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: .07em;
-  padding: .3rem .8rem;
-  border-radius: 100px;
-  margin-bottom: .75rem;
-}
-.modal-title {
-  font-family: 'Fraunces', serif;
-  font-size: 1.4rem;
-  font-weight: 600;
-  line-height: 1.25;
-  margin-bottom: .5rem;
-}
-.modal-lider { font-size: .85rem; opacity: .8; }
-.modal-close {
-  position: absolute;
-  top: 1.25rem;
-  right: 1.25rem;
-  background: rgba(255,255,255,.2);
-  border: none;
-  color: #fff;
-  width: 32px; height: 32px;
-  border-radius: 50%;
-  font-size: 1.1rem;
-  cursor: pointer;
-  display: grid;
-  place-items: center;
-  transition: background .15s;
-}
-.modal-close:hover { background: rgba(255,255,255,.35); }
-.modal-body { padding: 1.75rem 2rem; }
-.modal-section { margin-bottom: 1.5rem; }
-.modal-section:last-child { margin-bottom: 0; }
-.modal-section-title {
-  font-size: .7rem;
-  text-transform: uppercase;
-  letter-spacing: .1em;
-  color: var(--gris-600);
-  font-weight: 600;
-  margin-bottom: .6rem;
-}
-.modal-section p {
-  font-size: .9rem;
-  line-height: 1.65;
-  color: var(--gris-800);
-  white-space: pre-line;
-}
-.impact-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: .75rem;
-}
-.impact-box {
-  background: var(--gris-50);
-  border-radius: 8px;
-  padding: 1rem;
-  border-left: 3px solid;
-}
-.impact-box.tecnico { border-color: var(--verde-light); }
-.impact-box.economico { border-color: var(--dorado); }
-.impact-box.social { border-color: #60a5fa; }
-.impact-box.ambiental { border-color: #34d399; }
-.impact-box-label {
-  font-size: .68rem;
-  text-transform: uppercase;
-  letter-spacing: .08em;
-  font-weight: 600;
-  margin-bottom: .35rem;
-}
-.impact-box.tecnico .impact-box-label { color: var(--verde-med); }
-.impact-box.economico .impact-box-label { color: var(--dorado); }
-.impact-box.social .impact-box-label { color: #2563eb; }
-.impact-box.ambiental .impact-box-label { color: #059669; }
-.impact-box p { font-size: .82rem; line-height: 1.5; color: var(--gris-600); }
+  /* ── MODAL OVERLAY ── */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(28, 26, 23, 0.55);
+    backdrop-filter: blur(4px);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+  .modal-overlay.open {
+    opacity: 1;
+    pointer-events: all;
+  }
 
-.meta-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: .75rem;
-}
-.meta-item {
-  background: var(--gris-50);
-  border-radius: 8px;
-  padding: .85rem 1rem;
-}
-.meta-item-label {
-  font-size: .68rem;
-  text-transform: uppercase;
-  letter-spacing: .07em;
-  color: var(--gris-600);
-  font-weight: 600;
-  margin-bottom: .25rem;
-}
-.meta-item-val { font-size: .88rem; font-weight: 500; color: var(--gris-800); }
+  /* ── MODAL BOX ── */
+  .modal {
+    background: var(--surface);
+    border-radius: 16px;
+    width: 100%;
+    max-width: 720px;
+    max-height: 85vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.22);
+    transform: translateY(20px) scale(0.98);
+    transition: transform 0.28s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .modal-overlay.open .modal {
+    transform: translateY(0) scale(1);
+  }
 
-.cap-badges { display: flex; flex-wrap: wrap; gap: .5rem; }
-.cap-badge {
-  font-size: .75rem;
-  padding: .3rem .75rem;
-  border-radius: 100px;
-  font-weight: 500;
-}
-.cap-badge.emergente { background: #fef3c7; color: #92400e; }
-.cap-badge.consolidada { background: #dbeafe; color: #1e40af; }
-.cap-badge.distintiva { background: #d1fae5; color: #065f46; }
+  .modal-header {
+    padding: 28px 32px 20px;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+    position: relative;
+  }
+  .modal-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 99px;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .modal-badge.emergente  { background: var(--amber-light); color: var(--amber); }
+  .modal-badge.consolidada { background: var(--teal-light); color: var(--teal); }
+  .modal-badge.distintiva  { background: var(--gold-light); color: var(--gold); }
 
-.cap-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.25rem;
-}
-.cap-card {
-  background: #fff;
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: var(--sombra);
-  border-top: 4px solid;
-}
-.cap-card.emergente { border-color: #f59e0b; }
-.cap-card.consolidada { border-color: #3b82f6; }
-.cap-card.distintiva { border-color: #10b981; }
-.cap-cat {
-  font-size: .7rem;
-  text-transform: uppercase;
-  letter-spacing: .08em;
-  font-weight: 600;
-  margin-bottom: .5rem;
-}
-.cap-card.emergente .cap-cat { color: #b45309; }
-.cap-card.consolidada .cap-cat { color: #1d4ed8; }
-.cap-card.distintiva .cap-cat { color: #047857; }
-.cap-name {
-  font-family: 'Fraunces', serif;
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: var(--gris-800);
-  margin-bottom: .75rem;
-}
-.cap-meta { font-size: .8rem; color: var(--gris-600); line-height: 1.5; }
-.cap-meta strong { color: var(--gris-800); font-weight: 500; }
+  .modal-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    line-height: 1.3;
+    color: var(--text);
+    padding-right: 40px;
+  }
+  .modal-subtitle {
+    font-size: 13px;
+    color: var(--text-3);
+    margin-top: 6px;
+  }
+  .modal-close {
+    position: absolute;
+    top: 24px; right: 28px;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border);
+    background: var(--bg);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    color: var(--text-2);
+    transition: background 0.18s;
+  }
+  .modal-close:hover { background: var(--border); }
 
-.sistemas-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-.sistema-bar-row {
-  background: #fff;
-  border-radius: 10px;
-  padding: 1rem 1.25rem;
-  box-shadow: var(--sombra);
-}
-.sistema-bar-label {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: .5rem;
-}
-.sistema-bar-label span { font-size: .85rem; font-weight: 500; }
-.sistema-bar-label strong {
-  font-family: 'Fraunces', serif;
-  font-size: 1rem;
-  color: var(--verde);
-}
-.sistema-bar-track {
-  height: 6px;
-  background: var(--gris-200);
-  border-radius: 100px;
-  overflow: hidden;
-}
-.sistema-bar-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--verde-light), var(--verde-med));
-  border-radius: 100px;
-  transition: width .6s ease;
-}
+  .modal-body {
+    overflow-y: auto;
+    padding: 24px 32px 32px;
+    flex: 1;
+  }
 
-.prog-list { display: flex; flex-direction: column; gap: .75rem; }
-.prog-row {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  background: #fff;
-  border-radius: 10px;
-  padding: .85rem 1.25rem;
-  box-shadow: var(--sombra);
-}
-.prog-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
-.prog-name { flex: 1; font-size: .85rem; }
-.prog-count {
-  font-family: 'Fraunces', serif;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--verde);
-}
-.prog-pct { font-size: .78rem; color: var(--gris-600); width: 42px; text-align: right; }
+  /* ── PROJECT ACCORDION ── */
+  .project-item {
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+  .project-header {
+    padding: 16px 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    background: var(--surface);
+    transition: background 0.15s;
+  }
+  .project-header:hover { background: var(--bg); }
 
-.loading {
-  text-align: center;
-  padding: 4rem 2rem;
-  color: var(--gris-600);
-}
-.loading-spinner {
-  width: 40px; height: 40px;
-  border: 3px solid var(--verde-pale);
-  border-top-color: var(--verde);
-  border-radius: 50%;
-  animation: spin .8s linear infinite;
-  margin: 0 auto 1rem;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
+  .project-header-left { flex: 1; }
+  .project-sistema {
+    font-size: 10.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--green);
+    margin-bottom: 4px;
+  }
+  .project-nombre {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--text);
+  }
+  .project-lider {
+    font-size: 12px;
+    color: var(--text-3);
+    margin-top: 3px;
+  }
 
-.error-banner {
-  background: #fee2e2;
-  color: #991b1b;
-  border-radius: 12px;
-  padding: 1.25rem 1.5rem;
-  margin-bottom: 1.5rem;
-  font-size: .9rem;
-  line-height: 1.5;
-}
+  .project-estado {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+  }
+  .estado-pill {
+    padding: 2px 9px;
+    border-radius: 99px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+  .estado-pill.activo     { background: #e8f5e9; color: #2e7d32; }
+  .estado-pill.finalizado { background: #f3f4f6; color: #555; }
+  .estado-pill.ejecucion  { background: #e3f2fd; color: #1565c0; }
+  .estado-pill.formulacion { background: #fff3e0; color: #e65100; }
 
-.empty {
-  text-align: center;
-  padding: 4rem 2rem;
-  color: var(--gris-600);
-}
-.empty-icon { font-size: 2.5rem; margin-bottom: 1rem; }
-.empty h3 { font-family: 'Fraunces', serif; margin-bottom: .5rem; color: var(--verde); }
+  .chevron {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--bg);
+    color: var(--text-3);
+    font-size: 11px;
+    transition: transform 0.2s ease, background 0.15s;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .project-item.expanded .chevron {
+    transform: rotate(180deg);
+    background: var(--green);
+    color: #fff;
+  }
 
-@media (max-width: 768px) {
-  .hero { padding: 2rem 1.5rem; }
-  .hero h1 { font-size: 1.6rem; }
-  .project-grid { grid-template-columns: 1fr; }
-  .impact-grid { grid-template-columns: 1fr; }
-  nav { display: none; }
-  .modal-body { padding: 1.25rem 1.25rem; }
-}
+  .project-details {
+    display: none;
+    padding: 0 20px 20px;
+    border-top: 1px solid var(--border);
+    background: var(--bg);
+  }
+  .project-item.expanded .project-details { display: block; }
+
+  .detail-section {
+    margin-top: 16px;
+  }
+  .detail-label {
+    font-size: 10.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-3);
+    margin-bottom: 6px;
+  }
+  .detail-value {
+    font-size: 13.5px;
+    line-height: 1.65;
+    color: var(--text);
+    white-space: pre-wrap;
+  }
+
+  .detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .trl-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--green-light);
+    color: var(--green);
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  /* ── EMPTY ── */
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-3);
+    font-size: 14px;
+  }
+
+  /* ── SCROLL ── */
+  .modal-body::-webkit-scrollbar { width: 6px; }
+  .modal-body::-webkit-scrollbar-track { background: transparent; }
+  .modal-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  @media (max-width: 600px) {
+    .page-header h1 { font-size: 28px; }
+    .modal { max-height: 92vh; }
+    .modal-header { padding: 22px 20px 16px; }
+    .modal-body { padding: 16px 20px 24px; }
+    .detail-grid { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
 
-<!-- PASSWORD GATE -->
-<style>
-#gate-overlay {
-  position: fixed; inset: 0; z-index: 9999;
-  background: linear-gradient(135deg, #1a4731 0%, #2d6a4f 100%);
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'IBM Plex Sans', sans-serif;
-}
-#gate-box {
-  background: #fff; border-radius: 16px;
-  padding: 3rem 2.5rem; max-width: 400px; width: 90%;
-  box-shadow: 0 24px 64px rgba(0,0,0,.3);
-  text-align: center;
-}
-#gate-logo {
-  width: 56px; height: 56px; background: #1a4731;
-  border-radius: 12px; display: grid; place-items: center;
-  margin: 0 auto 1.25rem;
-  font-family: Georgia, serif; font-size: 1.5rem;
-  font-weight: 700; color: #b5873a;
-}
-#gate-box h2 { font-family: Georgia, serif; font-size: 1.35rem; color: #1a4731; margin-bottom: .35rem; }
-#gate-box p { font-size: .85rem; color: #6b7280; margin-bottom: 1.75rem; line-height: 1.5; }
-#gate-input {
-  width: 100%; border: 1.5px solid #e5e7eb; border-radius: 10px;
-  padding: .75rem 1rem; font-family: inherit; font-size: 1rem;
-  outline: none; text-align: center; letter-spacing: .15em;
-  transition: border-color .15s; margin-bottom: .85rem;
-}
-#gate-input:focus { border-color: #52b788; }
-#gate-btn {
-  width: 100%; background: #1a4731; color: #fff;
-  border: none; border-radius: 10px; padding: .8rem;
-  font-family: inherit; font-size: .95rem; font-weight: 600;
-  cursor: pointer; transition: background .15s;
-}
-#gate-btn:hover { background: #2d6a4f; }
-#gate-error { color: #dc2626; font-size: .8rem; margin-top: .5rem; display: none; height: 1rem; }
-#gate-footer { margin-top: 1.5rem; font-size: .72rem; color: #9ca3af; }
-</style>
-<div id="gate-overlay">
-  <div id="gate-box">
-    <div id="gate-logo">CI</div>
-    <h2>C.I. Palmira · AGROSAVIA</h2>
-    <p>Portafolio de I+D+i — acceso restringido.<br>Ingresa la contraseña para continuar.</p>
-    <input id="gate-input" type="password" placeholder="Contraseña"
-           onkeydown="if(event.key==='Enter') checkPass()">
-    <button id="gate-btn" onclick="checkPass()">Ingresar</button>
-    <div id="gate-error">Contraseña incorrecta. Intenta de nuevo.</div>
-    <div id="gate-footer">Sitio en construcción · Solo acceso autorizado</div>
-  </div>
-</div>
-<script>
-(function(){
-  const PASS = 'Palmira2025';
-  const KEY  = 'cip_auth';
-  if (sessionStorage.getItem(KEY) === '1') {
-    document.getElementById('gate-overlay').style.display = 'none';
-  }
-  window.checkPass = function() {
-    const val = document.getElementById('gate-input').value;
-    if (val === PASS) {
-      sessionStorage.setItem(KEY, '1');
-      document.getElementById('gate-overlay').style.display = 'none';
-    } else {
-      const err = document.getElementById('gate-error');
-      err.style.display = 'block';
-      document.getElementById('gate-input').value = '';
-      document.getElementById('gate-input').focus();
-      setTimeout(() => err.style.display = 'none', 3000);
-    }
-  };
-})();
-</script>
-<!-- END PASSWORD GATE -->
-
-<header>
-  <div class="header-inner">
-    <div class="logo-block">
-      <div class="logo-mark">CI</div>
-      <div class="logo-text">
-        <strong>C.I. Palmira · AGROSAVIA</strong>
-        <span>Portafolio de I+D+i</span>
-      </div>
-    </div>
-    <nav>
-      <button class="active" onclick="showSection('dashboard')">Dashboard</button>
-      <button onclick="showSection('catalogo')">Catálogo</button>
-      <button onclick="showSection('capacidades')">Capacidades</button>
-      <button onclick="showSection('analisis')">Análisis</button>
-    </nav>
-  </div>
-</header>
-
-<main>
-
-<div class="hero">
-  <div class="hero-tag">Portafolio Científico 2025</div>
-  <h1>Centro de Investigación Palmira</h1>
-  <p>Investigación, Desarrollo e Innovación para la agricultura tropical colombiana. Evidencia científica al servicio de financiadores, aliados y tomadores de decisión.</p>
+<div class="page-header">
+  <div class="eyebrow">AGROSAVIA · C.I. Palmira</div>
+  <h1>Capacidades Científicas</h1>
+  <p>Haz clic en cualquier capacidad para explorar los proyectos de I+D+i que la respaldan, incluyendo objetivos y productos generados.</p>
 </div>
 
-<div class="kpi-grid" id="kpi-grid">
-  <div class="loading"><div class="loading-spinner"></div>Cargando datos…</div>
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#b5651d"></div> Emergente</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#1d4d5c"></div> Consolidada</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#8a6e1a"></div> Distintiva</div>
 </div>
 
-<section id="sec-dashboard" class="section active">
-  <h2 class="section-title">Distribución del Portafolio</h2>
-  <h3 style="font-size:.95rem;font-weight:500;color:var(--gris-600);margin-bottom:1rem">Proyectos por sistema productivo</h3>
-  <div class="sistemas-grid" id="sistemas-chart"></div>
-  <h3 style="font-size:.95rem;font-weight:500;color:var(--gris-600);margin:1.5rem 0 1rem">Distribución por programa estratégico</h3>
-  <div class="prog-list" id="prog-list"></div>
-</section>
+<div class="filter-bar">
+  <button class="filter-btn active" data-filter="all">Todas</button>
+  <button class="filter-btn" data-filter="emergente">Emergentes</button>
+  <button class="filter-btn" data-filter="consolidada">Consolidadas</button>
+  <button class="filter-btn" data-filter="distintiva">Distintivas</button>
+</div>
 
-<section id="sec-catalogo" class="section">
-  <h2 class="section-title">Catálogo de Proyectos</h2>
-  <div class="filters-bar">
-    <div class="filter-group">
-      <label>Buscar</label>
-      <input type="text" id="f-buscar" placeholder="Nombre del proyecto…" oninput="applyFilters()">
-    </div>
-    <div class="filter-group">
-      <label>Sistema productivo</label>
-      <select id="f-sistema" onchange="applyFilters()"><option value="">Todos</option></select>
-    </div>
-    <div class="filter-group">
-      <label>Área temática</label>
-      <select id="f-area" onchange="applyFilters()"><option value="">Todas</option></select>
-    </div>
-    <div class="filter-group">
-      <label>Financiador</label>
-      <select id="f-financiador" onchange="applyFilters()"><option value="">Todos</option></select>
-    </div>
-    <button class="btn-clear" onclick="clearFilters()">Limpiar filtros</button>
-  </div>
-  <div class="results-count" id="results-count"></div>
-  <div class="project-grid" id="project-grid">
-    <div class="loading"><div class="loading-spinner"></div>Cargando proyectos…</div>
-  </div>
-</section>
-
-<section id="sec-capacidades" class="section">
-  <h2 class="section-title">Mapa de Capacidades Científicas</h2>
-  <p style="font-size:.9rem;color:var(--gris-600);margin-bottom:1.5rem;line-height:1.6">
-    Las capacidades científicas del C.I. Palmira se clasifican en tres niveles:
-    <strong>Emergentes</strong> (en desarrollo), <strong>Consolidadas</strong> (con resultados demostrados) y <strong>Distintivas</strong> (liderazgo reconocido).
-  </p>
-  <div class="cap-grid" id="cap-grid"></div>
-</section>
-
-<section id="sec-analisis" class="section">
-  <h2 class="section-title">Análisis por Financiador y Área</h2>
-  <div id="analisis-content"></div>
-</section>
-
-</main>
+<div class="caps-grid" id="capsGrid"></div>
 
 <!-- MODAL -->
-<div class="modal-overlay" id="modal-overlay" onclick="closeModalIfOverlay(event)">
-  <div class="modal" id="modal">
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" role="dialog" aria-modal="true">
     <div class="modal-header">
-      <div class="modal-sistema" id="m-sistema"></div>
-      <h2 class="modal-title" id="m-title"></h2>
-      <div class="modal-lider" id="m-lider"></div>
-      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="modal-badge" id="modalBadge"></div>
+      <h2 class="modal-title" id="modalTitle"></h2>
+      <p class="modal-subtitle" id="modalSubtitle"></p>
+      <button class="modal-close" id="modalClose" aria-label="Cerrar">✕</button>
     </div>
-    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-body" id="modalBody"></div>
   </div>
 </div>
 
 <script>
-// ── Constantes ──────────────────────────────────────────────
-const CSV_URL = 'portafolio_proyectos.csv?v=' + Date.now(); // cache-bust
-const PALETTE = ['#1a4731','#2d6a4f','#52b788','#b5873a','#6b4c2a','#74c69d','#40916c','#d4a373','#457b9d','#e76f51','#2a9d8f','#e9c46a','#264653','#f4a261','#a8dadc'];
+const CAP_DATA = {"Indicadores de sostenibilidad ambiental": {"tipo": "emergente", "proyectos": [{"nombre": "Convenio 1790. Manejo integrado del cultivo", "sistema": "Aguacate Hass", "area": "Fisiología vegetal y nutrición", "lider": "Alexander Rebolledo Roa", "objetivo": "Optimizar la floración y productividad del aguacate Hass mediante manejo hídrico y nutricional.", "productos": "1. Protocolo aplicación láminas de riego Antioquia, Tolima, Cauca (Fase 1. Palmira)\n2. Protocolo para manejo de la fertilización  (Antioquia, Tolima, Cauca) (Fase 1).", "resultados": "1. Caracterización de la fenología floral (140 días a antesis), \n2. Abscisión global. 99,85 % (276.455 flores)\n3. Cuajado. 0,15 % \n4. Incremento en rendimiento con manejo de IBN + riego. de 7,5 a 14 t/ha y la producción por planta de 61 a 98 kg.", "estado": "Finalizado", "trl_ini": "2026-04-03 00:00:00", "trl_fin": "No definido", "programa": "Bioeconomía: Prácticas de agricultura sostenible", "tipo_cap": "emergente"}, {"nombre": "Convenio 1929. Desarrollo y validación de tecnologías para incrementar la productividad del cultivo", "sistema": "Aguacate Hass", "area": "Fisiología vegetal y nutrición", "lider": "Alexander Rebolledo Roa", "objetivo": "Validar tecnologías de nutrición y riego para incrementar productividad del aguacate Hass en el Cauca", "productos": "Protocolo de fertilización basada en IBN para aguacate Hass Cauca, protocolo de riego por balance hídrico, modelo fenológico BBCH, aplicativo web de recomendación nutricional e hídrica", "resultados": "Fertilización basada en IBN incrementó diámetro de fruto (T2: 61,43 mm vs T1: 54,77 mm). Abscisión 98–99,9%. Cuajado 0,15–0,87%. Riego 0,75 ETo mejoró peso seco del mesocarpo", "estado": "En ejecución", "trl_ini": "5", "trl_fin": "7", "programa": "ACI:Productividad agrícola agroambientalmente eficiente e integralmente sostenible", "tipo_cap": "emergente"}]}, "Fertilización por sitio específico": {"tipo": "consolidada", "proyectos": [{"nombre": "Convenio 1929. Desarrollo y validación de tecnologías para incrementar la productividad del cultivo", "sistema": "Aguacate Hass", "area": "Fisiología vegetal y nutrición", "lider": "Alexander Rebolledo Roa", "objetivo": "Validar tecnologías de nutrición y riego para incrementar productividad del aguacate Hass en el Cauca", "productos": "Protocolo de fertilización basada en IBN para aguacate Hass Cauca, protocolo de riego por balance hídrico, modelo fenológico BBCH, aplicativo web de recomendación nutricional e hídrica", "resultados": "Fertilización basada en IBN incrementó diámetro de fruto (T2: 61,43 mm vs T1: 54,77 mm). Abscisión 98–99,9%. Cuajado 0,15–0,87%. Riego 0,75 ETo mejoró peso seco del mesocarpo", "estado": "En ejecución", "trl_ini": "5", "trl_fin": "7", "programa": "ACI:Productividad agrícola agroambientalmente eficiente e integralmente sostenible", "tipo_cap": "consolidada"}, {"nombre": "Convenio 2207. Desarrollo de modelo fenológico  aguacate Hass  Pijao – Quindío (Fase 1)", "sistema": "Aguacate Hass", "area": "Fisiología vegetal y nutrición", "lider": "Alexander Rebolledo Roa", "objetivo": "Desarrollar un modelo fenológico predictivo basado en GDD para aguacate Hass en gradiente altitudinal de Pijao, Quindío", "productos": "Documento técnico con modelo fenológico GDD, caracterización climática altitudinal y clasificación Codex; 1 artículo científico sometido a revista indexada; 2 estaciones climáticas automatizadas instaladas", "resultados": "Gradiente térmico-hídrico determina sincronía fenológica. Altitud ~2200 m es óptima (antesis ρ=0,82). GDD predice progresión fenológica. L3 (~2056 m): 20,58 kg/árbol cosecha 2, materia seca 22,8 %", "estado": "Finalizado", "trl_ini": "2", "trl_fin": "5", "programa": "Bioeconomía: Prácticas de agricultura sostenible", "tipo_cap": "consolidada"}]}, "Nutrición y riego para aguacate de consumo interno (Lorena)": {"tipo": "emergente", "proyectos": [{"nombre": "Portafolio. Fortalecimiento cadena de valor de aguacate. Convocatoria 42. SGR-Región Pacífico", "sistema": "Aguacate Hass", "area": "Fisiología vegetal y nutrición", "lider": "Alexander Rebolledo Roa", "objetivo": "Validar tecnologías de fertilización y riego para aguacate Hass y Lorena en Cauca y Valle del Cauca", "productos": "Planes de manejo de nutrición y riego (Hass y Lorena, Cauca y Valle del Cauca), módulo fertilización y riego TecnoHass (TRL 8), manuales técnicos, artículos científicos indexados", "resultados": "Fertilización IBN incrementó producción de 7 a 14 t/ha; lámina 75% ETo fue óptima; fertilización foliar N+B aumentó producción en 14 t/ha; rendimiento de hasta 20 kg/árbol con IBN", "estado": "En ejecución", "trl_ini": "4", "trl_fin": "8", "programa": "ACI:Productividad agrícola agroambientalmente eficiente e integralmente sostenible", "tipo_cap": "emergente"}]}, "Fertilización por sitio específico (IBN) y riego por balance hídrico": {"tipo": "consolidada", "proyectos": [{"nombre": "Portafolio. Fortalecimiento cadena de valor de aguacate. Convocatoria 42. SGR-Región Pacífico", "sistema": "Aguacate Hass", "area": "Fisiología vegetal y nutrición", "lider": "Alexander Rebolledo Roa", "objetivo": "Validar tecnologías de fertilización y riego para aguacate Hass y Lorena en Cauca y Valle del Cauca", "productos": "Planes de manejo de nutrición y riego (Hass y Lorena, Cauca y Valle del Cauca), módulo fertilización y riego TecnoHass (TRL 8), manuales técnicos, artículos científicos indexados", "resultados": "Fertilización IBN incrementó producción de 7 a 14 t/ha; lámina 75% ETo fue óptima; fertilización foliar N+B aumentó producción en 14 t/ha; rendimiento de hasta 20 kg/árbol con IBN", "estado": "En ejecución", "trl_ini": "4", "trl_fin": "8", "programa": "ACI:Productividad agrícola agroambientalmente eficiente e integralmente sostenible", "tipo_cap": "consolidada"}]}, "Modelación fenológica con acumulación térmica (GDD) en sistemas frutícolas altoandinos": {"tipo": "emergente", "proyectos": [{"nombre": "Convenio 2207. Desarrollo de modelo fenológico  aguacate Hass  Pijao – Quindío (Fase 1)", "sistema": "Aguacate Hass", "area": "Fisiología vegetal y nutrición", "lider": "Alexander Rebolledo Roa", "objetivo": "Desarrollar un modelo fenológico predictivo basado en GDD para aguacate Hass en gradiente altitudinal de Pijao, Quindío", "productos": "Documento técnico con modelo fenológico GDD, caracterización climática altitudinal y clasificación Codex; 1 artículo científico sometido a revista indexada; 2 estaciones climáticas automatizadas instaladas", "resultados": "Gradiente térmico-hídrico determina sincronía fenológica. Altitud ~2200 m es óptima (antesis ρ=0,82). GDD predice progresión fenológica. L3 (~2056 m): 20,58 kg/árbol cosecha 2, materia seca 22,8 %", "estado": "Finalizado", "trl_ini": "2", "trl_fin": "5", "programa": "Bioeconomía: Prácticas de agricultura sostenible", "tipo_cap": "emergente"}]}, "Desarrollo de oferta tecnológica transferible": {"tipo": "distintiva", "proyectos": [{"nombre": "1002666: Viabilidad centros de fermentación en las regiones cacaoteras de Caldas, Huila y Tolima.", "sistema": "Cacao", "area": "Manejo cosecha, poscosecha y transformación", "lider": "Jader Rodríguez Cortina", "objetivo": "Desarrollar de una herramienta en excel para establecer la viabilidad para establecer centros comunitarios de valorización poscosecha en Caldas, Huila y Tolima", "productos": "Una (1) herramienta de excel para la planificación en transporte, procesamiento, análisis de utilidades y escenarios de establecimientos de centros comunitarios de valorización poscosecha en Caldas, Huila y Tolima, mapas agroclimáticos, base de datos georreferenciada, estudio de viabilidad, modelo logístico", "resultados": "Una (1) zonificación agroclimática, Una (1) herramienta de excel para la planificación en transporte, procesamiento, análisis de utilidades y escenarios de establecimientos de centros comunitarios de valorización poscosecha en Caldas, Huila y Tolima", "estado": "Finalizado", "trl_ini": "2", "trl_fin": "5", "programa": "Bioeconomía: Economía circular", "tipo_cap": "distintiva"}, {"nombre": "ID: 1002841. Implementación de un modelo para el aprovechamiento integral de las mazorcas de cacao para la generación de productos de valor agregado por medio de alternativas biotecnológicas", "sistema": "Cacao", "area": "Manejo cosecha, poscosecha y transformación", "lider": "Jader Rodríguez Cortina", "objetivo": "Implementar alternativas biotecnológicas para valorizar residuos de mazorca de cacao mediante compostaje, digestión anaerobia y pirólisis", "productos": "1 prototipo de reactor anaerobio, 1 protocolo de operación, 1 artículo científico, 1 herramienta multicriterio para la selección de biomasa", "resultados": "Obtención de biochar, compost y digestato valorizados; implementación de prototipos piloto y validación agronómica de bioinsumos derivados de residuos de cacao.", "estado": "En ejecución", "trl_ini": "3", "trl_fin": "6", "programa": "Bioeconomía: Economía circular", "tipo_cap": "distintiva"}, {"nombre": "ID 001451: SGR Arauca poscosecha", "sistema": "Cacao", "area": "Manejo cosecha, poscosecha y transformación", "lider": "Jader Rodríguez Cortina", "objetivo": "Implementar estrategias agroforestales y tecnologías agronómicas y poscosecha para mejorar productividad, inocuidad y calidad del cacao en Arauca.", "productos": "Planta de bioeconomía en cacao, equipos de valorización poscosecha: Fermentador rotatorio, fermentador tipo biorreactor con control de variables de proceso, secador de alta eficiencia energética, secador por ventana refractiva, publicaciones científicas", "resultados": "Equipos poscosecha, protocolos de fermentación para obtención de cacao de calidad superior", "estado": "En ejecución", "trl_ini": "3", "trl_fin": "7", "programa": "Bioeconomía: Economía circular", "tipo_cap": "distintiva"}]}, "Capacidad de convertir ciencia en productos de valor": {"tipo": "distintiva", "proyectos": [{"nombre": "1002666: Viabilidad centros de fermentación en las regiones cacaoteras de Caldas, Huila y Tolima.", "sistema": "Cacao", "area": "Manejo cosecha, poscosecha y transformación", "lider": "Jader Rodríguez Cortina", "objetivo": "Desarrollar de una herramienta en excel para establecer la viabilidad para establecer centros comunitarios de valorización poscosecha en Caldas, Huila y Tolima", "productos": "Una (1) herramienta de excel para la planificación en transporte, procesamiento, análisis de utilidades y escenarios de establecimientos de centros comunitarios de valorización poscosecha en Caldas, Huila y Tolima, mapas agroclimáticos, base de datos georreferenciada, estudio de viabilidad, modelo logístico", "resultados": "Una (1) zonificación agroclimática, Una (1) herramienta de excel para la planificación en transporte, procesamiento, análisis de utilidades y escenarios de establecimientos de centros comunitarios de valorización poscosecha en Caldas, Huila y Tolima", "estado": "Finalizado", "trl_ini": "2", "trl_fin": "5", "programa": "Bioeconomía: Economía circular", "tipo_cap": "distintiva"}, {"nombre": "ID: 1002841. Implementación de un modelo para el aprovechamiento integral de las mazorcas de cacao para la generación de productos de valor agregado por medio de alternativas biotecnológicas", "sistema": "Cacao", "area": "Manejo cosecha, poscosecha y transformación", "lider": "Jader Rodríguez Cortina", "objetivo": "Implementar alternativas biotecnológicas para valorizar residuos de mazorca de cacao mediante compostaje, digestión anaerobia y pirólisis", "productos": "1 prototipo de reactor anaerobio, 1 protocolo de operación, 1 artículo científico, 1 herramienta multicriterio para la selección de biomasa", "resultados": "Obtención de biochar, compost y digestato valorizados; implementación de prototipos piloto y validación agronómica de bioinsumos derivados de residuos de cacao.", "estado": "En ejecución", "trl_ini": "3", "trl_fin": "6", "programa": "Bioeconomía: Economía circular", "tipo_cap": "distintiva"}, {"nombre": "ID 001451: SGR Arauca poscosecha", "sistema": "Cacao", "area": "Manejo cosecha, poscosecha y transformación", "lider": "Jader Rodríguez Cortina", "objetivo": "Implementar estrategias agroforestales y tecnologías agronómicas y poscosecha para mejorar productividad, inocuidad y calidad del cacao en Arauca.", "productos": "Planta de bioeconomía en cacao, equipos de valorización poscosecha: Fermentador rotatorio, fermentador tipo biorreactor con control de variables de proceso, secador de alta eficiencia energética, secador por ventana refractiva, publicaciones científicas", "resultados": "Equipos poscosecha, protocolos de fermentación para obtención de cacao de calidad superior", "estado": "En ejecución", "trl_ini": "3", "trl_fin": "7", "programa": "Bioeconomía: Economía circular", "tipo_cap": "distintiva"}]}, "Calidad sensorial de cacao": {"tipo": "consolidada", "proyectos": [{"nombre": "ID: 1002667. Establecimiento de protocolos apropiados de fermentación basados en perfiles sensoriales del cacao en Caldas, Huila y Tolima.", "sistema": "Cacao", "area": "Manejo cosecha, poscosecha y transformación", "lider": "Jader Rodríguez Cortina", "objetivo": "Desarrollar protocolos de fermentación basados en perfiles sensoriales del cacao de Caldas, Huila y Tolima.", "productos": "200 Perfiles sensoriales de calidad de 10 zonas agroecológicas en Caldas, Huila y Tolima, recomendaciones de buenas prácticas poscosecha para potenciar la calidad, protocolos de fermentación, base de datos espacial, mapas agroecológicos", "resultados": "200 Perfiles sensoriales de calidad de 10 zonas agroecológicas en Caldas, Huila y Tolima y recomendaciones de buenas prácticas poscosecha para potenciar la calidad", "estado": "Finalizado", "trl_ini": "3", "trl_fin": "6", "programa": "Bioeconomía: Economía circular", "tipo_cap": "consolidada"}, {"nombre": "ID 001451: SGR Arauca poscosecha", "sistema": "Cacao", "area": "Manejo cosecha, poscosecha y transformación", "lider": "Jader Rodríguez Cortina", "objetivo": "Implementar estrategias agroforestales y tecnologías agronómicas y poscosecha para mejorar productividad, inocuidad y calidad del cacao en Arauca.", "productos": "Planta de bioeconomía en cacao, equipos de valorización poscosecha: Fermentador rotatorio, fermentador tipo biorreactor con control de variables de proceso, secador de alta eficiencia energética, secador por ventana refractiva, publicaciones científicas", "resultados": "Equipos poscosecha, protocolos de fermentación para obtención de cacao de calidad superior", "estado": "En ejecución", "trl_ini": "3", "trl_fin": "7", "programa": "Bioeconomía: Economía circular", "tipo_cap": "consolidada"}]}, "Protocolos de fermentación y secado": {"tipo": "consolidada", "proyectos": [{"nombre": "ID: 1002667. Establecimiento de protocolos apropiados de fermentación basados en perfiles sensoriales del cacao en Caldas, Huila y Tolima.", "sistema": "Cacao", "area": "Manejo cosecha, poscosecha y transformación", "lider": "Jader Rodríguez Cortina", "objetivo": "Desarrollar protocolos de fermentación basados en perfiles sensoriales del cacao de Caldas, Huila y Tolima.", "productos": "200 Perfiles sensoriales de calidad de 10 zonas agroecológicas en Caldas, Huila y Tolima, recomendaciones de buenas prácticas poscosecha para potenciar la calidad, protocolos de fermentación, base de datos espacial, mapas agroecológicos", "resultados": "200 Perfiles sensoriales de calidad de 10 zonas agroecológicas en Caldas, Huila y Tolima y recomendaciones de buenas prácticas poscosecha para potenciar la calidad", "estado": "Finalizado", "trl_ini": "3", "trl_fin": "6", "programa": "Bioeconomía: Economía circular", "tipo_cap": "consolidada"}, {"nombre": "ID 001451: SGR Arauca poscosecha", "sistema": "Cacao", "area": "Manejo cosecha, poscosecha y transformación", "lider": "Jader Rodríguez Cortina", "objetivo": "Implementar estrategias agroforestales y tecnologías agronómicas y poscosecha para mejorar productividad, inocuidad y calidad del cacao en Arauca.", "productos": "Planta de bioeconomía en cacao, equipos de valorización poscosecha: Fermentador rotatorio, fermentador tipo biorreactor con control de variables de proceso, secador de alta eficiencia energética, secador por ventana refractiva, publicaciones científicas", "resultados": "Equipos poscosecha, protocolos de fermentación para obtención de cacao de calidad superior", "estado": "En ejecución", "trl_ini": "3", "trl_fin": "7", "programa": "Bioeconomía: Economía circular", "tipo_cap": "consolidada"}]}, "Valorización de subproductos": {"tipo": "consolidada", "proyectos": [{"nombre": "ID: 1002841. Implementación de un modelo para el aprovechamiento integral de las mazorcas de cacao para la generación de productos de valor agregado por medio de alternativas biotecnológicas", "sistema": "Cacao", "area": "Manejo cosecha, poscosecha y transformación", "lider": "Jader Rodríguez Cortina", "objetivo": "Implementar alternativas biotecnológicas para valorizar residuos de mazorca de cacao mediante compostaje, digestión anaerobia y pirólisis", "productos": "1 prototipo de reactor anaerobio, 1 protocolo de operación, 1 artículo científico, 1 herramienta multicriterio para la selección de biomasa", "resultados": "Obtención de biochar, compost y digestato valorizados; implementación de prototipos piloto y validación agronómica de bioinsumos derivados de residuos de cacao.", "estado": "En ejecución", "trl_ini": "3", "trl_fin": "6", "programa": "Bioeconomía: Economía circular", "tipo_cap": "consolidada"}]}, "Diseño de equipos de poscosecha": {"tipo": "consolidada", "proyectos": [{"nombre": "ID: 1002841. Implementación de un modelo para el aprovechamiento integral de las mazorcas de cacao para la generación de productos de valor agregado por medio de alternativas biotecnológicas", "sistema": "Cacao", "area": "Manejo cosecha, poscosecha y transformación", "lider": "Jader Rodríguez Cortina", "objetivo": "Implementar alternativas biotecnológicas para valorizar residuos de mazorca de cacao mediante compostaje, digestión anaerobia y pirólisis", "productos": "1 prototipo de reactor anaerobio, 1 protocolo de operación, 1 artículo científico, 1 herramienta multicriterio para la selección de biomasa", "resultados": "Obtención de biochar, compost y digestato valorizados; implementación de prototipos piloto y validación agronómica de bioinsumos derivados de residuos de cacao.", "estado": "En ejecución", "trl_ini": "3", "trl_fin": "6", "programa": "Bioeconomía: Economía circular", "tipo_cap": "consolidada"}, {"nombre": "ID 001451: SGR Arauca poscosecha", "sistema": "Cacao", "area": "Manejo cosecha, poscosecha y transformación", "lider": "Jader Rodríguez Cortina", "objetivo": "Implementar estrategias agroforestales y tecnologías agronómicas y poscosecha para mejorar productividad, inocuidad y calidad del cacao en Arauca.", "productos": "Planta de bioeconomía en cacao, equipos de valorización poscosecha: Fermentador rotatorio, fermentador tipo biorreactor con control de variables de proceso, secador de alta eficiencia energética, secador por ventana refractiva, publicaciones científicas", "resultados": "Equipos poscosecha, protocolos de fermentación para obtención de cacao de calidad superior", "estado": "En ejecución", "trl_ini": "3", "trl_fin": "7", "programa": "Bioeconomía: Economía circular", "tipo_cap": "consolidada"}]}, "Escalamiento de tecnologías en cacao": {"tipo": "consolidada", "proyectos": [{"nombre": "ID: 1002841. Implementación de un modelo para el aprovechamiento integral de las mazorcas de cacao para la generación de productos de valor agregado por medio de alternativas biotecnológicas", "sistema": "Cacao", "area": "Manejo cosecha, poscosecha y transformación", "lider": "Jader Rodríguez Cortina", "objetivo": "Implementar alternativas biotecnológicas para valorizar residuos de mazorca de cacao mediante compostaje, digestión anaerobia y pirólisis", "productos": "1 prototipo de reactor anaerobio, 1 protocolo de operación, 1 artículo científico, 1 herramienta multicriterio para la selección de biomasa", "resultados": "Obtención de biochar, compost y digestato valorizados; implementación de prototipos piloto y validación agronómica de bioinsumos derivados de residuos de cacao.", "estado": "En ejecución", "trl_ini": "3", "trl_fin": "6", "programa": "Bioeconomía: Economía circular", "tipo_cap": "consolidada"}, {"nombre": "ID 001451: SGR Arauca poscosecha", "sistema": "Cacao", "area": "Manejo cosecha, poscosecha y transformación", "lider": "Jader Rodríguez Cortina", "objetivo": "Implementar estrategias agroforestales y tecnologías agronómicas y poscosecha para mejorar productividad, inocuidad y calidad del cacao en Arauca.", "productos": "Planta de bioeconomía en cacao, equipos de valorización poscosecha: Fermentador rotatorio, fermentador tipo biorreactor con control de variables de proceso, secador de alta eficiencia energética, secador por ventana refractiva, publicaciones científicas", "resultados": "Equipos poscosecha, protocolos de fermentación para obtención de cacao de calidad superior", "estado": "En ejecución", "trl_ini": "3", "trl_fin": "7", "programa": "Bioeconomía: Economía circular", "tipo_cap": "consolidada"}]}, "Enfoque de bioeconomía en cacao": {"tipo": "distintiva", "proyectos": [{"nombre": "ID: 1002841. Implementación de un modelo para el aprovechamiento integral de las mazorcas de cacao para la generación de productos de valor agregado por medio de alternativas biotecnológicas", "sistema": "Cacao", "area": "Manejo cosecha, poscosecha y transformación", "lider": "Jader Rodríguez Cortina", "objetivo": "Implementar alternativas biotecnológicas para valorizar residuos de mazorca de cacao mediante compostaje, digestión anaerobia y pirólisis", "productos": "1 prototipo de reactor anaerobio, 1 protocolo de operación, 1 artículo científico, 1 herramienta multicriterio para la selección de biomasa", "resultados": "Obtención de biochar, compost y digestato valorizados; implementación de prototipos piloto y validación agronómica de bioinsumos derivados de residuos de cacao.", "estado": "En ejecución", "trl_ini": "3", "trl_fin": "6", "programa": "Bioeconomía: Economía circular", "tipo_cap": "distintiva"}]}, "Evaluación sensorial y química": {"tipo": "consolidada", "proyectos": [{"nombre": "ID 001451: SGR Arauca poscosecha", "sistema": "Cacao", "area": "Manejo cosecha, poscosecha y transformación", "lider": "Jader Rodríguez Cortina", "objetivo": "Implementar estrategias agroforestales y tecnologías agronómicas y poscosecha para mejorar productividad, inocuidad y calidad del cacao en Arauca.", "productos": "Planta de bioeconomía en cacao, equipos de valorización poscosecha: Fermentador rotatorio, fermentador tipo biorreactor con control de variables de proceso, secador de alta eficiencia energética, secador por ventana refractiva, publicaciones científicas", "resultados": "Equipos poscosecha, protocolos de fermentación para obtención de cacao de calidad superior", "estado": "En ejecución", "trl_ini": "3", "trl_fin": "7", "programa": "Bioeconomía: Economía circular", "tipo_cap": "consolidada"}]}, "Modelos territoriales replicables": {"tipo": "distintiva", "proyectos": [{"nombre": "ID 001451: SGR Arauca poscosecha", "sistema": "Cacao", "area": "Manejo cosecha, poscosecha y transformación", "lider": "Jader Rodríguez Cortina", "objetivo": "Implementar estrategias agroforestales y tecnologías agronómicas y poscosecha para mejorar productividad, inocuidad y calidad del cacao en Arauca.", "productos": "Planta de bioeconomía en cacao, equipos de valorización poscosecha: Fermentador rotatorio, fermentador tipo biorreactor con control de variables de proceso, secador de alta eficiencia energética, secador por ventana refractiva, publicaciones científicas", "resultados": "Equipos poscosecha, protocolos de fermentación para obtención de cacao de calidad superior", "estado": "En ejecución", "trl_ini": "3", "trl_fin": "7", "programa": "Bioeconomía: Economía circular", "tipo_cap": "distintiva"}]}, "Desarrollo de Esquemas de Aseguramiento Sanitario (EAS).": {"tipo": "emergente", "proyectos": [{"nombre": "Desarrollo   de   nuevas   recomendaciones   tecnológicas   para   contribuir   con   la   competitividad  y  la  sostenibilidad  del  sector  quinuero  del  departamento   del   Cauca, Convenio 1983, Actividad 8: Caracterizar los problemas de enfermedades del cultivo de quinua en el departamento del Cauca (Fase 1), Diana Milena Rodríguez Mora", "sistema": "Quinua", "area": "Manejo sanitario y fitosanitario", "lider": "Diana Milena Rodríguez Mora", "objetivo": "Caracterizar las enfermedades en el sistema productivo de quinua y desarrollar recomendaciones de manejo de las principales limitantes", "productos": "1. Una cartilla y un capítulo de libro sobre la caracterización de las enfermedades que afectan el cultivo bajo las condiciones del departamento del Cauca. 2. Esquemas de Aseguramiento Sanitario adaptados a Bolívar, La Vega, Silvia y Totoró, para la detección temprana de riesgos y la identificación de períodos críticos de intervención.\n2. Recomendaciones de manejo para mildiu velloso(Peronospora variabilis) de la quinua.", "resultados": "Identificación de enfermedades de la quinua en Cauca. Desarrollo de Esquemas de Aseguramiento Sanitario. Manejo del mildiu velloso con productos químicos y biológicos, aumentando el rendimiento de 1 a 4,5 t/ha.", "estado": "Finalizado", "trl_ini": "TRL 1", "trl_fin": "TRL 5", "programa": "Bioeconomía: Prácticas de agricultura sostenible", "tipo_cap": "emergente"}, {"nombre": "Actividad 4.2: Utilización de coberturas vegetales y mitigación de gases de efecto invernadero GEI. RA: Diana Lucia Correa Moreno", "sistema": "Quinua", "area": "Manejo ambiental y sostenibilidad", "lider": "Diana Milena Rodríguez Mora", "objetivo": "Caracterizar las enfermedades en el sistema productivo de quinua y desarrollar recomendaciones de manejo de las principales limitantes", "productos": "1. Una cartilla y un capítulo de libro sobre la caracterización de las enfermedades que afectan el cultivo bajo las condiciones del departamento del Cauca. 2. Esquemas de Aseguramiento Sanitario adaptados a Bolívar, La Vega, Silvia y Totoró, para la detección temprana de riesgos y la identificación de períodos críticos de intervención.\n2. Recomendaciones de manejo para mildiu velloso(Peronospora variabilis) de la quinua.", "resultados": "Identificación de enfermedades de la quinua en Cauca. Desarrollo de Esquemas de Aseguramiento Sanitario. Manejo del mildiu velloso con productos químicos y biológicos, aumentando el rendimiento de 1 a 4,5 t/ha.", "estado": "Finalizado", "trl_ini": "TRL 1", "trl_fin": "TRL 5", "programa": "ACI: Gestión eficiente de los recursos agua, nutrientes, suelo y energía para la mitigación de GEI en los sistemas de producción agrícola", "tipo_cap": "emergente"}]}, "Diagnóstico y caracterización de patógenos.": {"tipo": "consolidada", "proyectos": [{"nombre": "Desarrollo   de   nuevas   recomendaciones   tecnológicas   para   contribuir   con   la   competitividad  y  la  sostenibilidad  del  sector  quinuero  del  departamento   del   Cauca, Convenio 1983, Actividad 8: Caracterizar los problemas de enfermedades del cultivo de quinua en el departamento del Cauca (Fase 1), Diana Milena Rodríguez Mora", "sistema": "Quinua", "area": "Manejo sanitario y fitosanitario", "lider": "Diana Milena Rodríguez Mora", "objetivo": "Caracterizar las enfermedades en el sistema productivo de quinua y desarrollar recomendaciones de manejo de las principales limitantes", "productos": "1. Una cartilla y un capítulo de libro sobre la caracterización de las enfermedades que afectan el cultivo bajo las condiciones del departamento del Cauca. 2. Esquemas de Aseguramiento Sanitario adaptados a Bolívar, La Vega, Silvia y Totoró, para la detección temprana de riesgos y la identificación de períodos críticos de intervención.\n2. Recomendaciones de manejo para mildiu velloso(Peronospora variabilis) de la quinua.", "resultados": "Identificación de enfermedades de la quinua en Cauca. Desarrollo de Esquemas de Aseguramiento Sanitario. Manejo del mildiu velloso con productos químicos y biológicos, aumentando el rendimiento de 1 a 4,5 t/ha.", "estado": "Finalizado", "trl_ini": "TRL 1", "trl_fin": "TRL 5", "programa": "Bioeconomía: Prácticas de agricultura sostenible", "tipo_cap": "consolidada"}, {"nombre": "Actividad 4.2: Utilización de coberturas vegetales y mitigación de gases de efecto invernadero GEI. RA: Diana Lucia Correa Moreno", "sistema": "Quinua", "area": "Manejo ambiental y sostenibilidad", "lider": "Diana Milena Rodríguez Mora", "objetivo": "Caracterizar las enfermedades en el sistema productivo de quinua y desarrollar recomendaciones de manejo de las principales limitantes", "productos": "1. Una cartilla y un capítulo de libro sobre la caracterización de las enfermedades que afectan el cultivo bajo las condiciones del departamento del Cauca. 2. Esquemas de Aseguramiento Sanitario adaptados a Bolívar, La Vega, Silvia y Totoró, para la detección temprana de riesgos y la identificación de períodos críticos de intervención.\n2. Recomendaciones de manejo para mildiu velloso(Peronospora variabilis) de la quinua.", "resultados": "Identificación de enfermedades de la quinua en Cauca. Desarrollo de Esquemas de Aseguramiento Sanitario. Manejo del mildiu velloso con productos químicos y biológicos, aumentando el rendimiento de 1 a 4,5 t/ha.", "estado": "Finalizado", "trl_ini": "TRL 1", "trl_fin": "TRL 5", "programa": "ACI: Gestión eficiente de los recursos agua, nutrientes, suelo y energía para la mitigación de GEI en los sistemas de producción agrícola", "tipo_cap": "consolidada"}]}, "Trabajo articulado con productores.": {"tipo": "distintiva", "proyectos": [{"nombre": "Desarrollo   de   nuevas   recomendaciones   tecnológicas   para   contribuir   con   la   competitividad  y  la  sostenibilidad  del  sector  quinuero  del  departamento   del   Cauca, Convenio 1983, Actividad 8: Caracterizar los problemas de enfermedades del cultivo de quinua en el departamento del Cauca (Fase 1), Diana Milena Rodríguez Mora", "sistema": "Quinua", "area": "Manejo sanitario y fitosanitario", "lider": "Diana Milena Rodríguez Mora", "objetivo": "Caracterizar las enfermedades en el sistema productivo de quinua y desarrollar recomendaciones de manejo de las principales limitantes", "productos": "1. Una cartilla y un capítulo de libro sobre la caracterización de las enfermedades que afectan el cultivo bajo las condiciones del departamento del Cauca. 2. Esquemas de Aseguramiento Sanitario adaptados a Bolívar, La Vega, Silvia y Totoró, para la detección temprana de riesgos y la identificación de períodos críticos de intervención.\n2. Recomendaciones de manejo para mildiu velloso(Peronospora variabilis) de la quinua.", "resultados": "Identificación de enfermedades de la quinua en Cauca. Desarrollo de Esquemas de Aseguramiento Sanitario. Manejo del mildiu velloso con productos químicos y biológicos, aumentando el rendimiento de 1 a 4,5 t/ha.", "estado": "Finalizado", "trl_ini": "TRL 1", "trl_fin": "TRL 5", "programa": "Bioeconomía: Prácticas de agricultura sostenible", "tipo_cap": "distintiva"}, {"nombre": "Actividad 4.2: Utilización de coberturas vegetales y mitigación de gases de efecto invernadero GEI. RA: Diana Lucia Correa Moreno", "sistema": "Quinua", "area": "Manejo ambiental y sostenibilidad", "lider": "Diana Milena Rodríguez Mora", "objetivo": "Caracterizar las enfermedades en el sistema productivo de quinua y desarrollar recomendaciones de manejo de las principales limitantes", "productos": "1. Una cartilla y un capítulo de libro sobre la caracterización de las enfermedades que afectan el cultivo bajo las condiciones del departamento del Cauca. 2. Esquemas de Aseguramiento Sanitario adaptados a Bolívar, La Vega, Silvia y Totoró, para la detección temprana de riesgos y la identificación de períodos críticos de intervención.\n2. Recomendaciones de manejo para mildiu velloso(Peronospora variabilis) de la quinua.", "resultados": "Identificación de enfermedades de la quinua en Cauca. Desarrollo de Esquemas de Aseguramiento Sanitario. Manejo del mildiu velloso con productos químicos y biológicos, aumentando el rendimiento de 1 a 4,5 t/ha.", "estado": "Finalizado", "trl_ini": "TRL 1", "trl_fin": "TRL 5", "programa": "ACI: Gestión eficiente de los recursos agua, nutrientes, suelo y energía para la mitigación de GEI en los sistemas de producción agrícola", "tipo_cap": "distintiva"}]}};
 
-// Mapa encabezado CSV → clave interna
-const COL = {
-  'Programa estratégico':       'programa',
-  'Sistema productivo':          'sistema',
-  'Área temática':               'area',
-  'Nombre del proyecto':         'nombre',
-  'Investigador líder':          'lider',
-  'Rol CI Palmira':              'rol',
-  'Institución ejecutora':       'ejecutora',
-  'Aliados estratégicos':        'aliados',
-  'Rol del aliado':              'rol_aliado',
-  'Problema abordado':           'problema',
-  'Objetivo del proyecto':       'objetivo',
-  'Justificación estratégica':   'justificacion',
-  'Política pública asociada':   'politica',
-  'Metodología principal':       'metodologia',
-  'Variables evaluadas':         'variables',
-  'Tipo de intervención (I+D+i, Canales OT, Fortalecimiento)': 'intervencion',
-  'Resultados principales':      'resultados',
-  'Productos generados':         'productos',
-  'Publicaciones':               'publicaciones',
-  'Oferta tecnológica':          'oferta',
-  'Tipo de tecnología':          'tipo_tec',
-  'TRL inicial':                 'trl_inicial',
-  'TRL final':                   'trl_final',
-  'Estado tecnológico':          'estado_tec',
-  'Impacto técnico':             'impacto_tecnico',
-  'Impacto económico':           'impacto_economico',
-  'Impacto social':              'impacto_social',
-  'Impacto ambiental':           'impacto_ambiental',
-  'Departamentos':               'departamentos',
-  'Municipios':                  'municipios',
-  'Tipo de beneficiarios':       'tipo_beneficiarios',
-  'Beneficiarios directos':      'beneficiarios_directos',
-  'Beneficiarios indirectos':    'beneficiarios_indirectos',
-  'Área potenciales de adopción':'adopcion',
-  'Activos generados':           'activos',
-  'Estado propiedad intelectual':'pi',
-  'Financiador':                 'financiador',
-  'Monto del proyecto':          'monto',
-  'Año inicio':                  'año_inicio',
-  'Año final':                   'año_final',
-  'Estado del proyecto':         'estado',
-  'Capacidad_emergente':         'cap_emergente',
-  'Capacidad_consolidada':       'cap_consolidada',
-  'Capacidad_distintiva':        'cap_distintiva'
-};
-
-// ── Parser CSV robusto ───────────────────────────────────────
-function parseCSV(text) {
-  const rows = [];
-  let row = [], cell = '', q = false;
-  for (let i = 0; i < text.length; i++) {
-    const c = text[i], n = text[i + 1];
-    if (c === '"' && q && n === '"') { cell += '"'; i++; }
-    else if (c === '"') { q = !q; }
-    else if (c === ',' && !q) { row.push(cell); cell = ''; }
-    else if ((c === '\n' || c === '\r') && !q) {
-      if (c === '\r' && n === '\n') i++;
-      row.push(cell);
-      if (row.some(x => x.trim())) rows.push(row);
-      row = []; cell = '';
-    } else { cell += c; }
-  }
-  if (cell || row.length) { row.push(cell); if (row.some(x => x.trim())) rows.push(row); }
-
-  // First row = headers
-  const headers = rows.shift().map(h => h.replace(/^\uFEFF/, '').trim());
-
-  return rows
-    .map(r => {
-      const obj = { id: 0 };
-      headers.forEach((h, i) => {
-        const key = COL[h] || h.toLowerCase().replace(/\s+/g, '_');
-        obj[key] = (r[i] || '').trim();
-      });
-      return obj;
-    })
-    .filter(d => d.nombre); // skip empty rows
-}
-
-// ── Datos globales ───────────────────────────────────────────
-let projects = [];
-
-// ── KPIs ────────────────────────────────────────────────────
-function renderKPIs() {
-  const sistemas   = new Set(projects.map(p => p.sistema).filter(Boolean)).size;
-  const conAliados = projects.filter(p => p.aliados).length;
-  const conImpacto = projects.filter(p => p.impacto_tecnico || p.impacto_economico || p.impacto_social).length;
-  const financiadores = new Set(projects.map(p => p.financiador).filter(Boolean)).size;
-  const programas  = new Set(projects.map(p => p.programa).filter(Boolean)).size;
-
-  document.getElementById('kpi-grid').innerHTML = `
-    <div class="kpi-card">
-      <div class="kpi-label">Total de proyectos</div>
-      <div class="kpi-value">${projects.length}</div>
-      <div class="kpi-sub">en el portafolio C.I. Palmira</div>
-    </div>
-    <div class="kpi-card gold">
-      <div class="kpi-label">Sistemas productivos</div>
-      <div class="kpi-value">${sistemas}</div>
-      <div class="kpi-sub">cadenas atendidas</div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-label">Con aliados estratégicos</div>
-      <div class="kpi-value">${conAliados}</div>
-      <div class="kpi-sub">proyectos con redes de alianza</div>
-    </div>
-    <div class="kpi-card tierra">
-      <div class="kpi-label">Con impactos registrados</div>
-      <div class="kpi-value">${conImpacto}</div>
-      <div class="kpi-sub">proyectos con evidencia de impacto</div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-label">Tipos de financiadores</div>
-      <div class="kpi-value">${financiadores}</div>
-      <div class="kpi-sub">fuentes de financiación</div>
-    </div>
-    <div class="kpi-card gold">
-      <div class="kpi-label">Programas estratégicos</div>
-      <div class="kpi-value">${programas}</div>
-      <div class="kpi-sub">líneas de investigación</div>
-    </div>`;
-}
-
-// ── Dashboard ────────────────────────────────────────────────
-function renderDashboard() {
-  const sistemaCount = {};
-  projects.forEach(p => { if (p.sistema) sistemaCount[p.sistema] = (sistemaCount[p.sistema] || 0) + 1; });
-  const sorted = Object.entries(sistemaCount).sort((a, b) => b[1] - a[1]);
-  const max = sorted.length ? sorted[0][1] : 1;
-
-  document.getElementById('sistemas-chart').innerHTML = sorted.map(([s, n]) => `
-    <div class="sistema-bar-row">
-      <div class="sistema-bar-label"><span>${s}</span><strong>${n}</strong></div>
-      <div class="sistema-bar-track">
-        <div class="sistema-bar-fill" style="width:${(n / max * 100).toFixed(1)}%"></div>
-      </div>
-    </div>`).join('');
-
-  const progCount = {};
-  projects.forEach(p => { if (p.programa) progCount[p.programa] = (progCount[p.programa] || 0) + 1; });
-  const progSorted = Object.entries(progCount).sort((a, b) => b[1] - a[1]);
-
-  document.getElementById('prog-list').innerHTML = progSorted.map(([name, n], i) => `
-    <div class="prog-row">
-      <div class="prog-dot" style="background:${PALETTE[i % PALETTE.length]}"></div>
-      <div class="prog-name">${name}</div>
-      <div class="prog-count">${n}</div>
-      <div class="prog-pct">${(n / projects.length * 100).toFixed(0)}%</div>
-    </div>`).join('');
-}
-
-// ── Filtros ──────────────────────────────────────────────────
-function populateFilters() {
-  const unique = key => [...new Set(projects.map(p => p[key]).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'es'));
-  const addOpts = (id, vals) => vals.forEach(v => {
-    const o = document.createElement('option'); o.value = v; o.textContent = v;
-    document.getElementById(id).appendChild(o);
-  });
-  addOpts('f-sistema',    unique('sistema'));
-  addOpts('f-area',       unique('area'));
-  addOpts('f-financiador',unique('financiador'));
-}
-
-function applyFilters() {
-  const q   = document.getElementById('f-buscar').value.toLowerCase();
-  const sis = document.getElementById('f-sistema').value;
-  const area= document.getElementById('f-area').value;
-  const fin = document.getElementById('f-financiador').value;
-
-  const list = projects.filter(p => {
-    if (q   && !p.nombre.toLowerCase().includes(q)) return false;
-    if (sis && p.sistema    !== sis)  return false;
-    if (area&& p.area       !== area) return false;
-    if (fin && p.financiador!== fin)  return false;
-    return true;
-  });
-  renderProjectGrid(list);
-}
-
-function clearFilters() {
-  ['f-buscar','f-sistema','f-area','f-financiador'].forEach(id => document.getElementById(id).value = '');
-  applyFilters();
-}
-
-// ── Grid proyectos ───────────────────────────────────────────
-function renderProjectGrid(list) {
-  document.getElementById('results-count').innerHTML =
-    `Mostrando <strong>${list.length}</strong> de ${projects.length} proyectos`;
-
-  if (!list.length) {
-    document.getElementById('project-grid').innerHTML =
-      `<div class="empty" style="grid-column:1/-1">
-        <div class="empty-icon">🌿</div>
-        <h3>Sin resultados</h3>
-        <p>Intente con otros filtros de búsqueda.</p>
+// ── Build grid ──
+function buildGrid() {
+  const grid = document.getElementById('capsGrid');
+  grid.innerHTML = '';
+  Object.entries(CAP_DATA).forEach(([name, info]) => {
+    const count = info.proyectos.length;
+    const tipo = info.tipo;
+    const card = document.createElement('div');
+    card.className = `cap-card ${tipo}`;
+    card.dataset.tipo = tipo;
+    card.dataset.cap = name;
+    card.innerHTML = `
+      <div class="cap-badge">${capitalize(tipo)}</div>
+      <div class="cap-name">${escHtml(name)}</div>
+      <div class="cap-footer">
+        <div class="cap-count"><strong>${count}</strong> proyecto${count !== 1 ? 's' : ''}</div>
+        <div class="cap-arrow">→</div>
       </div>`;
-    return;
-  }
-
-  document.getElementById('project-grid').innerHTML = list.map((p, idx) => `
-    <div class="project-card" onclick="openModal(${projects.indexOf(p)})">
-      <div class="card-sistema">${p.sistema || 'Sin clasificar'}</div>
-      <div class="card-title">${esc(p.nombre)}</div>
-      <div class="card-meta">
-        ${p.area        ? `<span class="meta-pill">◎ ${esc(p.area)}</span>` : ''}
-        ${p.financiador ? `<span class="meta-pill">$ ${esc(p.financiador)}</span>` : ''}
-        ${p.año_inicio  ? `<span class="meta-pill">📅 ${p.año_inicio}${p.año_final ? '–'+p.año_final : ''}</span>` : ''}
-        ${p.estado      ? `<span class="meta-pill" style="background:#d1fae5;color:#065f46">✓ ${esc(p.estado)}</span>` : ''}
-      </div>
-      <div class="card-arrow">→</div>
-    </div>`).join('');
+    card.addEventListener('click', () => openModal(name, info));
+    grid.appendChild(card);
+  });
 }
 
-// ── Modal ────────────────────────────────────────────────────
-function openModal(idx) {
-  const p = projects[idx]; if (!p) return;
+// ── Filter ──
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    document.querySelectorAll('.cap-card').forEach(card => {
+      if (filter === 'all' || card.dataset.tipo === filter) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+  });
+});
 
-  document.getElementById('m-sistema').textContent = p.sistema || 'Sin sistema';
-  document.getElementById('m-title').textContent   = p.nombre;
-  document.getElementById('m-lider').textContent   = p.lider ? `Investigador líder: ${p.lider}` : '';
+// ── Modal ──
+function openModal(name, info) {
+  const overlay = document.getElementById('modalOverlay');
+  const tipo = info.tipo;
+  document.getElementById('modalBadge').textContent = capitalize(tipo);
+  document.getElementById('modalBadge').className = `modal-badge ${tipo}`;
+  document.getElementById('modalTitle').textContent = name;
+  document.getElementById('modalSubtitle').textContent = `${info.proyectos.length} proyecto${info.proyectos.length !== 1 ? 's' : ''} con respaldo técnico-científico`;
 
-  let html = '';
-
-  if (p.objetivo || p.problema) {
-    html += `<div class="modal-section">`;
-    if (p.objetivo) html += `<div class="modal-section-title">Objetivo del proyecto</div><p>${esc(p.objetivo)}</p>`;
-    if (p.problema) html += `<div class="modal-section-title" style="margin-top:.75rem">Problema abordado</div><p>${esc(p.problema)}</p>`;
-    html += `</div>`;
+  const body = document.getElementById('modalBody');
+  if (info.proyectos.length === 0) {
+    body.innerHTML = '<div class="empty-state">No hay proyectos registrados para esta capacidad.</div>';
+  } else {
+    body.innerHTML = info.proyectos.map((p, i) => buildProjectItem(p, i)).join('');
+    body.querySelectorAll('.project-header').forEach(h => {
+      h.addEventListener('click', () => {
+        const item = h.closest('.project-item');
+        item.classList.toggle('expanded');
+      });
+    });
   }
 
-  if (p.metodologia) {
-    html += `<div class="modal-section">
-      <div class="modal-section-title">Metodología principal</div>
-      <p>${esc(p.metodologia)}</p>
-    </div>`;
-  }
-
-  if (p.resultados) {
-    html += `<div class="modal-section">
-      <div class="modal-section-title">Resultados principales</div>
-      <p>${esc(p.resultados)}</p>
-    </div>`;
-  }
-
-  const hasImpact = p.impacto_tecnico || p.impacto_economico || p.impacto_social || p.impacto_ambiental;
-  if (hasImpact) {
-    html += `<div class="modal-section">
-      <div class="modal-section-title">Impactos</div>
-      <div class="impact-grid">
-        ${p.impacto_tecnico   ? `<div class="impact-box tecnico"><div class="impact-box-label">🔬 Técnico</div><p>${esc(p.impacto_tecnico)}</p></div>` : ''}
-        ${p.impacto_economico ? `<div class="impact-box economico"><div class="impact-box-label">💰 Económico</div><p>${esc(p.impacto_economico)}</p></div>` : ''}
-        ${p.impacto_social    ? `<div class="impact-box social"><div class="impact-box-label">👥 Social</div><p>${esc(p.impacto_social)}</p></div>` : ''}
-        ${p.impacto_ambiental ? `<div class="impact-box ambiental"><div class="impact-box-label">🌿 Ambiental</div><p>${esc(p.impacto_ambiental)}</p></div>` : ''}
-      </div>
-    </div>`;
-  }
-
-  if (p.oferta || p.tipo_tec || p.trl_inicial || p.trl_final || p.estado_tec) {
-    html += `<div class="modal-section">
-      <div class="modal-section-title">Oferta tecnológica</div>
-      <div class="meta-grid">
-        ${p.oferta     ? `<div class="meta-item" style="grid-column:1/-1"><div class="meta-item-label">Nombre oferta</div><div class="meta-item-val">${esc(p.oferta)}</div></div>` : ''}
-        ${p.tipo_tec   ? `<div class="meta-item"><div class="meta-item-label">Tipo tecnología</div><div class="meta-item-val">${esc(p.tipo_tec)}</div></div>` : ''}
-        ${p.trl_inicial|| p.trl_final ? `<div class="meta-item"><div class="meta-item-label">TRL</div><div class="meta-item-val">${p.trl_inicial||'?'} → ${p.trl_final||'?'}</div></div>` : ''}
-        ${p.estado_tec ? `<div class="meta-item"><div class="meta-item-label">Estado tecnológico</div><div class="meta-item-val">${esc(p.estado_tec)}</div></div>` : ''}
-      </div>
-    </div>`;
-  }
-
-  if (p.tipo_beneficiarios || p.beneficiarios_directos || p.departamentos) {
-    html += `<div class="modal-section">
-      <div class="modal-section-title">Beneficiarios</div>
-      <div class="meta-grid">
-        ${p.tipo_beneficiarios   ? `<div class="meta-item"><div class="meta-item-label">Tipo</div><div class="meta-item-val">${esc(p.tipo_beneficiarios)}</div></div>` : ''}
-        ${p.beneficiarios_directos? `<div class="meta-item"><div class="meta-item-label">Directos</div><div class="meta-item-val">${esc(p.beneficiarios_directos)}</div></div>` : ''}
-        ${p.departamentos        ? `<div class="meta-item"><div class="meta-item-label">Departamentos</div><div class="meta-item-val">${esc(p.departamentos)}</div></div>` : ''}
-        ${p.municipios           ? `<div class="meta-item"><div class="meta-item-label">Municipios</div><div class="meta-item-val" style="font-size:.78rem">${esc(p.municipios)}</div></div>` : ''}
-      </div>
-    </div>`;
-  }
-
-  if (p.aliados) {
-    html += `<div class="modal-section">
-      <div class="modal-section-title">Aliados estratégicos</div>
-      <p>${esc(p.aliados)}</p>
-    </div>`;
-  }
-
-  if (p.productos || p.publicaciones || p.activos) {
-    html += `<div class="modal-section">
-      <div class="modal-section-title">Productos y publicaciones</div>`;
-    if (p.productos)    html += `<p style="margin-bottom:.5rem"><strong>Productos:</strong> ${esc(p.productos)}</p>`;
-    if (p.publicaciones)html += `<p style="margin-bottom:.5rem"><strong>Publicaciones:</strong> ${esc(p.publicaciones)}</p>`;
-    if (p.activos)      html += `<p><strong>Activos generados:</strong> ${esc(p.activos)}</p>`;
-    html += `</div>`;
-  }
-
-  const hasMeta = p.financiador || p.monto || p.año_inicio || p.programa || p.rol;
-  if (hasMeta) {
-    html += `<div class="modal-section">
-      <div class="modal-section-title">Información del proyecto</div>
-      <div class="meta-grid">
-        ${p.programa    ? `<div class="meta-item" style="grid-column:1/-1"><div class="meta-item-label">Programa</div><div class="meta-item-val" style="font-size:.78rem">${esc(p.programa)}</div></div>` : ''}
-        ${p.financiador ? `<div class="meta-item"><div class="meta-item-label">Financiador</div><div class="meta-item-val">${esc(p.financiador)}</div></div>` : ''}
-        ${p.monto       ? `<div class="meta-item"><div class="meta-item-label">Monto</div><div class="meta-item-val">$${Number(p.monto.replace(/[^0-9]/g,'')||0).toLocaleString('es-CO')}</div></div>` : ''}
-        ${p.año_inicio  ? `<div class="meta-item"><div class="meta-item-label">Período</div><div class="meta-item-val">${p.año_inicio}${p.año_final ? ' – '+p.año_final : ''}</div></div>` : ''}
-        ${p.rol         ? `<div class="meta-item"><div class="meta-item-label">Rol CI Palmira</div><div class="meta-item-val">${esc(p.rol)}</div></div>` : ''}
-        ${p.estado      ? `<div class="meta-item"><div class="meta-item-label">Estado</div><div class="meta-item-val">${esc(p.estado)}</div></div>` : ''}
-      </div>
-    </div>`;
-  }
-
-  const caps = [];
-  if (p.cap_emergente)  caps.push(`<span class="cap-badge emergente">⚡ ${esc(p.cap_emergente)}</span>`);
-  if (p.cap_consolidada)caps.push(`<span class="cap-badge consolidada">🔷 ${esc(p.cap_consolidada)}</span>`);
-  if (p.cap_distintiva) caps.push(`<span class="cap-badge distintiva">⭐ ${esc(p.cap_distintiva)}</span>`);
-  if (caps.length) {
-    html += `<div class="modal-section">
-      <div class="modal-section-title">Capacidades científicas</div>
-      <div class="cap-badges">${caps.join('')}</div>
-    </div>`;
-  }
-
-  document.getElementById('modal-body').innerHTML = html;
-  document.getElementById('modal-overlay').classList.add('open');
+  overlay.classList.add('open');
   document.body.style.overflow = 'hidden';
 }
 
 function closeModal() {
-  document.getElementById('modal-overlay').classList.remove('open');
+  document.getElementById('modalOverlay').classList.remove('open');
   document.body.style.overflow = '';
 }
-function closeModalIfOverlay(e) {
-  if (e.target === document.getElementById('modal-overlay')) closeModal();
-}
 
-// ── Capacidades ──────────────────────────────────────────────
-function renderCapacidades() {
-  const implied = {};
-  projects.forEach(p => {
-    [['cap_emergente','Emergente'],['cap_consolidada','Consolidada'],['cap_distintiva','Distintiva']].forEach(([k, cat]) => {
-      if (!p[k]) return;
-      const key = p[k] + '|' + cat;
-      if (!implied[key]) implied[key] = { nombre: p[k], categoria: cat, sistemas: new Set(), areas: new Set(), lideres: new Set() };
-      if (p.sistema) implied[key].sistemas.add(p.sistema);
-      if (p.area)    implied[key].areas.add(p.area);
-      if (p.lider)   implied[key].lideres.add(p.lider);
-    });
-  });
+document.getElementById('modalClose').addEventListener('click', closeModal);
+document.getElementById('modalOverlay').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closeModal();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-  const items = Object.values(implied).sort((a, b) => {
-    const order = { Emergente: 0, Consolidada: 1, Distintiva: 2 };
-    return order[a.categoria] - order[b.categoria];
-  });
-
-  document.getElementById('cap-grid').innerHTML = items.length
-    ? items.map(c => `
-      <div class="cap-card ${c.categoria.toLowerCase()}">
-        <div class="cap-cat">${c.categoria}</div>
-        <div class="cap-name">${esc(c.nombre)}</div>
-        <div class="cap-meta">
-          ${c.sistemas.size ? `<div>Sistemas: <strong>${[...c.sistemas].join(', ')}</strong></div>` : ''}
-          ${c.areas.size    ? `<div>Áreas: <strong>${[...c.areas].join(', ')}</strong></div>`    : ''}
-          ${c.lideres.size && ![...c.lideres].every(l=>!l||l==='0') ? `<div>Líder: <strong>${[...c.lideres].filter(l=>l&&l!=='0').join(', ')}</strong></div>` : ''}
+function buildProjectItem(p, idx) {
+  const estadoClass = getEstadoClass(p.estado);
+  const trlHtml = (p.trl_ini && p.trl_fin && p.trl_fin !== 'No definido')
+    ? `<div class="trl-badge">TRL ${p.trl_ini} → ${p.trl_fin}</div>`
+    : '';
+  const objHtml = p.objetivo
+    ? `<div class="detail-section"><div class="detail-label">Objetivo</div><div class="detail-value">${escHtml(p.objetivo)}</div></div>`
+    : '';
+  const prodHtml = p.productos
+    ? `<div class="detail-section"><div class="detail-label">Productos generados</div><div class="detail-value">${escHtml(p.productos)}</div></div>`
+    : '';
+  const resHtml = p.resultados
+    ? `<div class="detail-section"><div class="detail-label">Resultados principales</div><div class="detail-value">${escHtml(p.resultados)}</div></div>`
+    : '';
+  return `
+    <div class="project-item" id="proj_${idx}">
+      <div class="project-header">
+        <div class="project-header-left">
+          <div class="project-sistema">${escHtml(p.sistema)} · ${escHtml(p.area)}</div>
+          <div class="project-nombre">${escHtml(p.nombre)}</div>
+          <div class="project-lider">👤 ${escHtml(p.lider)}</div>
         </div>
-      </div>`).join('')
-    : '<p style="color:var(--gris-600)">No hay capacidades registradas en el portafolio.</p>';
-}
-
-// ── Análisis ─────────────────────────────────────────────────
-function renderAnalisis() {
-  const count = key => {
-    const c = {};
-    projects.forEach(p => { const v = p[key]||'No especificado'; c[v]=(c[v]||0)+1; });
-    return Object.entries(c).sort((a,b)=>b[1]-a[1]);
-  };
-  const sortedFin  = count('financiador');
-  const sortedArea = count('area');
-  const maxFin  = sortedFin[0]?.[1]  || 1;
-  const maxArea = sortedArea[0]?.[1] || 1;
-
-  document.getElementById('analisis-content').innerHTML = `
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:2rem">
-      <div>
-        <h3 style="font-size:1rem;font-weight:500;color:var(--gris-600);margin-bottom:1rem">Por financiador</h3>
-        ${sortedFin.map(([f,n],i)=>`
-          <div class="sistema-bar-row" style="margin-bottom:.5rem">
-            <div class="sistema-bar-label"><span>${esc(f)}</span><strong>${n}</strong></div>
-            <div class="sistema-bar-track">
-              <div class="sistema-bar-fill" style="width:${(n/maxFin*100).toFixed(1)}%;background:${PALETTE[i%PALETTE.length]}"></div>
-            </div>
-          </div>`).join('')}
+        <div class="project-estado">
+          ${p.estado ? `<span class="estado-pill ${estadoClass}">${escHtml(p.estado)}</span>` : ''}
+          ${trlHtml}
+          <div class="chevron">▾</div>
+        </div>
       </div>
-      <div>
-        <h3 style="font-size:1rem;font-weight:500;color:var(--gris-600);margin-bottom:1rem">Por área temática</h3>
-        ${sortedArea.map(([a,n],i)=>`
-          <div class="sistema-bar-row" style="margin-bottom:.5rem">
-            <div class="sistema-bar-label"><span style="font-size:.78rem">${esc(a)}</span><strong>${n}</strong></div>
-            <div class="sistema-bar-track">
-              <div class="sistema-bar-fill" style="width:${(n/maxArea*100).toFixed(1)}%;background:${PALETTE[(i+5)%PALETTE.length]}"></div>
-            </div>
-          </div>`).join('')}
+      <div class="project-details">
+        ${objHtml}${prodHtml}${resHtml}
+        <div class="detail-grid">
+          ${p.programa ? `<div class="detail-section"><div class="detail-label">Programa</div><div class="detail-value" style="font-size:12.5px">${escHtml(p.programa)}</div></div>` : ''}
+        </div>
       </div>
-    </div>
-    <h3 style="font-size:.95rem;font-weight:500;color:var(--gris-600);margin-bottom:1rem">Proyectos con datos de beneficiarios</h3>
-    <div class="kpi-grid" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr))">
-      <div class="kpi-card"><div class="kpi-label">Con depto. registrado</div>
-        <div class="kpi-value" style="font-size:1.8rem">${projects.filter(p=>p.departamentos).length}</div></div>
-      <div class="kpi-card gold"><div class="kpi-label">Con tipo de beneficiario</div>
-        <div class="kpi-value" style="font-size:1.8rem">${projects.filter(p=>p.tipo_beneficiarios).length}</div></div>
-      <div class="kpi-card"><div class="kpi-label">Con aliados</div>
-        <div class="kpi-value" style="font-size:1.8rem">${projects.filter(p=>p.aliados).length}</div></div>
-      <div class="kpi-card tierra"><div class="kpi-label">Con publicaciones</div>
-        <div class="kpi-value" style="font-size:1.8rem">${projects.filter(p=>p.publicaciones).length}</div></div>
     </div>`;
 }
 
-// ── Navegación ───────────────────────────────────────────────
-function showSection(name) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
-  document.getElementById('sec-' + name).classList.add('active');
-  const map = { dashboard: 0, catalogo: 1, capacidades: 2, analisis: 3 };
-  document.querySelectorAll('nav button')[map[name]].classList.add('active');
+function getEstadoClass(estado) {
+  const s = (estado || '').toLowerCase();
+  if (s.includes('ejecución') || s.includes('ejecucion')) return 'ejecucion';
+  if (s.includes('finaliz')) return 'finalizado';
+  if (s.includes('formulac')) return 'formulacion';
+  return 'activo';
 }
 
-// ── Utilidades ───────────────────────────────────────────────
-function esc(s='') {
-  return String(s).replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+function capitalize(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : ''; }
+function escHtml(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-// ── Init: carga CSV y renderiza todo ─────────────────────────
-async function init() {
-  try {
-    const res  = await fetch(CSV_URL);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const text = await res.text();
-    projects   = parseCSV(text);
-
-    if (!projects.length) throw new Error('El archivo CSV no contiene filas de datos. Verifique que la hoja Portafolio_Proyectos tenga información.');
-
-    // Asignar IDs numéricos
-    projects.forEach((p, i) => p.id = i);
-
-    renderKPIs();
-    renderDashboard();
-    populateFilters();
-    applyFilters();
-    renderCapacidades();
-    renderAnalisis();
-
-  } catch (err) {
-    document.getElementById('kpi-grid').innerHTML =
-      `<div class="error-banner" style="grid-column:1/-1">
-        <strong>Error al cargar el portafolio:</strong> ${esc(err.message)}<br>
-        <small>Verifique que el archivo <code>portafolio_proyectos.csv</code> esté en el repositorio y que GitHub Pages esté activo.</small>
-      </div>`;
-    console.error('Init error:', err);
-  }
-}
-
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-init();
+buildGrid();
 </script>
 </body>
 </html>
