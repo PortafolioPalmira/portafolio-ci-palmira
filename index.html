@@ -746,6 +746,12 @@ function updateMapa(){
   if(mapaReady)drawMapLayer(filtered);
 }
 
+// Extraer código de departamento (robusto para ambas fuentes GeoJSON)
+function featDeptCode(f){
+  const p=f.properties||{};
+  return String(p.DPTO_CCDGO||p.COD_DPTO||p.DPTO||p.cod_dpto||p.depto||'').trim();
+}
+
 function focusProject(idx){
   const p=projects[idx];if(!p)return;
 
@@ -754,58 +760,64 @@ function focusProject(idx){
   const rowEl=document.getElementById('mrow-'+idx);
   if(rowEl){rowEl.classList.add('focused');rowEl.scrollIntoView({behavior:'smooth',block:'nearest'});}
 
-  // Departamentos y municipios del proyecto
   const deptos=(p.departamentos||'').split(/[,;\n\/]+/).map(d=>d.trim()).filter(Boolean);
   const munis=getMunis(p);
 
   // Panel de municipios
   document.getElementById('mmp-title').textContent=p.nombre;
   document.getElementById('mmp-deptos').textContent=
-    deptos.length?'📌 '+deptos.join(' · '):'Sin departamento';
+    deptos.length?'\u{1F4CC} '+deptos.join(' \u00B7 '):'Sin departamento';
   const listEl=document.getElementById('mmp-list');
   listEl.innerHTML=munis.length
     ?munis.map(m=>`<li>${esc(m)}</li>`).join('')
     :`<li class="mmp-empty">Sin municipios registrados</li>`;
   document.getElementById('mapa-munis-panel').classList.add('visible');
 
-  // Resaltar directamente en geoLayer (sin crear capa extra)
   if(!geoLayer)return;
 
-  const deptosNorm=new Set(deptos.map(norm));
   const munisNorm=new Set(munis.map(norm));
+  const deptosNormCSV=new Set(deptos.map(norm));
 
-  // Primera pasada: identificar departamentos que tengan ≥1 municipio del proyecto
-  // (útil cuando featDept() no está disponible en la fuente usada)
-  const deptosConMuni=new Set();
+  // PASO 1 — Obtener códigos Y nombres de depto de los municipios del proyecto en el GeoJSON
+  const deptCodes=new Set();
+  const deptNames=new Set();
   geoLayer.eachLayer(l=>{
     if(!l.feature)return;
-    const mn=norm(featName(l.feature));
-    const dn=norm(featDept(l.feature));
-    if(munisNorm.has(mn)&&dn)deptosConMuni.add(dn);
+    if(munisNorm.has(norm(featName(l.feature)))){
+      const dc=featDeptCode(l.feature);
+      if(dc)deptCodes.add(dc);
+      const dn=norm(featDept(l.feature));
+      if(dn)deptNames.add(dn);
+    }
   });
 
+  // PASO 2 — Pintar capas
   const matchedLayers=[];
   geoLayer.eachLayer(l=>{
     if(!l.feature)return;
     const mn=norm(featName(l.feature));
+    const dc=featDeptCode(l.feature);
     const dn=norm(featDept(l.feature));
     const isMuni=munisNorm.has(mn);
-    // Dept match: por nombre directo del campo, o por inferencia de municipios
-    const isDept=deptosNorm.has(dn)||deptosNorm.has(mn)||deptosConMuni.has(dn);
+    const isDept=
+      (dc&&deptCodes.has(dc))||
+      (dn&&deptNames.has(dn))||
+      deptosNormCSV.has(dn)||
+      deptosNormCSV.has(mn);
 
     if(isMuni){
-      l.setStyle({fillColor:'#b5873a',fillOpacity:0.9,color:'#7a5520',weight:2,opacity:1});
+      l.setStyle({fillColor:'#b5873a',fillOpacity:0.92,color:'#7a5520',weight:2,opacity:1});
       l.bringToFront();
       matchedLayers.push(l);
     }else if(isDept){
-      l.setStyle({fillColor:'#f4d58d',fillOpacity:0.65,color:'#b5873a',weight:1,opacity:0.9});
+      l.setStyle({fillColor:'#f4d58d',fillOpacity:0.72,color:'#c9932a',weight:1,opacity:1});
       matchedLayers.push(l);
     }else{
-      l.setStyle({fillColor:'#d8f3dc',fillOpacity:0.25,color:'#ffffff',weight:0.5,opacity:0.5});
+      l.setStyle({fillColor:'#d8f3dc',fillOpacity:0.22,color:'#ffffff',weight:0.4,opacity:0.5});
     }
   });
 
-  // Zoom a cobertura del proyecto
+  // PASO 3 — Zoom
   if(matchedLayers.length){
     try{
       const grp=L.featureGroup(matchedLayers);
@@ -813,6 +825,7 @@ function focusProject(idx){
     }catch(e){}
   }
 }
+
 
 function clearProjectFocus(){
   document.querySelectorAll('.mapa-proj-row').forEach(r=>r.classList.remove('active','focused'));
