@@ -746,20 +746,15 @@ function updateMapa(){
   if(mapaReady)drawMapLayer(filtered);
 }
 
-// Estado de foco
-let focusLayer=null;
-
 function focusProject(idx){
   const p=projects[idx];if(!p)return;
 
   // Resaltar fila
-  document.querySelectorAll('.mapa-proj-row').forEach(r=>{
-    r.classList.remove('active','focused');
-  });
+  document.querySelectorAll('.mapa-proj-row').forEach(r=>r.classList.remove('active','focused'));
   const rowEl=document.getElementById('mrow-'+idx);
   if(rowEl){rowEl.classList.add('focused');rowEl.scrollIntoView({behavior:'smooth',block:'nearest'});}
 
-  // Obtener departamentos y municipios del proyecto
+  // Departamentos y municipios del proyecto
   const deptos=(p.departamentos||'').split(/[,;\n\/]+/).map(d=>d.trim()).filter(Boolean);
   const munis=getMunis(p);
 
@@ -768,46 +763,53 @@ function focusProject(idx){
   document.getElementById('mmp-deptos').textContent=
     deptos.length?'📌 '+deptos.join(' · '):'Sin departamento';
   const listEl=document.getElementById('mmp-list');
-  if(munis.length){
-    listEl.innerHTML=munis.map(m=>`<li>${esc(m)}</li>`).join('');
-  }else{
-    listEl.innerHTML=`<li class="mmp-empty">Sin municipios registrados</li>`;
-  }
+  listEl.innerHTML=munis.length
+    ?munis.map(m=>`<li>${esc(m)}</li>`).join('')
+    :`<li class="mmp-empty">Sin municipios registrados</li>`;
   document.getElementById('mapa-munis-panel').classList.add('visible');
 
-  // Resaltar en el mapa
-  if(!geoData||!leafMap)return;
-
-  if(focusLayer){leafMap.removeLayer(focusLayer);focusLayer=null;}
+  // Resaltar directamente en geoLayer (sin crear capa extra)
+  if(!geoLayer)return;
 
   const deptosNorm=new Set(deptos.map(norm));
   const munisNorm=new Set(munis.map(norm));
 
-  const matchedLayers=[];
-  focusLayer=L.geoJSON(geoData,{
-    style:feat=>{
-      const mn=norm(featName(feat));
-      const dn=norm(featDept(feat));
-      const isMuni=munisNorm.has(mn);
-      const isDept=deptosNorm.has(dn)||deptosNorm.has(mn);
-      if(isMuni)return{fillColor:'#b5873a',fillOpacity:0.85,color:'#7a5520',weight:1.5,opacity:1};
-      if(isDept)return{fillColor:'#f4d58d',fillOpacity:0.55,color:'#b5873a',weight:1,opacity:0.8};
-      return{fillColor:'transparent',fillOpacity:0,color:'transparent',weight:0,opacity:0};
-    },
-    onEachFeature:(feat,layer)=>{
-      const mn=norm(featName(feat));
-      const dn=norm(featDept(feat));
-      if(munisNorm.has(mn)||deptosNorm.has(dn)||deptosNorm.has(mn)){
-        matchedLayers.push(layer);
-      }
-    }
-  }).addTo(leafMap);
+  // Primera pasada: identificar departamentos que tengan ≥1 municipio del proyecto
+  // (útil cuando featDept() no está disponible en la fuente usada)
+  const deptosConMuni=new Set();
+  geoLayer.eachLayer(l=>{
+    if(!l.feature)return;
+    const mn=norm(featName(l.feature));
+    const dn=norm(featDept(l.feature));
+    if(munisNorm.has(mn)&&dn)deptosConMuni.add(dn);
+  });
 
-  // Zoom a la cobertura del proyecto
+  const matchedLayers=[];
+  geoLayer.eachLayer(l=>{
+    if(!l.feature)return;
+    const mn=norm(featName(l.feature));
+    const dn=norm(featDept(l.feature));
+    const isMuni=munisNorm.has(mn);
+    // Dept match: por nombre directo del campo, o por inferencia de municipios
+    const isDept=deptosNorm.has(dn)||deptosNorm.has(mn)||deptosConMuni.has(dn);
+
+    if(isMuni){
+      l.setStyle({fillColor:'#b5873a',fillOpacity:0.9,color:'#7a5520',weight:2,opacity:1});
+      l.bringToFront();
+      matchedLayers.push(l);
+    }else if(isDept){
+      l.setStyle({fillColor:'#f4d58d',fillOpacity:0.65,color:'#b5873a',weight:1,opacity:0.9});
+      matchedLayers.push(l);
+    }else{
+      l.setStyle({fillColor:'#d8f3dc',fillOpacity:0.25,color:'#ffffff',weight:0.5,opacity:0.5});
+    }
+  });
+
+  // Zoom a cobertura del proyecto
   if(matchedLayers.length){
     try{
       const grp=L.featureGroup(matchedLayers);
-      leafMap.fitBounds(grp.getBounds().pad(0.15));
+      leafMap.fitBounds(grp.getBounds().pad(0.18));
     }catch(e){}
   }
 }
@@ -815,7 +817,18 @@ function focusProject(idx){
 function clearProjectFocus(){
   document.querySelectorAll('.mapa-proj-row').forEach(r=>r.classList.remove('active','focused'));
   document.getElementById('mapa-munis-panel').classList.remove('visible');
-  if(focusLayer){leafMap.removeLayer(focusLayer);focusLayer=null;}
+  // Restaurar estilos originales reconstruyendo el índice actual
+  if(geoLayer){
+    const sel=document.getElementById('mapa-sel').value;
+    const filtered=sel?projects.filter(p=>p.sistema===sel):projects;
+    const idx=buildMuniIndex(filtered);
+    const active=new Set(Object.keys(idx));
+    geoLayer.eachLayer(l=>{
+      if(!l.feature)return;
+      const hasP=active.has(norm(featName(l.feature)));
+      l.setStyle({fillColor:hasP?'#1a4731':'#d8f3dc',fillOpacity:hasP?0.80:0.50,color:'#ffffff',weight:0.5,opacity:0.9});
+    });
+  }
 }
 
 // ════════════════════════════════════════════════════════════
