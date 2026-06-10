@@ -575,13 +575,74 @@ function renderProjectGrid(list){
 function norm(s){
   return(s||'').toLowerCase()
     .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
-    .replace(/[^a-z0-9]/g,' ').replace(/\s+/g,' ').trim();
+    .replace(/\./g,' ')
+    .replace(/\bel\b/g,' ')
+    .replace(/\bdepto\b/g,'departamento')
+    .replace(/\bdpto\b/g,'departamento')
+    .replace(/[^a-z0-9]/g,' ')
+    .replace(/\s+/g,' ')
+    .trim();
+}
+
+// Tabla de equivalencias para nombres de departamentos del CSV.
+// La clave SIEMPRE debe ir normalizada con norm(); el valor es el nombre canónico.
+const DEPTO_EQUIV={
+  'valle':'Valle del Cauca',
+  'valle del cauca':'Valle del Cauca',
+  'valle de cauca':'Valle del Cauca',
+  'valle del cauca tolima':'Valle del Cauca|Tolima',
+  'cauca valle del cauca narino':'Cauca|Valle del Cauca|Nariño',
+  'boyaca':'Boyacá',
+  'boyaca santander':'Boyacá|Santander',
+  'quindio':'Quindío',
+  'san andres':'San Andrés y Providencia',
+  'san andres providencia':'San Andrés y Providencia',
+  'san andres y providencia':'San Andrés y Providencia',
+  'narino':'Nariño',
+  'choco':'Chocó',
+  'cordoba':'Córdoba',
+  'bogota':'Bogotá D.C.',
+  'bogota dc':'Bogotá D.C.',
+  'nacional':''
+};
+
+// Divide campos con separadores mixtos: coma, punto y coma, salto de línea, slash,
+// y también " y " cuando se usa como separador entre departamentos/municipios.
+function splitPlaces(raw){
+  return String(raw||'')
+    .replace(/\r/g,'\n')
+    .replace(/\s+y\s+/gi,',')
+    .split(/[,;\n\/]+/)
+    .map(x=>x.trim().replace(/\.$/,''))
+    .filter(Boolean);
+}
+
+function canonicalDeptName(raw){
+  const n=norm(raw);
+  if(!n||n==='nacional')return'';
+  return DEPTO_EQUIV[n]||raw.trim().replace(/\s+/g,' ');
+}
+
+// Extraer departamentos normalizados de un proyecto
+function getDeptos(p){
+  const out=[];
+  splitPlaces(p.departamentos).forEach(d=>{
+    const canon=canonicalDeptName(d);
+    if(!canon)return;
+    canon.split('|').forEach(x=>{
+      const v=x.trim();
+      if(v&&!out.some(y=>norm(y)===norm(v)))out.push(v);
+    });
+  });
+  return out;
 }
 
 // Extraer lista de municipios de un proyecto
 function getMunis(p){
   if(!p.municipios)return[];
-  return p.municipios.split(/[,;\n\/]+/).map(m=>m.trim()).filter(Boolean);
+  return splitPlaces(p.municipios)
+    // Evita que frases descriptivas entren como si fueran municipios.
+    .filter(m=>!/municipios productores|departamento del|departamentos del/i.test(m));
 }
 
 // Inicializar mapa Leaflet
@@ -717,7 +778,7 @@ function updateMapa(){
   const muniSet=new Set(),deptoSet=new Set();
   filtered.forEach(p=>{
     getMunis(p).forEach(m=>muniSet.add(norm(m)));
-    if(p.departamentos)p.departamentos.split(/[,;\n\/]+/).forEach(d=>deptoSet.add(d.trim()));
+    getDeptos(p).forEach(d=>deptoSet.add(norm(d)));
   });
   document.getElementById('ms-proy').textContent=filtered.length;
   document.getElementById('ms-munis').textContent=muniSet.size||'–';
@@ -760,7 +821,7 @@ function focusProject(idx){
   const rowEl=document.getElementById('mrow-'+idx);
   if(rowEl){rowEl.classList.add('focused');rowEl.scrollIntoView({behavior:'smooth',block:'nearest'});}
 
-  const deptos=(p.departamentos||'').split(/[,;\n\/]+/).map(d=>d.trim()).filter(Boolean);
+  const deptos=getDeptos(p);
   const munis=getMunis(p);
 
   // Panel de municipios
