@@ -123,6 +123,32 @@ main{max-width:1280px;margin:0 auto;padding:2.5rem 2rem 4rem}
 .leg-row:last-child{margin-bottom:0}
 .leg-sw{width:13px;height:13px;border-radius:3px;flex-shrink:0}
 
+/* Panel flotante de municipios sobre el mapa */
+#mapa-munis-panel{
+  position:absolute;top:1.25rem;left:1.25rem;
+  background:rgba(255,255,255,.97);
+  border-radius:12px;padding:1rem 1.1rem;
+  box-shadow:var(--sombra-lg);
+  z-index:400;max-width:260px;min-width:190px;
+  display:none;
+}
+#mapa-munis-panel.visible{display:block}
+.mmp-header{display:flex;justify-content:space-between;align-items:flex-start;gap:.6rem;margin-bottom:.65rem}
+.mmp-title{font-family:'Fraunces',serif;font-size:.92rem;font-weight:600;color:var(--verde);line-height:1.25;flex:1}
+.mmp-close{background:none;border:none;cursor:pointer;color:var(--gris-600);font-size:1rem;line-height:1;padding:0;flex-shrink:0;transition:color .15s}
+.mmp-close:hover{color:var(--gris-800)}
+.mmp-deptos{font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--dorado);margin-bottom:.5rem}
+.mmp-list{list-style:none;padding:0;margin:0;max-height:200px;overflow-y:auto}
+.mmp-list::-webkit-scrollbar{width:3px}
+.mmp-list::-webkit-scrollbar-thumb{background:var(--gris-200);border-radius:2px}
+.mmp-list li{font-size:.78rem;color:var(--gris-800);padding:.2rem 0;border-bottom:1px solid var(--gris-100);display:flex;align-items:center;gap:.4rem}
+.mmp-list li:last-child{border-bottom:none}
+.mmp-list li::before{content:'📍';font-size:.65rem}
+.mmp-empty{font-size:.78rem;color:var(--gris-600);font-style:italic}
+
+/* Fila activa en lista de proyectos */
+.mapa-proj-row.focused{background:#fff9ed;border-left:3px solid var(--dorado);padding-left:calc(1.1rem - 3px)}
+
 /* Leaflet popup customisation */
 .mapa-popup{font-family:'IBM Plex Sans',sans-serif;min-width:190px;max-width:280px}
 .mapa-popup h4{font-family:'Fraunces',serif;color:var(--verde);margin-bottom:.5rem;font-size:.95rem;line-height:1.2}
@@ -381,6 +407,15 @@ main{max-width:1280px;margin:0 auto;padding:2.5rem 2rem 4rem}
     <!-- Panel derecho: mapa Leaflet -->
     <div class="mapa-right">
       <div id="colombia-map"></div>
+      <!-- Panel flotante de municipios -->
+      <div id="mapa-munis-panel">
+        <div class="mmp-header">
+          <div class="mmp-title" id="mmp-title">–</div>
+          <button class="mmp-close" onclick="clearProjectFocus()" title="Cerrar">✕</button>
+        </div>
+        <div class="mmp-deptos" id="mmp-deptos"></div>
+        <ul class="mmp-list" id="mmp-list"></ul>
+      </div>
       <div class="mapa-loader" id="mapa-loader">
         <div class="loading-spinner"></div>
         <span>Cargando mapa de Colombia…</span>
@@ -674,6 +709,7 @@ function drawMapLayer(filteredProjs){
 }
 
 function updateMapa(){
+  clearProjectFocus();
   const sel=document.getElementById('mapa-sel').value;
   const filtered=sel?projects.filter(p=>p.sistema===sel):projects;
 
@@ -696,7 +732,7 @@ function updateMapa(){
     tb.innerHTML=filtered.map(p=>{
       const idx=projects.indexOf(p);
       const muniStr=getMunis(p).slice(0,3).join(', ')+(getMunis(p).length>3?'…':'');
-      return`<div class="mapa-proj-row" id="mrow-${idx}" onclick="openModal(${idx})">
+      return`<div class="mapa-proj-row" id="mrow-${idx}" onclick="focusProject(${idx})">
         <div class="mapa-proj-nombre">${esc(p.nombre)}</div>
         <div class="mapa-proj-tags">
           ${p.area?`<span class="mapa-proj-area">${esc(p.area)}</span>`:''}
@@ -708,6 +744,78 @@ function updateMapa(){
 
   // Redibujar capa del mapa
   if(mapaReady)drawMapLayer(filtered);
+}
+
+// Estado de foco
+let focusLayer=null;
+
+function focusProject(idx){
+  const p=projects[idx];if(!p)return;
+
+  // Resaltar fila
+  document.querySelectorAll('.mapa-proj-row').forEach(r=>{
+    r.classList.remove('active','focused');
+  });
+  const rowEl=document.getElementById('mrow-'+idx);
+  if(rowEl){rowEl.classList.add('focused');rowEl.scrollIntoView({behavior:'smooth',block:'nearest'});}
+
+  // Obtener departamentos y municipios del proyecto
+  const deptos=(p.departamentos||'').split(/[,;\n\/]+/).map(d=>d.trim()).filter(Boolean);
+  const munis=getMunis(p);
+
+  // Panel de municipios
+  document.getElementById('mmp-title').textContent=p.nombre;
+  document.getElementById('mmp-deptos').textContent=
+    deptos.length?'📌 '+deptos.join(' · '):'Sin departamento';
+  const listEl=document.getElementById('mmp-list');
+  if(munis.length){
+    listEl.innerHTML=munis.map(m=>`<li>${esc(m)}</li>`).join('');
+  }else{
+    listEl.innerHTML=`<li class="mmp-empty">Sin municipios registrados</li>`;
+  }
+  document.getElementById('mapa-munis-panel').classList.add('visible');
+
+  // Resaltar en el mapa
+  if(!geoData||!leafMap)return;
+
+  if(focusLayer){leafMap.removeLayer(focusLayer);focusLayer=null;}
+
+  const deptosNorm=new Set(deptos.map(norm));
+  const munisNorm=new Set(munis.map(norm));
+
+  const matchedLayers=[];
+  focusLayer=L.geoJSON(geoData,{
+    style:feat=>{
+      const mn=norm(featName(feat));
+      const dn=norm(featDept(feat));
+      const isMuni=munisNorm.has(mn);
+      const isDept=deptosNorm.has(dn)||deptosNorm.has(mn);
+      if(isMuni)return{fillColor:'#b5873a',fillOpacity:0.85,color:'#7a5520',weight:1.5,opacity:1};
+      if(isDept)return{fillColor:'#f4d58d',fillOpacity:0.55,color:'#b5873a',weight:1,opacity:0.8};
+      return{fillColor:'transparent',fillOpacity:0,color:'transparent',weight:0,opacity:0};
+    },
+    onEachFeature:(feat,layer)=>{
+      const mn=norm(featName(feat));
+      const dn=norm(featDept(feat));
+      if(munisNorm.has(mn)||deptosNorm.has(dn)||deptosNorm.has(mn)){
+        matchedLayers.push(layer);
+      }
+    }
+  }).addTo(leafMap);
+
+  // Zoom a la cobertura del proyecto
+  if(matchedLayers.length){
+    try{
+      const grp=L.featureGroup(matchedLayers);
+      leafMap.fitBounds(grp.getBounds().pad(0.15));
+    }catch(e){}
+  }
+}
+
+function clearProjectFocus(){
+  document.querySelectorAll('.mapa-proj-row').forEach(r=>r.classList.remove('active','focused'));
+  document.getElementById('mapa-munis-panel').classList.remove('visible');
+  if(focusLayer){leafMap.removeLayer(focusLayer);focusLayer=null;}
 }
 
 // ════════════════════════════════════════════════════════════
