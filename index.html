@@ -477,7 +477,6 @@ let projects=[], capItems=[];
 
 // Estado del mapa
 let leafMap=null, geoLayer=null, geoData=null, mapaReady=false;
-let deptGeoData=null, deptLayer=null, deptReady=false;
 
 // ════════════════════════════════════════════════════════════
 // CSV PARSER
@@ -652,37 +651,23 @@ function initLeafMap(){
 
   leafMap=L.map('colombia-map',{center:[4.57,-74.3],zoom:5,zoomControl:true,attributionControl:false});
 
-  // Tiles neutros (gris claro) para resaltar bien los colores del portafolio
+  // Tiles neutros para resaltar las coberturas del portafolio
   L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png',{maxZoom:18,opacity:0.45}).addTo(leafMap);
 
-  // Intentar fuente primaria, luego backup
-  const URL1='https://raw.githubusercontent.com/Heatdog/Colombia-JSON/main/municipios.json';
-  const URL2='https://gist.githubusercontent.com/john-guerra/43c7656821069d00dcbc/raw/be6a6e239cd5b5b803c6e7c2ec405b793a9064dd/Colombia.geo.json';
+  // Fuente municipal en coordenadas WGS84 compatible con Leaflet.
+  // La versión anterior usaba una capa departamental de Highcharts; esa fuente no está
+  // en lat/lon y por eso desplazaba el mapa al mundo y generaba una línea horizontal.
+  const URL1='https://services3.arcgis.com/8cBoM4o6pnuUb1z1/arcgis/rest/services/MUNICIPIOS_2023/FeatureServer/0/query?where=1%3D1&outFields=*&returnGeometry=true&outSR=4326&f=geojson';
+  const URL2='https://visualizador.ideam.gov.co/gisserver/rest/services/Hosted/Precipitacion/FeatureServer/1/query?where=1%3D1&outFields=*&returnGeometry=true&outSR=4326&f=geojson';
 
   fetch(URL1)
     .then(r=>{if(!r.ok)throw new Error();return r.json();})
-    .catch(()=>fetch(URL2).then(r=>r.json()))
+    .catch(()=>fetch(URL2).then(r=>{if(!r.ok)throw new Error();return r.json();}))
     .then(geo=>{
       geoData=geo;
       document.getElementById('mapa-loader').style.display='none';
       mapaReady=true;
-      drawMapLayer(projects); // dibujar con todos los proyectos al inicio
-
-      // Capa departamental independiente. Esto permite resaltar departamentos completos
-      // al hacer clic en un proyecto, aunque la capa principal sea municipal.
-      const DEPTO_URL='https://code.highcharts.com/mapdata/countries/co/co-all.geo.json';
-      fetch(DEPTO_URL)
-        .then(r=>{if(!r.ok)throw new Error();return r.json();})
-        .then(dgeo=>{
-          deptGeoData=dgeo;
-          deptReady=true;
-          deptLayer=L.geoJSON(deptGeoData,{
-            style:()=>({fillColor:'#ffffff',fillOpacity:0,color:'#1a4731',weight:1.2,opacity:0.18,dashArray:'3,4'}),
-            interactive:false
-          }).addTo(leafMap);
-          if(geoLayer)geoLayer.bringToFront();
-        })
-        .catch(()=>{console.warn('No se pudo cargar la capa departamental. El mapa seguirá funcionando por municipios.');});
+      drawMapLayer(projects);
     })
     .catch(()=>{
       document.getElementById('mapa-loader').innerHTML=
@@ -693,70 +678,27 @@ function initLeafMap(){
 // Obtener nombre del feature según la fuente del GeoJSON
 function featName(f){
   const p=f.properties||{};
-  return p.MPIO_CNMBR||p.NOMBRE_MPIO||p.nombre||p.MUNICIPIO||p.NOM_MPIO||p.municipio||p.name||'';
+  return p.MPIO_CNMBR||p.mpio_cnmbr||p.MPIO_NOMBRE||p.NOMBRE_MPIO||p.nombre||p.MUNICIPIO||p.NOM_MPIO||p.municipio||p.name||p.c5_ExcelToTable_mpio_cnmbr||'';
 }
 function featDept(f){
   const p=f.properties||{};
-  // Soporta varias estructuras de GeoJSON municipales.
-  let direct=p.DPTO_CNMBR||p.DEPARTAMENTO||p.departamento||p.NOMBRE_DPTO||p.NOM_DPTO||p.NOM_DEPTO||p.NOMBRE_DPT||p.DEPTO||p.DEPARTAMEN||p.Nombre_Depto||p.NOMBRE_DEPARTAMENTO||p.dept||p.dpto||'';
+  let direct=p.DPTO_CNMBR||p.dpto_cnmbr||p.DEPARTAMENTO||p.departamento||p.NOMBRE_DPTO||p.NOM_DPTO||p.NOM_DEPTO||p.NOMBRE_DPT||p.DEPTO||p.DEPARTAMEN||p.Nombre_Depto||p.NOMBRE_DEPARTAMENTO||p.dept||p.dpto||p.c5_ExcelToTable_dpto_cnmbr||'';
   if(direct)return direct;
-  // Búsqueda flexible por claves, por si cambia la fuente del GeoJSON.
   const keys=Object.keys(p);
   const k=keys.find(x=>/dpto|depto|depart|nom.*dep|dep.*nom/i.test(x));
   return k?p[k]:'';
 }
 
-// Obtener nombre de departamento en capa departamental.
-function featDeptLayerName(f){
-  const p=f.properties||{};
-  let direct=p.name||p.NAME||p.NOMBRE_DPT||p.NOMBRE_DPTO||p.DPTO_CNMBR||p.DEPARTAMENTO||p.departamento||p.NOM_DPTO||p.NOM_DEPTO||p.nombre||'';
-  if(direct)return direct;
-  const keys=Object.keys(p);
-  const k=keys.find(x=>/name|nombre|dpto|depto|depart/i.test(x));
-  return k?p[k]:'';
-}
-
-// Normalizador específico para comparar departamentos del CSV vs GeoJSON departamental.
-function deptKey(s){
-  let k=norm(String(s||'')
-    .replace(/archipielago de san andres providencia y santa catalina/ig,'san andres providencia')
-    .replace(/san andres y providencia/ig,'san andres providencia')
-    .replace(/bogota d c/ig,'bogota dc')
-  );
-  const map={
-    'valle':'valle del cauca',
-    'valle de cauca':'valle del cauca',
-    'bogota':'bogota dc',
-    'distrito capital':'bogota dc',
-    'santafe de bogota dc':'bogota dc',
-    'san andres':'san andres providencia',
-    'san andres providencia':'san andres providencia',
-    'archipielago de san andres providencia santa catalina':'san andres providencia',
-    'norte santander':'norte de santander'
-  };
-  return map[k]||k;
-}
-
 function resetDepartmentLayer(){
-  if(!deptLayer)return;
-  deptLayer.eachLayer(l=>l.setStyle({fillColor:'#ffffff',fillOpacity:0,color:'#1a4731',weight:1.2,opacity:0.18,dashArray:'3,4'}));
+  // La versión corregida ya no usa una capa departamental independiente.
+  // Los departamentos se resaltan coloreando todos los municipios cuyo campo
+  // departamental coincide con los departamentos del proyecto.
 }
 
 function highlightDepartmentsByName(deptos){
-  if(!deptLayer||!deptos||!deptos.length)return[];
-  const wanted=new Set(deptos.map(deptKey).filter(Boolean));
-  const matched=[];
-  deptLayer.eachLayer(l=>{
-    const dkey=deptKey(featDeptLayerName(l.feature));
-    if(wanted.has(dkey)){
-      l.setStyle({fillColor:'#f4d58d',fillOpacity:0.45,color:'#b5873a',weight:2.5,opacity:1,dashArray:null});
-      l.bringToFront();
-      matched.push(l);
-    }else{
-      l.setStyle({fillColor:'#ffffff',fillOpacity:0,color:'#1a4731',weight:1.1,opacity:0.10,dashArray:'3,4'});
-    }
-  });
-  return matched;
+  // Se mantiene esta función como compatibilidad, pero el resaltado real se hace
+  // en focusProject() sobre la capa municipal, que es la única capa cartográfica.
+  return[];
 }
 
 // Construir mapa: nombre_normalizado → [proyectos]
@@ -886,7 +828,7 @@ function updateMapa(){
 // Extraer código de departamento (robusto para ambas fuentes GeoJSON)
 function featDeptCode(f){
   const p=f.properties||{};
-  return String(p.DPTO_CCDGO||p.COD_DPTO||p.DPTO||p.cod_dpto||p.depto||'').trim();
+  return String(p.DPTO_CCDGO||p.dpto_ccdgo||p.COD_DPTO||p.cod_dpto||p.DPTO||p.depto||p.c5_ExcelToTable_dpto_ccdgo||'').trim();
 }
 
 function focusProject(idx){
@@ -914,6 +856,7 @@ function focusProject(idx){
 
   const munisNorm=new Set(munis.map(norm));
   const deptosNormCSV=new Set(deptos.map(norm));
+  const deptosKeyCSV=new Set(deptos.map(deptKey));
 
   // PASO 1 — Obtener códigos Y nombres de depto de los municipios del proyecto en el GeoJSON
   const deptCodes=new Set();
@@ -931,9 +874,8 @@ function focusProject(idx){
   // PASO 2 — Pintar capas
   const matchedLayers=[];
 
-  // Primero se resaltan los departamentos completos usando una capa departamental propia.
-  // Esto evita depender de que la capa municipal tenga campos departamentales completos.
-  highlightDepartmentsByName(deptos).forEach(l=>matchedLayers.push(l));
+  // Los departamentos se resaltan sobre la capa municipal:
+  // todos los municipios del departamento quedan en dorado suave.
   if(geoLayer)geoLayer.bringToFront();
 
   geoLayer.eachLayer(l=>{
@@ -945,7 +887,8 @@ function focusProject(idx){
     const isDept=
       (dc&&deptCodes.has(dc))||
       (dn&&deptNames.has(dn))||
-      deptosNormCSV.has(dn)||
+      (dn&&deptosNormCSV.has(dn))||
+      (dn&&deptosKeyCSV.has(deptKey(dn)))||
       deptosNormCSV.has(mn);
 
     if(isMuni){
