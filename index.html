@@ -569,11 +569,12 @@ function renderProjectGrid(list){
 }
 
 // ════════════════════════════════════════════════════════════
-// MAPA DE COBERTURA
+// MAPA DE COBERTURA - VERSION ESTABLE POR DEPARTAMENTOS
 // ════════════════════════════════════════════════════════════
-// Normalizar nombre de municipio para matching
+// Esta version usa una capa departamental en GeoJSON compatible con Leaflet.
+// Evita mezclar capas municipales/proyectadas que estaban desplazando el mapa al mundo.
 function norm(s){
-  return(s||'').toLowerCase()
+  return(s||'').toString().toLowerCase()
     .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
     .replace(/\./g,' ')
     .replace(/\bel\b/g,' ')
@@ -584,30 +585,27 @@ function norm(s){
     .trim();
 }
 
-// Tabla de equivalencias para nombres de departamentos del CSV.
-// La clave SIEMPRE debe ir normalizada con norm(); el valor es el nombre canónico.
 const DEPTO_EQUIV={
   'valle':'Valle del Cauca',
   'valle del cauca':'Valle del Cauca',
   'valle de cauca':'Valle del Cauca',
-  'valle del cauca tolima':'Valle del Cauca|Tolima',
-  'cauca valle del cauca narino':'Cauca|Valle del Cauca|Nariño',
+  'valle de cauca antioquia cauca quindio risaralda caldas tolima huila':'Valle del Cauca|Antioquia|Cauca|Quindío|Risaralda|Caldas|Tolima|Huila',
   'boyaca':'Boyacá',
   'boyaca santander':'Boyacá|Santander',
   'quindio':'Quindío',
-  'san andres':'San Andrés y Providencia',
-  'san andres providencia':'San Andrés y Providencia',
-  'san andres y providencia':'San Andrés y Providencia',
   'narino':'Nariño',
   'choco':'Chocó',
   'cordoba':'Córdoba',
   'bogota':'Bogotá D.C.',
   'bogota dc':'Bogotá D.C.',
+  'cundinamarca':'Cundinamarca',
+  'san andres':'San Andrés y Providencia',
+  'san andres providencia':'San Andrés y Providencia',
+  'san andres y providencia':'San Andrés y Providencia',
+  'providencia':'San Andrés y Providencia',
   'nacional':''
 };
 
-// Divide campos con separadores mixtos: coma, punto y coma, salto de línea, slash,
-// y también " y " cuando se usa como separador entre departamentos/municipios.
 function splitPlaces(raw){
   return String(raw||'')
     .replace(/\r/g,'\n')
@@ -623,7 +621,6 @@ function canonicalDeptName(raw){
   return DEPTO_EQUIV[n]||raw.trim().replace(/\s+/g,' ');
 }
 
-// Extraer departamentos normalizados de un proyecto
 function getDeptos(p){
   const out=[];
   splitPlaces(p.departamentos).forEach(d=>{
@@ -631,82 +628,85 @@ function getDeptos(p){
     if(!canon)return;
     canon.split('|').forEach(x=>{
       const v=x.trim();
-      if(v&&!out.some(y=>norm(y)===norm(v)))out.push(v);
+      if(v&&!out.some(y=>deptKey(y)===deptKey(v)))out.push(v);
     });
   });
   return out;
 }
 
-// Extraer lista de municipios de un proyecto
 function getMunis(p){
   if(!p.municipios)return[];
   return splitPlaces(p.municipios)
-    // Evita que frases descriptivas entren como si fueran municipios.
     .filter(m=>!/municipios productores|departamento del|departamentos del/i.test(m));
 }
 
-// Inicializar mapa Leaflet
+function deptKey(s){
+  let k=norm(String(s||'')
+    .replace(/archipielago de san andres providencia y santa catalina/ig,'san andres providencia')
+    .replace(/san andres y providencia/ig,'san andres providencia')
+    .replace(/bogota d c/ig,'bogota dc')
+  );
+  const map={
+    'valle':'valle del cauca',
+    'valle de cauca':'valle del cauca',
+    'valle del cauca':'valle del cauca',
+    'bogota':'bogota dc',
+    'bogota d c':'bogota dc',
+    'bogota dc':'bogota dc',
+    'distrito capital':'bogota dc',
+    'santafe de bogota dc':'bogota dc',
+    'san andres':'san andres providencia',
+    'san andres providencia':'san andres providencia',
+    'archipielago de san andres providencia santa catalina':'san andres providencia',
+    'norte santander':'norte de santander',
+    'narino':'narino',
+    'boyaca':'boyaca',
+    'quindio':'quindio',
+    'choco':'choco',
+    'cordoba':'cordoba'
+  };
+  return map[k]||k;
+}
+
 function initLeafMap(){
   if(leafMap)return;
 
   leafMap=L.map('colombia-map',{center:[4.57,-74.3],zoom:5,zoomControl:true,attributionControl:false});
-
-  // Tiles neutros para resaltar las coberturas del portafolio
   L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png',{maxZoom:18,opacity:0.45}).addTo(leafMap);
 
-  // Fuente municipal en coordenadas WGS84 compatible con Leaflet.
-  // La versión anterior usaba una capa departamental de Highcharts; esa fuente no está
-  // en lat/lon y por eso desplazaba el mapa al mundo y generaba una línea horizontal.
-  const URL1='https://services3.arcgis.com/8cBoM4o6pnuUb1z1/arcgis/rest/services/MUNICIPIOS_2023/FeatureServer/0/query?where=1%3D1&outFields=*&returnGeometry=true&outSR=4326&f=geojson';
-  const URL2='https://visualizador.ideam.gov.co/gisserver/rest/services/Hosted/Precipitacion/FeatureServer/1/query?where=1%3D1&outFields=*&returnGeometry=true&outSR=4326&f=geojson';
+  // Capa departamental compatible con Leaflet (33 departamentos). Fuente estable en WGS84.
+  const DEPTO_URL='https://gist.githubusercontent.com/john-guerra/43c7656821069d00dcbc/raw/3aadedf47badbdac823b00dbe259f6bc6d9e1899/colombia.geo.json';
 
-  fetch(URL1)
-    .then(r=>{if(!r.ok)throw new Error();return r.json();})
-    .catch(()=>fetch(URL2).then(r=>{if(!r.ok)throw new Error();return r.json();}))
+  fetch(DEPTO_URL)
+    .then(r=>{if(!r.ok)throw new Error('No se pudo cargar GeoJSON departamental');return r.json();})
     .then(geo=>{
       geoData=geo;
       document.getElementById('mapa-loader').style.display='none';
       mapaReady=true;
       drawMapLayer(projects);
     })
-    .catch(()=>{
+    .catch(err=>{
+      console.error(err);
       document.getElementById('mapa-loader').innerHTML=
-        '<span style="color:#dc2626;padding:1rem">No se pudo cargar el mapa.<br>Verifica tu conexión a internet.</span>';
+        '<span style="color:#dc2626;padding:1rem">No se pudo cargar el mapa departamental.<br>Verifica la conexión o la URL del GeoJSON.</span>';
     });
 }
 
-// Obtener nombre del feature según la fuente del GeoJSON
-function featName(f){
+function featDeptLayerName(f){
   const p=f.properties||{};
-  return p.MPIO_CNMBR||p.mpio_cnmbr||p.MPIO_NOMBRE||p.NOMBRE_MPIO||p.nombre||p.MUNICIPIO||p.NOM_MPIO||p.municipio||p.name||p.c5_ExcelToTable_mpio_cnmbr||'';
-}
-function featDept(f){
-  const p=f.properties||{};
-  let direct=p.DPTO_CNMBR||p.dpto_cnmbr||p.DEPARTAMENTO||p.departamento||p.NOMBRE_DPTO||p.NOM_DPTO||p.NOM_DEPTO||p.NOMBRE_DPT||p.DEPTO||p.DEPARTAMEN||p.Nombre_Depto||p.NOMBRE_DEPARTAMENTO||p.dept||p.dpto||p.c5_ExcelToTable_dpto_cnmbr||'';
+  let direct=p.name||p.NAME||p.NOMBRE_DPT||p.NOMBRE_DPTO||p.DPTO_CNMBR||p.DEPARTAMENTO||p.departamento||p.NOM_DPTO||p.NOM_DEPTO||p.nombre||'';
   if(direct)return direct;
   const keys=Object.keys(p);
-  const k=keys.find(x=>/dpto|depto|depart|nom.*dep|dep.*nom/i.test(x));
+  const k=keys.find(x=>/name|nombre|dpto|depto|depart/i.test(x));
   return k?p[k]:'';
 }
 
-function resetDepartmentLayer(){
-  // La versión corregida ya no usa una capa departamental independiente.
-  // Los departamentos se resaltan coloreando todos los municipios cuyo campo
-  // departamental coincide con los departamentos del proyecto.
-}
-
-function highlightDepartmentsByName(deptos){
-  // Se mantiene esta función como compatibilidad, pero el resaltado real se hace
-  // en focusProject() sobre la capa municipal, que es la única capa cartográfica.
-  return[];
-}
-
-// Construir mapa: nombre_normalizado → [proyectos]
-function buildMuniIndex(list){
+function buildDeptIndex(list){
   const idx={};
   list.forEach(p=>{
-    getMunis(p).forEach(m=>{
-      const k=norm(m);
+    getDeptos(p).forEach(d=>{
+      const k=deptKey(d);
+      if(!k)return;
       if(!idx[k])idx[k]=[];
       idx[k].push(p);
     });
@@ -718,73 +718,55 @@ function drawMapLayer(filteredProjs){
   if(!geoData||!leafMap)return;
   if(geoLayer)leafMap.removeLayer(geoLayer);
 
-  const idx=buildMuniIndex(filteredProjs);
+  const idx=buildDeptIndex(filteredProjs);
   const active=new Set(Object.keys(idx));
 
   geoLayer=L.geoJSON(geoData,{
     style:feat=>{
-      const hasP=active.has(norm(featName(feat)));
+      const dkey=deptKey(featDeptLayerName(feat));
+      const hasP=active.has(dkey);
       return{
         fillColor:hasP?'#1a4731':'#d8f3dc',
         fillOpacity:hasP?0.80:0.50,
-        color:'#ffffff',weight:0.5,opacity:0.9
+        color:'#ffffff',weight:0.8,opacity:0.95
       };
     },
     onEachFeature:(feat,layer)=>{
-      const rawName=featName(feat);
-      const dept=featDept(feat);
-      const nk=norm(rawName);
-      const proysHere=idx[nk]||[];
-
-      // Tooltip
+      const deptName=featDeptLayerName(feat);
+      const dkey=deptKey(deptName);
+      const proysHere=idx[dkey]||[];
       layer.bindTooltip(
-        `<strong>${esc(rawName)}</strong>${dept?'<br><span>'+esc(dept)+'</span>':''}${proysHere.length?'<br><span>'+proysHere.length+' proyecto'+(proysHere.length>1?'s':'')+'</span>':''}`,
+        `<strong>${esc(deptName)}</strong>${proysHere.length?'<br><span>'+proysHere.length+' proyecto'+(proysHere.length>1?'s':'')+'</span>':''}`,
         {sticky:true,opacity:1}
       );
-
-      // Popup con proyectos
       if(proysHere.length){
         layer.bindPopup(
           `<div class="mapa-popup">
-            <h4>📍 ${esc(rawName)}</h4>
-            ${proysHere.map(p=>`<div class="mapa-popup-proj"><strong>${esc(p.nombre)}</strong><div class="mapa-popup-area">${esc(p.sistema||'')}${p.area?' · '+esc(p.area):''}</div></div>`).join('')}
+            <h4>📍 ${esc(deptName)}</h4>
+            ${proysHere.slice(0,10).map(p=>`<div class="mapa-popup-proj"><strong>${esc(p.nombre)}</strong><div class="mapa-popup-area">${esc(p.sistema||'')}${p.area?' · '+esc(p.area):''}</div></div>`).join('')}
+            ${proysHere.length>10?`<div class="mapa-popup-area">+ ${proysHere.length-10} proyectos adicionales</div>`:''}
           </div>`,
-          {maxWidth:300}
+          {maxWidth:320}
         );
-        // Clic → resalta fila en tabla
-        layer.on('click',()=>{
-          document.querySelectorAll('.mapa-proj-row').forEach(r=>r.classList.remove('active'));
-          proysHere.forEach(p=>{
-            const el=document.getElementById('mrow-'+projects.indexOf(p));
-            if(el){el.classList.add('active');el.scrollIntoView({behavior:'smooth',block:'nearest'});}
-          });
-        });
       }
-
-      // Hover: cambiar color
-      layer.on('mouseover',function(){
-        if(active.has(nk))this.setStyle({fillColor:'#b5873a',fillOpacity:0.9});
-        else this.setStyle({fillColor:'#74c69d',fillOpacity:0.65});
-      });
-      layer.on('mouseout',function(){
-        geoLayer.resetStyle(this);
+      layer.on('mouseover',function(){this.setStyle({fillColor:'#b5873a',fillOpacity:0.90,color:'#7a5520',weight:1.5});});
+      layer.on('mouseout',function(){geoLayer.resetStyle(this);});
+      layer.on('click',function(){
+        document.querySelectorAll('.mapa-proj-row').forEach(r=>r.classList.remove('active'));
+        proysHere.forEach(p=>{
+          const el=document.getElementById('mrow-'+projects.indexOf(p));
+          if(el)el.classList.add('active');
+        });
       });
     }
   }).addTo(leafMap);
 
-  // Ajustar vista a los municipios activos
-  if(active.size>0){
-    try{
-      const activeLayers=[];
-      geoLayer.eachLayer(l=>{if(active.has(norm(featName(l.feature))))activeLayers.push(l);});
-      if(activeLayers.length){
-        const grp=L.featureGroup(activeLayers);
-        leafMap.fitBounds(grp.getBounds().pad(0.12));
-      }
-    }catch(e){leafMap.setView([4.57,-74.3],5);}
-  }else{
-    leafMap.setView([4.57,-74.3],5);
-  }
+  const activeLayers=[];
+  geoLayer.eachLayer(l=>{if(active.has(deptKey(featDeptLayerName(l.feature))))activeLayers.push(l);});
+  try{
+    if(activeLayers.length){leafMap.fitBounds(L.featureGroup(activeLayers).getBounds().pad(0.12));}
+    else{leafMap.setView([4.57,-74.3],5);}
+  }catch(e){leafMap.setView([4.57,-74.3],5);}
 }
 
 function updateMapa(){
@@ -792,18 +774,16 @@ function updateMapa(){
   const sel=document.getElementById('mapa-sel').value;
   const filtered=sel?projects.filter(p=>p.sistema===sel):projects;
 
-  // Estadísticas
   const muniSet=new Set(),deptoSet=new Set();
   filtered.forEach(p=>{
     getMunis(p).forEach(m=>muniSet.add(norm(m)));
-    getDeptos(p).forEach(d=>deptoSet.add(norm(d)));
+    getDeptos(p).forEach(d=>deptoSet.add(deptKey(d)));
   });
   document.getElementById('ms-proy').textContent=filtered.length;
   document.getElementById('ms-munis').textContent=muniSet.size||'–';
   document.getElementById('ms-deptos').textContent=deptoSet.size||'–';
   document.getElementById('ms-count').textContent=filtered.length+' proyecto'+(filtered.length!==1?'s':'');
 
-  // Tabla
   const tb=document.getElementById('mapa-table');
   if(!filtered.length){
     tb.innerHTML='<div class="empty" style="padding:2rem"><div class="empty-icon">🌿</div><h3 style="font-size:.95rem">Sin proyectos</h3></div>';
@@ -821,20 +801,12 @@ function updateMapa(){
     }).join('');
   }
 
-  // Redibujar capa del mapa
   if(mapaReady)drawMapLayer(filtered);
-}
-
-// Extraer código de departamento (robusto para ambas fuentes GeoJSON)
-function featDeptCode(f){
-  const p=f.properties||{};
-  return String(p.DPTO_CCDGO||p.dpto_ccdgo||p.COD_DPTO||p.cod_dpto||p.DPTO||p.depto||p.c5_ExcelToTable_dpto_ccdgo||'').trim();
 }
 
 function focusProject(idx){
   const p=projects[idx];if(!p)return;
 
-  // Resaltar fila
   document.querySelectorAll('.mapa-proj-row').forEach(r=>r.classList.remove('active','focused'));
   const rowEl=document.getElementById('mrow-'+idx);
   if(rowEl){rowEl.classList.add('focused');rowEl.scrollIntoView({behavior:'smooth',block:'nearest'});}
@@ -842,96 +814,40 @@ function focusProject(idx){
   const deptos=getDeptos(p);
   const munis=getMunis(p);
 
-  // Panel de municipios
   document.getElementById('mmp-title').textContent=p.nombre;
-  document.getElementById('mmp-deptos').textContent=
-    deptos.length?'\u{1F4CC} '+deptos.join(' \u00B7 '):'Sin departamento';
+  document.getElementById('mmp-deptos').textContent=deptos.length?'📌 '+deptos.join(' · '):'Sin departamento';
   const listEl=document.getElementById('mmp-list');
-  listEl.innerHTML=munis.length
-    ?munis.map(m=>`<li>${esc(m)}</li>`).join('')
-    :`<li class="mmp-empty">Sin municipios registrados</li>`;
+  listEl.innerHTML=munis.length?munis.map(m=>`<li>${esc(m)}</li>`).join(''):`<li class="mmp-empty">Sin municipios registrados</li>`;
   document.getElementById('mapa-munis-panel').classList.add('visible');
 
   if(!geoLayer)return;
-
-  const munisNorm=new Set(munis.map(norm));
-  const deptosNormCSV=new Set(deptos.map(norm));
-  const deptosKeyCSV=new Set(deptos.map(deptKey));
-
-  // PASO 1 — Obtener códigos Y nombres de depto de los municipios del proyecto en el GeoJSON
-  const deptCodes=new Set();
-  const deptNames=new Set();
-  geoLayer.eachLayer(l=>{
-    if(!l.feature)return;
-    if(munisNorm.has(norm(featName(l.feature)))){
-      const dc=featDeptCode(l.feature);
-      if(dc)deptCodes.add(dc);
-      const dn=norm(featDept(l.feature));
-      if(dn)deptNames.add(dn);
-    }
-  });
-
-  // PASO 2 — Pintar capas
+  const wanted=new Set(deptos.map(deptKey).filter(Boolean));
   const matchedLayers=[];
-
-  // Los departamentos se resaltan sobre la capa municipal:
-  // todos los municipios del departamento quedan en dorado suave.
-  if(geoLayer)geoLayer.bringToFront();
-
   geoLayer.eachLayer(l=>{
-    if(!l.feature)return;
-    const mn=norm(featName(l.feature));
-    const dc=featDeptCode(l.feature);
-    const dn=norm(featDept(l.feature));
-    const isMuni=munisNorm.has(mn);
-    const isDept=
-      (dc&&deptCodes.has(dc))||
-      (dn&&deptNames.has(dn))||
-      (dn&&deptosNormCSV.has(dn))||
-      (dn&&deptosKeyCSV.has(deptKey(dn)))||
-      deptosNormCSV.has(mn);
-
-    if(isMuni){
-      l.setStyle({fillColor:'#b5873a',fillOpacity:0.92,color:'#7a5520',weight:2,opacity:1});
+    const dkey=deptKey(featDeptLayerName(l.feature));
+    if(wanted.has(dkey)){
+      l.setStyle({fillColor:'#b5873a',fillOpacity:0.92,color:'#7a5520',weight:2.5,opacity:1});
       l.bringToFront();
       matchedLayers.push(l);
-    }else if(isDept){
-      // Refuerzo municipal dentro del departamento cuando el GeoJSON trae el campo departamental.
-      // La capa departamental queda debajo; por eso aquí usamos una opacidad moderada.
-      l.setStyle({fillColor:'#f4d58d',fillOpacity:0.38,color:'#c9932a',weight:0.7,opacity:0.85});
-      matchedLayers.push(l);
     }else{
-      l.setStyle({fillColor:'#d8f3dc',fillOpacity:0.10,color:'#ffffff',weight:0.3,opacity:0.35});
+      l.setStyle({fillColor:'#d8f3dc',fillOpacity:0.18,color:'#ffffff',weight:0.6,opacity:0.45});
     }
   });
-
-  // PASO 3 — Zoom
   if(matchedLayers.length){
-    try{
-      const grp=L.featureGroup(matchedLayers);
-      leafMap.fitBounds(grp.getBounds().pad(0.18));
-    }catch(e){}
+    try{leafMap.fitBounds(L.featureGroup(matchedLayers).getBounds().pad(0.18));}catch(e){}
   }
 }
-
 
 function clearProjectFocus(){
   document.querySelectorAll('.mapa-proj-row').forEach(r=>r.classList.remove('active','focused'));
   document.getElementById('mapa-munis-panel').classList.remove('visible');
-  resetDepartmentLayer();
-  // Restaurar estilos originales reconstruyendo el índice actual
-  if(geoLayer){
+  if(mapaReady){
     const sel=document.getElementById('mapa-sel').value;
     const filtered=sel?projects.filter(p=>p.sistema===sel):projects;
-    const idx=buildMuniIndex(filtered);
-    const active=new Set(Object.keys(idx));
-    geoLayer.eachLayer(l=>{
-      if(!l.feature)return;
-      const hasP=active.has(norm(featName(l.feature)));
-      l.setStyle({fillColor:hasP?'#1a4731':'#d8f3dc',fillOpacity:hasP?0.80:0.50,color:'#ffffff',weight:0.5,opacity:0.9});
-    });
+    drawMapLayer(filtered);
   }
 }
+
 
 // ════════════════════════════════════════════════════════════
 // MODAL PROYECTOS
