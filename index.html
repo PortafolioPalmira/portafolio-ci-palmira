@@ -674,13 +674,32 @@ function initLeafMap(){
   leafMap=L.map('colombia-map',{center:[4.57,-74.3],zoom:5,zoomControl:true,attributionControl:false});
   L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png',{maxZoom:18,opacity:0.45}).addTo(leafMap);
 
-  // Capa departamental compatible con Leaflet (33 departamentos). Fuente estable en WGS84.
-  const DEPTO_URL='https://gist.githubusercontent.com/john-guerra/43c7656821069d00dcbc/raw/3aadedf47badbdac823b00dbe259f6bc6d9e1899/colombia.geo.json';
+  // Capa departamental oficial desde servicio ArcGIS del DANE.
+  // Se solicita salida GeoJSON y coordenadas WGS84 (outSR=4326), compatible con Leaflet.
+  const DEPTO_URLS=[
+    'https://geoportal.dane.gov.co/mparcgis/rest/services/INDICADORES_CTERRITORIO/Cache_MpiosCTDeptosAM_DivisionPolitica_2012/MapServer/2/query?where=1%3D1&outFields=*&returnGeometry=true&outSR=4326&f=geojson',
+    'https://sig.sispro.gov.co/arcgis_msp/rest/services/Visor/ColombiaBase/MapServer/0/query?where=1%3D1&outFields=*&returnGeometry=true&outSR=4326&f=geojson',
+    'https://raw.githubusercontent.com/juliocesar-io/maps-directores-nucleo-colombia/main/public/geo/colombia-departamentos.geojson'
+  ];
 
-  fetch(DEPTO_URL)
-    .then(r=>{if(!r.ok)throw new Error('No se pudo cargar GeoJSON departamental');return r.json();})
+  function fetchDeptGeoJSON(i=0){
+    return fetch(DEPTO_URLS[i])
+      .then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json();})
+      .then(geo=>{
+        if(!geo||!geo.features||!geo.features.length)throw new Error('GeoJSON sin features');
+        return geo;
+      })
+      .catch(err=>{
+        console.warn('Falló fuente GeoJSON departamental',i,err);
+        if(i<DEPTO_URLS.length-1)return fetchDeptGeoJSON(i+1);
+        throw err;
+      });
+  }
+
+  fetchDeptGeoJSON()
     .then(geo=>{
       geoData=geo;
+      window.geoData=geo; // útil para diagnóstico en consola
       document.getElementById('mapa-loader').style.display='none';
       mapaReady=true;
       drawMapLayer(projects);
@@ -688,17 +707,22 @@ function initLeafMap(){
     .catch(err=>{
       console.error(err);
       document.getElementById('mapa-loader').innerHTML=
-        '<span style="color:#dc2626;padding:1rem">No se pudo cargar el mapa departamental.<br>Verifica la conexión o la URL del GeoJSON.</span>';
+        '<span style="color:#dc2626;padding:1rem">No se pudo cargar el mapa departamental.<br>Verifica la conexión a internet o la URL del GeoJSON.</span>';
     });
 }
 
 function featDeptLayerName(f){
   const p=f.properties||{};
-  let direct=p.name||p.NAME||p.NOMBRE_DPT||p.NOMBRE_DPTO||p.DPTO_CNMBR||p.DEPARTAMENTO||p.departamento||p.NOM_DPTO||p.NOM_DEPTO||p.nombre||'';
-  if(direct)return direct;
+  // Campos habituales en servicios DANE/ArcGIS y repositorios GeoJSON de departamentos.
+  let direct=
+    p.DPTO_CNMBR||p.DPTO_CNOMBRE||p.DPTO_NOMBRE||p.NOMBRE_DPT||p.NOMBRE_DPTO||p.NOMBRE_DEPTO||
+    p.NOM_DPTO||p.NOM_DEPTO||p.DEPARTAMENTO||p.departamento||p.DEPTO||p.Depto||
+    p.name||p.NAME||p.nombre||p.NOMBRE||p.nom_dep||p.NOM_DEP||'';
+  if(direct)return String(direct).trim();
   const keys=Object.keys(p);
-  const k=keys.find(x=>/name|nombre|dpto|depto|depart/i.test(x));
-  return k?p[k]:'';
+  // Priorizar claves que indiquen nombre de departamento; evitar códigos como DPTO_CCDGO.
+  const k=keys.find(x=>/(nombre|nom).*d(pto|ep|epart)|d(pto|ep|epart).*(nombre|nom)|departamento|depto/i.test(x)&&!/cod|codigo|ccdg|id/i.test(x));
+  return k?String(p[k]).trim():'';
 }
 
 function buildDeptIndex(list){
@@ -720,6 +744,9 @@ function drawMapLayer(filteredProjs){
 
   const idx=buildDeptIndex(filteredProjs);
   const active=new Set(Object.keys(idx));
+  const geoDeptKeys=new Set((geoData.features||[]).map(f=>deptKey(featDeptLayerName(f))).filter(Boolean));
+  const missing=[...active].filter(k=>!geoDeptKeys.has(k));
+  if(missing.length)console.warn('Departamentos del CSV no encontrados en GeoJSON:',missing,'Disponibles:',[...geoDeptKeys].slice(0,40));
 
   geoLayer=L.geoJSON(geoData,{
     style:feat=>{
