@@ -637,6 +637,55 @@ function getDeptos(p){
   return out;
 }
 
+// Códigos DANE de departamentos. Esto permite pintar departamentos
+// aunque el GeoJSON use solo códigos y no nombres canónicos.
+const DEPTO_CODE_BY_NAME={
+  'amazonas':'91',
+  'antioquia':'05',
+  'arauca':'81',
+  'atlantico':'08',
+  'bogota d c':'11',
+  'bogota dc':'11',
+  'bolivar':'13',
+  'boyaca':'15',
+  'caldas':'17',
+  'caqueta':'18',
+  'casanare':'85',
+  'cauca':'19',
+  'cesar':'20',
+  'choco':'27',
+  'cordoba':'23',
+  'cundinamarca':'25',
+  'guainia':'94',
+  'guaviare':'95',
+  'huila':'41',
+  'la guajira':'44',
+  'magdalena':'47',
+  'meta':'50',
+  'narino':'52',
+  'norte de santander':'54',
+  'putumayo':'86',
+  'quindio':'63',
+  'risaralda':'66',
+  'san andres y providencia':'88',
+  'san andres providencia':'88',
+  'santander':'68',
+  'sucre':'70',
+  'tolima':'73',
+  'valle del cauca':'76',
+  'vaupes':'97',
+  'vichada':'99'
+};
+
+function deptCodesFromNames(deptos){
+  const codes=new Set();
+  deptos.forEach(d=>{
+    const k=norm(d);
+    if(DEPTO_CODE_BY_NAME[k])codes.add(DEPTO_CODE_BY_NAME[k]);
+  });
+  return codes;
+}
+
 // Extraer lista de municipios de un proyecto
 function getMunis(p){
   if(!p.municipios)return[];
@@ -680,7 +729,16 @@ function featName(f){
 }
 function featDept(f){
   const p=f.properties||{};
-  return p.DPTO_CNMBR||p.DEPARTAMENTO||p.departamento||p.NOMBRE_DPTO||p.dept||'';
+  return p.DPTO_CNMBR||
+    p.NOMBRE_DPT||
+    p.NOM_DPTO||
+    p.NOMBRE_DEP||
+    p.NOMBRE_DEPARTAMENTO||
+    p.DEPARTAMENTO||
+    p.departamento||
+    p.NOMBRE_DPTO||
+    p.dept||
+    '';
 }
 
 // Construir mapa: nombre_normalizado → [proyectos]
@@ -810,7 +868,23 @@ function updateMapa(){
 // Extraer código de departamento (robusto para ambas fuentes GeoJSON)
 function featDeptCode(f){
   const p=f.properties||{};
-  return String(p.DPTO_CCDGO||p.COD_DPTO||p.DPTO||p.cod_dpto||p.depto||'').trim();
+  let code=String(
+    p.DPTO_CCDGO||
+    p.COD_DPTO||
+    p.COD_DANE_DEPARTAMENTO||
+    p.COD_DEPTO||
+    p.CODDEpto||
+    p.DPTO||
+    p.cod_dpto||
+    p.cod_depto||
+    p.depto||
+    ''
+  ).trim();
+
+  // Algunos GeoJSON entregan códigos como número, por ejemplo 5 en vez de 05.
+  code=code.replace(/\.0$/,'').replace(/[^0-9]/g,'');
+  if(code.length===1)code='0'+code;
+  return code;
 }
 
 function focusProject(idx){
@@ -839,9 +913,13 @@ function focusProject(idx){
   const munisNorm=new Set(munis.map(norm));
   const deptosNormCSV=new Set(deptos.map(norm));
 
-  // PASO 1 — Obtener códigos Y nombres de depto de los municipios del proyecto en el GeoJSON
-  const deptCodes=new Set();
-  const deptNames=new Set();
+  // PASO 1 — Obtener códigos de departamento desde el CSV estandarizado.
+  // Esto es lo más importante: si el GeoJSON trae DPTO_CCDGO, se cruza por código DANE.
+  const deptCodes=deptCodesFromNames(deptos);
+  const deptNames=new Set(deptos.map(norm));
+
+  // PASO 1B — Complementar códigos/nombres desde los municipios que sí coincidan.
+  // Esto ayuda cuando el CSV tiene municipio pero no departamento o cuando hay variantes.
   geoLayer.eachLayer(l=>{
     if(!l.feature)return;
     if(munisNorm.has(norm(featName(l.feature)))){
