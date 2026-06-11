@@ -123,6 +123,13 @@ main{max-width:1280px;margin:0 auto;padding:2.5rem 2rem 4rem}
 .leg-row:last-child{margin-bottom:0}
 .leg-sw{width:13px;height:13px;border-radius:3px;flex-shrink:0}
 
+/* ── Análisis cards ── */
+.analisis-card{background:#fff;border-radius:14px;padding:1.4rem 1.5rem;box-shadow:var(--sombra);border:1px solid var(--gris-100)}
+.analisis-card-title{font-family:'Fraunces',serif;font-size:1.05rem;font-weight:600;color:var(--verde);margin-bottom:.2rem}
+.analisis-card-sub{font-size:.78rem;color:var(--gris-600);margin-bottom:1rem}
+.analisis-chart-wrap{position:relative;min-height:200px;max-height:320px}
+.analisis-chart-wrap canvas{width:100%!important}
+
 /* Panel flotante de municipios sobre el mapa */
 #mapa-munis-panel{
   position:absolute;top:1.25rem;left:1.25rem;
@@ -433,8 +440,83 @@ main{max-width:1280px;margin:0 auto;padding:2.5rem 2rem 4rem}
 
 <!-- ANÁLISIS -->
 <section id="sec-analisis" class="section">
-  <h2 class="section-title">Análisis por Financiador y Área</h2>
-  <div id="analisis-content"></div>
+  <h2 class="section-title">Análisis del Portafolio</h2>
+  <p style="color:var(--gris-600);font-size:.9rem;margin-bottom:1.5rem">Visualizaciones generadas a partir de los datos registrados en la matriz de portafolio. Los gráficos se actualizan automáticamente con cada versión del CSV.</p>
+
+  <!-- Filtro por sistema productivo -->
+  <div style="margin-bottom:2rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
+    <label style="font-size:.82rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--gris-600)">Filtrar por sistema productivo</label>
+    <select id="an-filtro-sistema" onchange="renderAnalisis()" style="border:1px solid var(--gris-200);border-radius:8px;padding:.4rem .9rem;font-size:.85rem;color:var(--gris-800);background:#fff;cursor:pointer">
+      <option value="">Todos los sistemas</option>
+    </select>
+    <span id="an-count" style="font-size:.82rem;color:var(--gris-600)"></span>
+  </div>
+
+  <!-- Fila 1: financiador + rol CI -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem">
+    <div class="analisis-card">
+      <div class="analisis-card-title">Proyectos por financiador</div>
+      <div class="analisis-card-sub">Fuente de financiación de cada proyecto</div>
+      <div class="analisis-chart-wrap"><canvas id="ch-financiador"></canvas></div>
+    </div>
+    <div class="analisis-card">
+      <div class="analisis-card-title">Rol del C.I. Palmira</div>
+      <div class="analisis-card-sub">Posición institucional en cada proyecto</div>
+      <div class="analisis-chart-wrap" style="max-height:220px"><canvas id="ch-rol"></canvas></div>
+    </div>
+  </div>
+
+  <!-- Fila 2: área temática + programa -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem">
+    <div class="analisis-card">
+      <div class="analisis-card-title">Proyectos por área temática</div>
+      <div class="analisis-card-sub">Distribución según enfoque de investigación</div>
+      <div class="analisis-chart-wrap"><canvas id="ch-area"></canvas></div>
+    </div>
+    <div class="analisis-card">
+      <div class="analisis-card-title">Proyectos por programa estratégico</div>
+      <div class="analisis-card-sub">Alineación con los programas institucionales</div>
+      <div class="analisis-chart-wrap"><canvas id="ch-programa"></canvas></div>
+    </div>
+  </div>
+
+  <!-- Fila 3: TRL + estado -->
+  <div style="display:grid;grid-template-columns:2fr 1fr;gap:1.5rem;margin-bottom:1.5rem">
+    <div class="analisis-card">
+      <div class="analisis-card-title">Evolución de madurez tecnológica (TRL)</div>
+      <div class="analisis-card-sub">Comparación TRL inicial vs TRL final por proyecto — solo proyectos con datos registrados</div>
+      <div class="analisis-chart-wrap" style="min-height:300px"><canvas id="ch-trl"></canvas></div>
+    </div>
+    <div class="analisis-card">
+      <div class="analisis-card-title">Estado del proyecto</div>
+      <div class="analisis-card-sub">Proyectos activos, finalizados y cerrados</div>
+      <div class="analisis-chart-wrap" style="max-height:240px"><canvas id="ch-estado"></canvas></div>
+    </div>
+  </div>
+
+  <!-- Fila 4: línea de tiempo + beneficiarios -->
+  <div style="display:grid;grid-template-columns:3fr 2fr;gap:1.5rem;margin-bottom:1.5rem">
+    <div class="analisis-card">
+      <div class="analisis-card-title">Proyectos iniciados por año</div>
+      <div class="analisis-card-sub">Evolución histórica del portafolio — solo proyectos con año de inicio registrado</div>
+      <div class="analisis-chart-wrap"><canvas id="ch-timeline"></canvas></div>
+    </div>
+    <div class="analisis-card">
+      <div class="analisis-card-title">Tipo de beneficiarios</div>
+      <div class="analisis-card-sub">Actores que reciben impacto directo</div>
+      <div class="analisis-chart-wrap"><canvas id="ch-beneficiarios"></canvas></div>
+    </div>
+  </div>
+
+  <!-- Fila 5: inversión por sistema (full width) -->
+  <div style="margin-bottom:1.5rem">
+    <div class="analisis-card">
+      <div class="analisis-card-title">Inversión estimada por sistema productivo</div>
+      <div class="analisis-card-sub">Monto total registrado por cadena — solo proyectos con monto diligenciado ({{ n_montos }} de {{ total }} proyectos)</div>
+      <div class="analisis-chart-wrap" style="max-height:260px"><canvas id="ch-inversion"></canvas></div>
+    </div>
+  </div>
+
 </section>
 
 </main>
@@ -466,6 +548,7 @@ main{max-width:1280px;margin:0 auto;padding:2.5rem 2rem 4rem}
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script>
 // ════════════════════════════════════════════════════════════
 // CONSTANTES Y ESTADO GLOBAL
@@ -953,15 +1036,154 @@ function getEstadoCls(e){const s=(e||'').toLowerCase();if(s.includes('ejecución
 // ════════════════════════════════════════════════════════════
 // ANÁLISIS
 // ════════════════════════════════════════════════════════════
-function renderAnalisis(){
-  const cnt=k=>{const c={};projects.forEach(p=>{const v=p[k]||'No especificado';c[v]=(c[v]||0)+1;});return Object.entries(c).sort((a,b)=>b[1]-a[1]);};
-  const sf=cnt('financiador'),sa=cnt('area'),mf=sf[0]?.[1]||1,ma=sa[0]?.[1]||1;
-  document.getElementById('analisis-content').innerHTML=`
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:2rem">
-      <div><h3 style="font-size:1rem;font-weight:500;color:var(--gris-600);margin-bottom:1rem">Por financiador</h3>${sf.map(([f,n],i)=>`<div class="sistema-bar-row" style="margin-bottom:.5rem"><div class="sistema-bar-label"><span>${esc(f)}</span><strong>${n}</strong></div><div class="sistema-bar-track"><div class="sistema-bar-fill" style="width:${(n/mf*100).toFixed(1)}%;background:${PALETTE[i%PALETTE.length]}"></div></div></div>`).join('')}</div>
-      <div><h3 style="font-size:1rem;font-weight:500;color:var(--gris-600);margin-bottom:1rem">Por área temática</h3>${sa.map(([a,n],i)=>`<div class="sistema-bar-row" style="margin-bottom:.5rem"><div class="sistema-bar-label"><span style="font-size:.78rem">${esc(a)}</span><strong>${n}</strong></div><div class="sistema-bar-track"><div class="sistema-bar-fill" style="width:${(n/ma*100).toFixed(1)}%;background:${PALETTE[(i+5)%PALETTE.length]}"></div></div></div>`).join('')}</div>
-    </div>`;
+// ── Registro de instancias Chart.js ──
+const _charts={};
+function _mkChart(id,cfg){
+  if(_charts[id]){_charts[id].destroy();delete _charts[id];}
+  const el=document.getElementById(id);if(!el)return;
+  _charts[id]=new Chart(el,cfg);
 }
+
+function renderAnalisis(){
+  const sel=document.getElementById('an-filtro-sistema');
+  if(sel&&sel.options.length===1){
+    [...new Set(projects.map(p=>p.sistema).filter(Boolean))].sort().forEach(s=>{
+      const o=document.createElement('option');o.value=s;o.textContent=s;sel.appendChild(o);
+    });
+  }
+  const sistFiltro=sel?sel.value:'';
+  const ps=sistFiltro?projects.filter(p=>p.sistema===sistFiltro):projects;
+  const cntEl=document.getElementById('an-count');
+  if(cntEl)cntEl.textContent=ps.length+' proyecto'+(ps.length!==1?'s':'');
+
+  const cnt=k=>{
+    const c={};
+    ps.forEach(p=>{const v=(p[k]||'').toString().trim();if(v)c[v]=(c[v]||0)+1;});
+    return Object.entries(c).sort((a,b)=>b[1]-a[1]);
+  };
+  const VERDE='#1a4731',DORADO='#b5873a',TIERRA='#6b4c2a';
+  const PAL=['#1a4731','#2d6a4f','#40916c','#52b788','#74c69d',
+             '#b5873a','#d4a373','#e9c46a','#457b9d','#a8dadc',
+             '#e76f51','#f4a261','#2a9d8f','#264653','#6b4c2a'];
+
+  // 1. Financiador
+  const finData=cnt('financiador').slice(0,8);
+  _mkChart('ch-financiador',{type:'bar',data:{
+    labels:finData.map(([k])=>k.length>32?k.slice(0,30)+'\u2026':k),
+    datasets:[{data:finData.map(([,v])=>v),backgroundColor:PAL.slice(0,finData.length),borderRadius:6,borderSkipped:false}]
+  },options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+c.raw+' proyectos'}}},
+    scales:{x:{grid:{color:'#f0f0f0'},ticks:{color:'#555',font:{size:11}}},
+            y:{grid:{display:false},ticks:{color:'#333',font:{size:11}}}}}});
+
+  // 2. Rol CI Palmira
+  const rolData=cnt('rol').filter(([k])=>k);
+  _mkChart('ch-rol',{type:'doughnut',data:{
+    labels:rolData.map(([k])=>k),
+    datasets:[{data:rolData.map(([,v])=>v),backgroundColor:[VERDE,DORADO,TIERRA,'#52b788','#74c69d'],borderWidth:2,borderColor:'#fff'}]
+  },options:{responsive:true,maintainAspectRatio:false,cutout:'62%',
+    plugins:{legend:{position:'right',labels:{font:{size:11},boxWidth:12,padding:10}},
+             tooltip:{callbacks:{label:c=>' '+c.label+': '+c.raw+' proyectos'}}}}});
+
+  // 3. Area tematica
+  const areaData=cnt('area').slice(0,10);
+  _mkChart('ch-area',{type:'bar',data:{
+    labels:areaData.map(([k])=>k.length>36?k.slice(0,34)+'\u2026':k),
+    datasets:[{data:areaData.map(([,v])=>v),backgroundColor:PAL.slice(5,5+areaData.length),borderRadius:6,borderSkipped:false}]
+  },options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+c.raw+' proyectos'}}},
+    scales:{x:{grid:{color:'#f0f0f0'},ticks:{color:'#555',font:{size:11}}},
+            y:{grid:{display:false},ticks:{color:'#333',font:{size:10}}}}}});
+
+  // 4. Programa estrategico
+  const progData=cnt('programa').slice(0,8);
+  _mkChart('ch-programa',{type:'bar',data:{
+    labels:progData.map(([k])=>k.length>42?k.slice(0,40)+'\u2026':k),
+    datasets:[{data:progData.map(([,v])=>v),backgroundColor:PAL.slice(0,progData.length),borderRadius:6,borderSkipped:false}]
+  },options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{
+      title:tt=>{return progData[tt[0].dataIndex]?.[0]||'';},
+      label:c=>' '+c.raw+' proyectos'}}},
+    scales:{x:{grid:{color:'#f0f0f0'},ticks:{color:'#555',font:{size:11}}},
+            y:{grid:{display:false},ticks:{color:'#333',font:{size:10}}}}}});
+
+  // 5. TRL scatter
+  const trlProj=ps.filter(p=>{
+    const ti=parseInt(p.trl_inicial),tf=parseInt(p.trl_final);
+    return !isNaN(ti)&&!isNaN(tf)&&ti>=1&&ti<=9&&tf>=1&&tf<=9;
+  });
+  const trlDS=trlProj.map((p,i)=>{
+    const ti=parseInt(p.trl_inicial),tf=parseInt(p.trl_final);
+    const color=PAL[i%PAL.length];
+    return{label:p.nombre.length>40?p.nombre.slice(0,38)+'\u2026':p.nombre,
+      data:[{x:ti,y:i+1},{x:tf,y:i+1}],
+      borderColor:color,backgroundColor:color,
+      pointRadius:[6,8],showLine:true,borderWidth:2.5,tension:0};
+  });
+  _mkChart('ch-trl',{type:'scatter',
+    data:{datasets:trlDS.length?trlDS:[{label:'Sin datos TRL registrados',data:[{x:1,y:1}],backgroundColor:'#e0e0e0'}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{
+        label:c=>{const isEnd=c.dataIndex===1;return c.dataset.label+' \u2014 TRL '+(isEnd?'final':'inicial')+': '+c.parsed.x;}}}},
+      scales:{
+        x:{min:0.5,max:9.5,grid:{color:'#f0f0f0'},
+           title:{display:true,text:'Nivel de Madurez Tecnol\u00f3gica (TRL)',color:'#666',font:{size:11}},
+           ticks:{stepSize:1,color:'#555',font:{size:11},callback:v=>Number.isInteger(v)?'TRL '+v:''}},
+        y:{display:false,min:0,max:Math.max(trlProj.length+1,2)}}}});
+
+  // 6. Estado
+  const estData=cnt('estado').filter(([k])=>k);
+  const estColors={'En ejecuci\u00f3n':VERDE,'Finalizado':DORADO,'Cerrado':TIERRA};
+  _mkChart('ch-estado',{type:'doughnut',data:{
+    labels:estData.map(([k])=>k),
+    datasets:[{data:estData.map(([,v])=>v),
+      backgroundColor:estData.map(([k])=>estColors[k]||'#74c69d'),borderWidth:2,borderColor:'#fff'}]
+  },options:{responsive:true,maintainAspectRatio:false,cutout:'58%',
+    plugins:{legend:{position:'bottom',labels:{font:{size:11},boxWidth:12,padding:8}},
+             tooltip:{callbacks:{label:c=>' '+c.label+': '+c.raw}}}}});
+
+  // 7. Timeline
+  const aniosRaw={};
+  ps.forEach(p=>{const y=parseInt(p.anio_inicio||p['\u00e3\u00b1o_inicio']||p.año_inicio);
+    if(!isNaN(y)&&y>2000&&y<2030)aniosRaw[y]=(aniosRaw[y]||0)+1;});
+  const aniosSorted=Object.entries(aniosRaw).sort((a,b)=>a[0]-b[0]);
+  _mkChart('ch-timeline',{type:'bar',data:{
+    labels:aniosSorted.map(([y])=>y),
+    datasets:[{label:'Proyectos',data:aniosSorted.map(([,v])=>v),
+      backgroundColor:VERDE,borderRadius:6,borderSkipped:false}]
+  },options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+c.raw+' proyectos'}}},
+    scales:{x:{grid:{display:false},ticks:{color:'#555',font:{size:11}}},
+            y:{grid:{color:'#f0f0f0'},ticks:{stepSize:1,color:'#555',font:{size:11}}}}}});
+
+  // 8. Beneficiarios
+  const benData=cnt('tipo_beneficiarios').slice(0,7);
+  const simplBen=s=>s.replace(/Asociaci[oó]n de /gi,'Asoc. ').replace(/ y extensionistas/gi,'').slice(0,32);
+  _mkChart('ch-beneficiarios',{type:'bar',data:{
+    labels:benData.map(([k])=>simplBen(k)),
+    datasets:[{data:benData.map(([,v])=>v),backgroundColor:PAL.slice(0,benData.length),borderRadius:6,borderSkipped:false}]
+  },options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{
+      title:tt=>{return benData[tt[0].dataIndex]?.[0]||'';},
+      label:c=>' '+c.raw+' proyectos'}}},
+    scales:{x:{grid:{color:'#f0f0f0'},ticks:{color:'#555',font:{size:11}}},
+            y:{grid:{display:false},ticks:{color:'#333',font:{size:10}}}}}});
+
+  // 9. Inversion por sistema
+  const invMap={};
+  ps.forEach(p=>{const m=Number(p.monto);if(!isNaN(m)&&m>0&&p.sistema)invMap[p.sistema]=(invMap[p.sistema]||0)+m;});
+  const invSorted=Object.entries(invMap).sort((a,b)=>b[1]-a[1]);
+  _mkChart('ch-inversion',{type:'bar',data:{
+    labels:invSorted.map(([k])=>k),
+    datasets:[{label:'Inversi\u00f3n',data:invSorted.map(([,v])=>v/1e9),
+      backgroundColor:invSorted.map((_,i)=>PAL[i%PAL.length]),borderRadius:6,borderSkipped:false}]
+  },options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' $'+c.raw.toFixed(1)+' mil millones COP'}}},
+    scales:{x:{grid:{display:false},ticks:{color:'#555',font:{size:11}}},
+            y:{grid:{color:'#f0f0f0'},title:{display:true,text:'Miles de millones COP',color:'#666',font:{size:11}},
+               ticks:{color:'#555',font:{size:11},callback:v=>'$'+v.toFixed(1)+'B'}}}}});
+}
+
 
 // ════════════════════════════════════════════════════════════
 // NAVEGACIÓN
@@ -978,6 +1200,9 @@ function showSection(name){
       if(leafMap)leafMap.invalidateSize();
       updateMapa();
     },80);
+  }
+  if(name==='analisis'){
+    setTimeout(()=>renderAnalisis(),80);
   }
 }
 
