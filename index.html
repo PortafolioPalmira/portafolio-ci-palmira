@@ -1144,7 +1144,7 @@ function renderAnalisis(){
 
   // 7. Timeline
   const aniosRaw={};
-  ps.forEach(p=>{const y=parseInt(p.anio_inicio||p['\u00e3\u00b1o_inicio']||p.año_inicio);
+  ps.forEach(p=>{const y=parseInt(p['año_inicio']||p.año_inicio||p.anio_inicio);
     if(!isNaN(y)&&y>2000&&y<2030)aniosRaw[y]=(aniosRaw[y]||0)+1;});
   const aniosSorted=Object.entries(aniosRaw).sort((a,b)=>a[0]-b[0]);
   _mkChart('ch-timeline',{type:'bar',data:{
@@ -1202,7 +1202,7 @@ function showSection(name){
     },80);
   }
   if(name==='analisis'){
-    setTimeout(()=>renderAnalisis(),80);
+    setTimeout(()=>renderAnalisis(),120);
   }
 }
 
@@ -1219,7 +1219,7 @@ async function init(){
     projects=parseCSV(text);
     if(!projects.length)throw new Error('El CSV no contiene datos.');
     projects.forEach((p,i)=>p.id=i);
-    renderKPIs();renderDashboard();populateFilters();applyFilters();renderCapacidades();renderAnalisis();
+    renderKPIs();renderDashboard();populateFilters();applyFilters();renderCapacidades();
     document.getElementById('ms-proy').textContent=projects.length;
   }catch(err){
     document.getElementById('kpi-grid').innerHTML=`<div class="error-banner" style="grid-column:1/-1"><strong>Error al cargar:</strong> ${esc(err.message)}<br><small>Verifique que portafolio_proyectos.csv esté en el repositorio y que GitHub Pages esté activo.</small></div>`;
